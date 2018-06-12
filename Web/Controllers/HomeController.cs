@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
-            _logger.LogInformation("Index page succesfully loaded");
+            _logger.LogInformation("Index page succesfully loaded!");
             return View();
         }
 
