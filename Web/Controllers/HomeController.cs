@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Web.Controllers
+namespace Ras.Web.Controllers
 {
     public class HomeController : Controller
     {
@@ -19,6 +19,11 @@ namespace Web.Controllers
 
         public IActionResult Index()
         {
+            // example
+            using (var db = new DAL.EF.RasContext())
+            {
+                var a = db.Groups.ToList();
+            }
             _logger.LogInformation("Index page succesfully loaded!");
             return View();
         }
