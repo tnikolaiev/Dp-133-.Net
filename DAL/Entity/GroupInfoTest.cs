@@ -1,8 +1,12 @@
-﻿namespace Ras.DAL.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Ras.DAL.Entity
 {
-    public partial class GroupInfoTests
+    public class GroupInfoTest
     {
+        [Key]
         public int Id { get; set; }
+
         public string Test8MaxVal { get; set; }
         public string Test8Name { get; set; }
         public string Test5MaxVal { get; set; }

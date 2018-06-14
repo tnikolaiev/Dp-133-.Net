@@ -1,8 +1,12 @@
-﻿namespace Ras.DAL.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Ras.DAL.Entity
 {
-    public partial class GroupInfo
+    public class GroupInfo
     {
+        [Key]
         public int GroupInfoId { get; set; }
+
         public string GroupName { get; set; }
         public int StudentsPlannedToEnrollment { get; set; }
         public int StudentsPlannedToGraduate { get; set; }

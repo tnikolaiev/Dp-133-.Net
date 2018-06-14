@@ -1,8 +1,12 @@
-﻿namespace Ras.DAL.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Ras.DAL.Entity
 {
-    public partial class GroupInfoTeachers
+    public class GroupInfoTeacher
     {
+        [Key]
         public int Id { get; set; }
+
         public int? ContributedHours { get; set; }
         public int Involved { get; set; }
         public int? AcademyId { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Ras.DAL.Entity
 {
-    public partial class History
+    public class History
     {
         public int Id { get; set; }
         public int? AcademyId { get; set; }

@@ -1,23 +1,24 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ras.DAL.Entity
 {
-    public partial class Group
+    public class Group
     {
         public Group()
         {
             GroupInfo = new HashSet<GroupInfo>();
-            GroupInfoTeachers = new HashSet<GroupInfoTeachers>();
-            GroupInfoTests = new HashSet<GroupInfoTests>();
-            ItaAcademy = new HashSet<ItaAcademy>();
-            Students = new HashSet<Students>();
-            TestesNames = new HashSet<TestesNames>();
+            GroupInfoTeachers = new HashSet<GroupInfoTeacher>();
+            GroupInfoTests = new HashSet<GroupInfoTest>();
+            ItaAcademy = new HashSet<ItaGroup>();
+            Students = new HashSet<Student>();
+            TestesNames = new HashSet<TestName>();
         }
+
         [Key]
         public int AcademyId { get; set; }
+
         public int CrmGroup { get; set; }
         public DateTime EndDate { get; set; }
         public int Free { get; set; }
@@ -34,14 +35,14 @@ namespace Ras.DAL.Entity
         public int? TechnologyId { get; set; }
 
         public City City { get; set; }
-        public Directions Direction { get; set; }
-        public AcademyStages Stage { get; set; }
-        public Technologies Technology { get; set; }
+        public Direction Direction { get; set; }
+        public GroupStage Stage { get; set; }
+        public Technology Technology { get; set; }
         public ICollection<GroupInfo> GroupInfo { get; set; }
-        public ICollection<GroupInfoTeachers> GroupInfoTeachers { get; set; }
-        public ICollection<GroupInfoTests> GroupInfoTests { get; set; }
-        public ICollection<ItaAcademy> ItaAcademy { get; set; }
-        public ICollection<Students> Students { get; set; }
-        public ICollection<TestesNames> TestesNames { get; set; }
+        public ICollection<GroupInfoTeacher> GroupInfoTeachers { get; set; }
+        public ICollection<GroupInfoTest> GroupInfoTests { get; set; }
+        public ICollection<ItaGroup> ItaAcademy { get; set; }
+        public ICollection<Student> Students { get; set; }
+        public ICollection<TestName> TestesNames { get; set; }
     }
 }

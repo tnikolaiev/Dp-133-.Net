@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ras.DAL.Entity
 {
-    public partial class User
+    public class User
     {
         public User()
         {
-            ItaAcademy = new HashSet<ItaAcademy>();
-            Students = new HashSet<Students>();
+            ItaAcademy = new HashSet<ItaGroup>();
+            Students = new HashSet<Student>();
         }
 
+        [Key]
         public int Id { get; set; }
+
         public string Email { get; set; }
         public int? EngLevel { get; set; }
         public string FirstName { get; set; }
@@ -20,7 +23,7 @@ namespace Ras.DAL.Entity
         public string Salt { get; set; }
         public string UserName { get; set; }
 
-        public ICollection<ItaAcademy> ItaAcademy { get; set; }
-        public ICollection<Students> Students { get; set; }
+        public ICollection<ItaGroup> ItaAcademy { get; set; }
+        public ICollection<Student> Students { get; set; }
     }
 }

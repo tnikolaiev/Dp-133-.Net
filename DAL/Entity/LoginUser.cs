@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ras.DAL.Entity
 {
-    public partial class LoginUser
+    public class LoginUser
     {
         public LoginUser()
         {
             LoginuserEmployeeroles = new HashSet<LoginuserEmployeeroles>();
         }
 
+        [Key]
         public int Id { get; set; }
+
         public byte[] AccountNonExpired { get; set; }
         public byte[] AccountNonLocked { get; set; }
         public byte[] CredentialsNonExpired { get; set; }

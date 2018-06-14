@@ -1,6 +1,6 @@
 ﻿namespace Ras.DAL.Entity
 {
-    public partial class GroupPaymentStatus
+    public class GroupPaymentStatus
     {
         public int GroupPaymentStatusId { get; set; }
         public int GroupPaymentStatus1 { get; set; }

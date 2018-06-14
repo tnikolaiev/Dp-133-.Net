@@ -1,8 +1,12 @@
-﻿namespace Ras.DAL.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Ras.DAL.Entity
 {
-    public partial class Students
+    public class Student
     {
+        [Key]
         public int Id { get; set; }
+
         public double? EngGram { get; set; }
         public double? EntryScore { get; set; }
         public double? ExpertScore { get; set; }
@@ -33,11 +37,11 @@
         public int? TeacherStudentFeedbackId { get; set; }
         public int? UserId { get; set; }
 
-        public Group Academy { get; set; }
+        public Group Group { get; set; }
         public Employee Employee { get; set; }
         public EnglishLevel EnglishLevel { get; set; }
         public Feedback ExpertStudentFeedback { get; set; }
-        public StudentStatuses StudentStatus { get; set; }
+        public StudentStatus StudentStatus { get; set; }
         public Feedback TeacherStudentFeedback { get; set; }
         public User User { get; set; }
     }

@@ -2,9 +2,9 @@
 
 namespace Ras.DAL.Entity
 {
-    public partial class Languages
+    public class Language
     {
-        public Languages()
+        public Language()
         {
             LanguageTranslations = new HashSet<LanguageTranslations>();
         }

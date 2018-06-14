@@ -3,15 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ras.DAL.Entity
 {
-    public class EnglishLevel
+    public class StudentStatus
     {
-        public EnglishLevel()
+        public StudentStatus()
         {
             Students = new HashSet<Student>();
         }
 
         [Key]
-        public int EnglishLevelId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

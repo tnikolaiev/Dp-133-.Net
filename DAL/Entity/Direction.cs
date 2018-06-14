@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ras.DAL.Entity
 {
-    public partial class AcademyStages
+    public class Direction
     {
-        public AcademyStages()
+        public Direction()
         {
             Academy = new HashSet<Group>();
         }
 
-        public int StageId { get; set; }
+        [Key]
+        public int DirectionId { get; set; }
+
+        public short? Ita { get; set; }
         public string Name { get; set; }
-        public short Sort { get; set; }
 
         public ICollection<Group> Academy { get; set; }
     }

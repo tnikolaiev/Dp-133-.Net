@@ -2,11 +2,11 @@
 
 namespace Ras.DAL.Entity
 {
-    public partial class ItaAcademyStatuses
+    public class ItaGroupStatus
     {
-        public ItaAcademyStatuses()
+        public ItaGroupStatus()
         {
-            ItaAcademy = new HashSet<ItaAcademy>();
+            ItaAcademy = new HashSet<ItaGroup>();
         }
 
         public int ItAcademyStatusId { get; set; }
@@ -14,6 +14,6 @@ namespace Ras.DAL.Entity
         public string CrmStatus { get; set; }
         public string CrmStatusCode { get; set; }
 
-        public ICollection<ItaAcademy> ItaAcademy { get; set; }
+        public ICollection<ItaGroup> ItaAcademy { get; set; }
     }
 }

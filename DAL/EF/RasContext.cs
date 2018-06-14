@@ -8,33 +8,33 @@ namespace Ras.DAL.EF
     public partial class RasContext : DbContext
     {
         public virtual DbSet<Group> Groups { get; set; }
-        public virtual DbSet<AcademyStages> AcademyStages { get; set; }
+        public virtual DbSet<GroupStage> AcademyStages { get; set; }
         public virtual DbSet<Characteristic> Characteristic { get; set; }
         public virtual DbSet<City> City { get; set; }
-        public virtual DbSet<Directions> Directions { get; set; }
+        public virtual DbSet<Direction> Directions { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
-        public virtual DbSet<EmployeeRoles> EmployeeRoles { get; set; }
+        public virtual DbSet<EmployeeRole> EmployeeRoles { get; set; }
         public virtual DbSet<EnglishLevel> EnglishLevel { get; set; }
         public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<GroupInfo> GroupInfo { get; set; }
-        public virtual DbSet<GroupInfoTeachers> GroupInfoTeachers { get; set; }
-        public virtual DbSet<GroupInfoTests> GroupInfoTests { get; set; }
+        public virtual DbSet<GroupInfoTeacher> GroupInfoTeachers { get; set; }
+        public virtual DbSet<GroupInfoTest> GroupInfoTests { get; set; }
         public virtual DbSet<GroupPaymentStatus> GroupPaymentStatus { get; set; }
         public virtual DbSet<History> History { get; set; }
-        public virtual DbSet<ItaAcademy> ItaAcademy { get; set; }
-        public virtual DbSet<ItaAcademyStatuses> ItaAcademyStatuses { get; set; }
-        public virtual DbSet<Languages> Languages { get; set; }
+        public virtual DbSet<ItaGroup> ItaAcademy { get; set; }
+        public virtual DbSet<ItaGroupStatus> ItaAcademyStatuses { get; set; }
+        public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<LanguageTranslations> LanguageTranslations { get; set; }
         public virtual DbSet<LoginUser> LoginUser { get; set; }
         public virtual DbSet<LoginuserEmployeeroles> LoginuserEmployeeroles { get; set; }
         public virtual DbSet<Mark> Mark { get; set; }
-        public virtual DbSet<PersonalStatuses> PersonalStatuses { get; set; }
+        public virtual DbSet<PersonalStatus> PersonalStatuses { get; set; }
         public virtual DbSet<ProfileInfo> ProfileInfo { get; set; }
-        public virtual DbSet<Students> Students { get; set; }
-        public virtual DbSet<StudentStatuses> StudentStatuses { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<StudentStatus> StudentStatuses { get; set; }
         public virtual DbSet<TeacherTypes> TeacherTypes { get; set; }
-        public virtual DbSet<Technologies> Technologies { get; set; }
-        public virtual DbSet<TestesNames> TestesNames { get; set; }
+        public virtual DbSet<Technology> Technologies { get; set; }
+        public virtual DbSet<TestName> TestesNames { get; set; }
         public virtual DbSet<TestsNameTemplate> TestsNameTemplate { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -122,7 +122,7 @@ namespace Ras.DAL.EF
                     .HasConstraintName("academy$FKh7cpmhg8whftf52sf3qk92e8i");
             });
 
-            modelBuilder.Entity<AcademyStages>(entity =>
+            modelBuilder.Entity<GroupStage>(entity =>
             {
                 entity.HasKey(e => e.StageId);
 
@@ -160,7 +160,7 @@ namespace Ras.DAL.EF
                 entity.Property(e => e.Ita).HasColumnName("ita");
             });
 
-            modelBuilder.Entity<Directions>(entity =>
+            modelBuilder.Entity<Direction>(entity =>
             {
                 entity.HasKey(e => e.DirectionId);
 
@@ -205,11 +205,11 @@ namespace Ras.DAL.EF
                     .HasMaxLength(255);
             });
 
-            modelBuilder.Entity<EmployeeRoles>(entity =>
+            modelBuilder.Entity<EmployeeRole>(entity =>
             {
                 entity.ToTable("employee_roles", "ss_ps_db");
 
-                entity.Property(e => e.EmployeerolesId).HasColumnName("employeeroles_id");
+                entity.Property(e => e.EmployeeroleId).HasColumnName("employeeroles_id");
 
                 entity.Property(e => e.Authority)
                     .HasColumnName("authority")
@@ -335,7 +335,7 @@ namespace Ras.DAL.EF
                     .HasConstraintName("group_info$FK8kbtjrfh6mvfog3glapoetv4r");
             });
 
-            modelBuilder.Entity<GroupInfoTeachers>(entity =>
+            modelBuilder.Entity<GroupInfoTeacher>(entity =>
             {
                 entity.ToTable("group_info_teachers", "ss_ps_db");
 
@@ -376,7 +376,7 @@ namespace Ras.DAL.EF
                     .HasConstraintName("group_info_teachers$FK2xy0dkq1ilv8fjldtvyo91vm4");
             });
 
-            modelBuilder.Entity<GroupInfoTests>(entity =>
+            modelBuilder.Entity<GroupInfoTest>(entity =>
             {
                 entity.ToTable("group_info_tests", "ss_ps_db");
 
@@ -541,7 +541,7 @@ namespace Ras.DAL.EF
                     .HasColumnType("date");
             });
 
-            modelBuilder.Entity<ItaAcademy>(entity =>
+            modelBuilder.Entity<ItaGroup>(entity =>
             {
                 entity.HasKey(e => e.ItAcademyId);
 
@@ -608,7 +608,7 @@ namespace Ras.DAL.EF
                     .HasConstraintName("ita_academy$FK_7C83998BA76ED395");
             });
 
-            modelBuilder.Entity<ItaAcademyStatuses>(entity =>
+            modelBuilder.Entity<ItaGroupStatus>(entity =>
             {
                 entity.HasKey(e => e.ItAcademyStatusId);
 
@@ -626,7 +626,7 @@ namespace Ras.DAL.EF
                 entity.Property(e => e.CsStatus).HasColumnName("cs_status");
             });
 
-            modelBuilder.Entity<Languages>(entity =>
+            modelBuilder.Entity<Language>(entity =>
             {
                 entity.HasKey(e => e.LanguageId);
 
@@ -781,7 +781,7 @@ namespace Ras.DAL.EF
                     .HasConstraintName("mark$FKfn0905rt554w4qc4k01vjwtln");
             });
 
-            modelBuilder.Entity<PersonalStatuses>(entity =>
+            modelBuilder.Entity<PersonalStatus>(entity =>
             {
                 entity.ToTable("personal_statuses", "ss_ps_db");
 
@@ -816,7 +816,7 @@ namespace Ras.DAL.EF
                     .HasConstraintName("profile_info$FKktsttf6y6cxwf15wwchokucva");
             });
 
-            modelBuilder.Entity<Students>(entity =>
+            modelBuilder.Entity<Student>(entity =>
             {
                 entity.ToTable("students", "ss_ps_db");
 
@@ -903,7 +903,7 @@ namespace Ras.DAL.EF
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
-                entity.HasOne(d => d.Academy)
+                entity.HasOne(d => d.Group)
                     .WithMany(p => p.Students)
                     .HasForeignKey(d => d.AcademyId)
                     .HasConstraintName("students$FKhkcgw9sjsfsune68tsywawccr");
@@ -939,7 +939,7 @@ namespace Ras.DAL.EF
                     .HasConstraintName("students$FKdt1cjx5ve5bdabmuuf3ibrwaq");
             });
 
-            modelBuilder.Entity<StudentStatuses>(entity =>
+            modelBuilder.Entity<StudentStatus>(entity =>
             {
                 entity.ToTable("student_statuses", "ss_ps_db");
 
@@ -964,7 +964,7 @@ namespace Ras.DAL.EF
                     .HasMaxLength(255);
             });
 
-            modelBuilder.Entity<Technologies>(entity =>
+            modelBuilder.Entity<Technology>(entity =>
             {
                 entity.HasKey(e => e.TechnologyId);
 
@@ -998,7 +998,7 @@ namespace Ras.DAL.EF
                     .HasMaxLength(255);
             });
 
-            modelBuilder.Entity<TestesNames>(entity =>
+            modelBuilder.Entity<TestName>(entity =>
             {
                 entity.ToTable("testes_names", "ss_ps_db");
 
@@ -1011,7 +1011,7 @@ namespace Ras.DAL.EF
 
                 entity.Property(e => e.TestMaxScore).HasColumnName("test_max_score");
 
-                entity.Property(e => e.TestName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("test_name")
                     .HasMaxLength(255)

@@ -2,7 +2,7 @@
 
 namespace Ras.DAL.Entity
 {
-    public partial class ItaAcademy
+    public class ItaGroup
     {
         public int ItAcademyId { get; set; }
         public int? UserId { get; set; }
@@ -21,7 +21,7 @@ namespace Ras.DAL.Entity
         public string HrComment { get; set; }
 
         public Group Academy { get; set; }
-        public ItaAcademyStatuses ItAcademyStatus { get; set; }
+        public ItaGroupStatus ItAcademyStatus { get; set; }
         public User User { get; set; }
     }
 }

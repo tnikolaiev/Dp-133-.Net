@@ -1,6 +1,6 @@
 ﻿namespace Ras.DAL.Entity
 {
-    public partial class LanguageTranslations
+    public class LanguageTranslations
     {
         public int TranslationId { get; set; }
         public string Field { get; set; }
@@ -10,6 +10,6 @@
         public string Trasnlation { get; set; }
         public int? LanguageId { get; set; }
 
-        public Languages Language { get; set; }
+        public Language Language { get; set; }
     }
 }

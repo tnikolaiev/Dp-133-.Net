@@ -2,16 +2,16 @@
 
 namespace Ras.DAL.Entity
 {
-    public partial class Directions
+    public class GroupStage
     {
-        public Directions()
+        public GroupStage()
         {
             Academy = new HashSet<Group>();
         }
 
-        public int DirectionId { get; set; }
-        public short? Ita { get; set; }
+        public int StageId { get; set; }
         public string Name { get; set; }
+        public short Sort { get; set; }
 
         public ICollection<Group> Academy { get; set; }
     }

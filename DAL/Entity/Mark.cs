@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ras.DAL.Entity
 {
-    public partial class Mark
+    public class Mark
     {
         public Mark()
         {
@@ -14,7 +15,9 @@ namespace Ras.DAL.Entity
             FeedbackTechnicalCompetenceNavigation = new HashSet<Feedback>();
         }
 
+        [Key]
         public int MarkId { get; set; }
+
         public string Description { get; set; }
         public string Name { get; set; }
         public int? CharacteristicId { get; set; }

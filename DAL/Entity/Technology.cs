@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ras.DAL.Entity
 {
-    public partial class Technologies
+    public class Technology
     {
-        public Technologies()
+        public Technology()
         {
             Academy = new HashSet<Group>();
             ProfileInfo = new HashSet<ProfileInfo>();
             TestsNameTemplate = new HashSet<TestsNameTemplate>();
         }
 
+        [Key]
         public int TechnologyId { get; set; }
+
         public string Alias { get; set; }
         public long? DirectiondId { get; set; }
         public int Free { get; set; }
