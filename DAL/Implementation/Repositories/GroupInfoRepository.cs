@@ -1,10 +1,9 @@
 ﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Ras.DAL.EF;
 using Ras.DAL.Entity;
-using Ras.DAL.Implementation;
-using Microsoft.EntityFrameworkCore;
 
-namespace Ras.DAL.Repositories
+namespace Ras.DAL.Implementation.Repositories
 {
     public class GroupInfoRepository : RasRepository<GroupInfo>
     {
