@@ -32,7 +32,7 @@ namespace Ras.DAL.EF
         public virtual DbSet<ProfileInfo> ProfileInfo { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentStatus> StudentStatuses { get; set; }
-        public virtual DbSet<TeacherTypes> TeacherTypes { get; set; }
+        public virtual DbSet<TeacherType> TeacherTypes { get; set; }
         public virtual DbSet<Technology> Technologies { get; set; }
         public virtual DbSet<TestName> TestesNames { get; set; }
         public virtual DbSet<TestsNameTemplate> TestsNameTemplate { get; set; }
@@ -950,7 +950,7 @@ namespace Ras.DAL.EF
                     .HasMaxLength(255);
             });
 
-            modelBuilder.Entity<TeacherTypes>(entity =>
+            modelBuilder.Entity<TeacherType>(entity =>
             {
                 entity.HasKey(e => e.TeacherTypeId);
 

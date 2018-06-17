@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ras.DAL.Entity
 {
-    public class TeacherTypes
+    public class TeacherType
     {
-        public TeacherTypes()
+        public TeacherType()
         {
             GroupInfoTeachers = new HashSet<GroupInfoTeacher>();
         }

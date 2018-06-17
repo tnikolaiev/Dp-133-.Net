@@ -15,6 +15,6 @@ namespace Ras.DAL.Entity
 
         public Group Academy { get; set; }
         public Employee Employee { get; set; }
-        public TeacherTypes TeacherType { get; set; }
+        public TeacherType TeacherType { get; set; }
     }
 }
