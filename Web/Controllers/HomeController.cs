@@ -20,7 +20,7 @@ namespace Ras.Web.Controllers
         public IActionResult Index()
         {
             // example
-            using (var db = new DAL.EF.RasContext())
+            using (var db = new DAL.EF.RasContext("Server=localhost;user id=ras;database = ss_ps_db;Pwd=1111;persistsecurityinfo = True;"))
             {
                 var a = db.Groups.ToList();
             }

@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Mark> All => db.Mark;
+        public override IQueryable<Mark> All => db.Mark.AsNoTracking();
 
         public override Mark Create(Mark item)
         {

@@ -38,11 +38,26 @@ namespace Ras.DAL.EF
         public virtual DbSet<TestsNameTemplate> TestsNameTemplate { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
+        private string connectionString;
+
+        public RasContext(string connectionString)
+        {
+            this.connectionString = connectionString;
+            //Database.EnsureCreated();
+        }
+
+        //TODO: check this ctor
+        //public RasContext()
+        //{
+            
+        //}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySQL(@"Server=localhost;user id=ras;database = ss_ps_db;Pwd=1111;persistsecurityinfo = True;");
+                //optionsBuilder.UseMySQL(@"Server=localhost;user id=ras;database = ss_ps_db;Pwd=1111;persistsecurityinfo = True;");
+                optionsBuilder.UseMySQL(connectionString);
             }
         }
 

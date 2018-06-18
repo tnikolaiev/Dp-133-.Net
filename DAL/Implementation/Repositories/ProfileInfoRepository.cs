@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<ProfileInfo> All => db.ProfileInfo;
+        public override IQueryable<ProfileInfo> All => db.ProfileInfo.AsNoTracking();
 
         public override ProfileInfo Create(ProfileInfo item)
         {
