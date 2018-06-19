@@ -8,8 +8,6 @@ namespace Ras.BLL.DTO
     {
         public int Id { get; set; }
         public string SummaryComment { get; set; }
-
-        //TODO
         public string ActiveCommunicator { get; set; }
         public string GettingThingsDone { get; set; }
         public string LearningAbility { get; set; }

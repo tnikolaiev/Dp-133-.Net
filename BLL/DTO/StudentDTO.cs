@@ -23,8 +23,6 @@ namespace Ras.BLL.DTO
         public double ExpertScore { get; set; }
         public int EmployeeId { get; set; }
         public int UserId { get; set; }
-
-        //TODO
         public FeedbackDTO ExpertFeedbackDTO { get; set; }
         public FeedbackDTO TeacherFeedbackDTO { get; set; }
         public string EnglishLevel { get; set; }

@@ -14,8 +14,6 @@ namespace Ras.BLL.DTO
         public string City { get; set; }
         public string Direction { get; set; }
         public string Technology { get; set; }
-
-        //TODO
         public string Stage { get; set; }
     }
 }
