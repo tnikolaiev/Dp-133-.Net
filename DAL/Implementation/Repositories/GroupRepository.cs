@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Group> All => db.Groups;
+        public override IQueryable<Group> All => db.Groups.AsNoTracking();
 
         public override Group Create(Group item)
         {

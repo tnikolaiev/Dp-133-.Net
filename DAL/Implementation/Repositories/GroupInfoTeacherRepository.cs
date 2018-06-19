@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<GroupInfoTeacher> All => db.GroupInfoTeachers;
+        public override IQueryable<GroupInfoTeacher> All => db.GroupInfoTeachers.AsNoTracking();
 
         public override GroupInfoTeacher Create(GroupInfoTeacher item)
         {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ras.DAL
 {
-    interface IRepository<T>
+    public interface IRepository<T>
     {
        IQueryable<T> All { get; }
 

@@ -5,7 +5,7 @@ using Ras.DAL.Entity;
 
 namespace Ras.DAL
 {
-    interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         IRepository<Group> GroupsRepository { get; }
 
