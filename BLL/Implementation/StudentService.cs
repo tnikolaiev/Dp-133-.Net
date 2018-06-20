@@ -5,7 +5,7 @@ using Ras.DAL.Entity;
 
 namespace Ras.BLL.Implementation
 {
-    internal class StudentService : Service, IStudentService
+    public class StudentService : Service, IStudentService
     {
         public StudentService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -24,7 +24,10 @@ namespace Ras.BLL.Implementation
                 User = dUser
             };
 
-            return new StudentDTO(unitOfWork.StudentsRepository.Create(dStudent));
+            var student = new StudentDTO(unitOfWork.StudentsRepository.Create(dStudent));
+
+            unitOfWork.SaveChanges();
+            return student;
         }
 
         public StudentDTO UpdateStudent(StudentDTO student)
@@ -35,6 +38,7 @@ namespace Ras.BLL.Implementation
         public void Delete(int id)
         {
             unitOfWork.StudentsRepository.Delete(id);
+            unitOfWork.SaveChanges();
         }
     }
 }
