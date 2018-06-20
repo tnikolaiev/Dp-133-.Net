@@ -79,7 +79,7 @@ namespace Ras.DAL.EF
                 entity.HasIndex(e => e.TechnologyId)
                     .HasName("FKh7cpmhg8whftf52sf3qk92e8i");
 
-                entity.Property(e => e.AcademyId).HasColumnName("academy_id");
+                entity.Property(e => e.Id).HasColumnName("academy_id");
 
                 entity.Property(e => e.CityId).HasColumnName("city_id");
 
@@ -246,70 +246,70 @@ namespace Ras.DAL.EF
             {
                 entity.ToTable("feedback", "ss_ps_db");
 
-                entity.HasIndex(e => e.ActiveCommunicator)
+                entity.HasIndex(e => e.ActiveCommunicatorId)
                     .HasName("FK24d69phv895w36amup5ln7mj9");
 
-                entity.HasIndex(e => e.GettingThingsDone)
+                entity.HasIndex(e => e.GettingThingsDoneId)
                     .HasName("FKop4fqdtd6kitwhhjv73xw1s92");
 
-                entity.HasIndex(e => e.LearningAbility)
+                entity.HasIndex(e => e.LearningAbilityId)
                     .HasName("FKabc7yjjg1b1mc5d4dv25vqvvw");
 
-                entity.HasIndex(e => e.PassionalInitiative)
+                entity.HasIndex(e => e.PassionalInitiativeId)
                     .HasName("FKd2qxv9cx9g0g0bt44u7f5v4ba");
 
-                entity.HasIndex(e => e.TeamWork)
+                entity.HasIndex(e => e.TeamWorkId)
                     .HasName("FKbipci40s10odbiucjstll3n93");
 
-                entity.HasIndex(e => e.TechnicalCompetence)
+                entity.HasIndex(e => e.TechnicalCompetenceId)
                     .HasName("FK425br58le4dv9xgmnvnu8jvkd");
 
                 entity.Property(e => e.FeedbackId).HasColumnName("feedback_id");
 
-                entity.Property(e => e.ActiveCommunicator).HasColumnName("active_communicator");
+                entity.Property(e => e.ActiveCommunicatorId).HasColumnName("active_communicator");
 
-                entity.Property(e => e.GettingThingsDone).HasColumnName("getting_things_done");
+                entity.Property(e => e.GettingThingsDoneId).HasColumnName("getting_things_done");
 
-                entity.Property(e => e.LearningAbility).HasColumnName("learning_ability");
+                entity.Property(e => e.LearningAbilityId).HasColumnName("learning_ability");
 
-                entity.Property(e => e.PassionalInitiative).HasColumnName("passional_initiative");
+                entity.Property(e => e.PassionalInitiativeId).HasColumnName("passional_initiative");
 
                 entity.Property(e => e.SummaryComment)
                     .HasColumnName("summary_comment")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.TeamWork).HasColumnName("team_work");
+                entity.Property(e => e.TeamWorkId).HasColumnName("team_work");
 
-                entity.Property(e => e.TechnicalCompetence).HasColumnName("technical_competence");
+                entity.Property(e => e.TechnicalCompetenceId).HasColumnName("technical_competence");
 
-                entity.HasOne(d => d.ActiveCommunicatorNavigation)
+                entity.HasOne(d => d.ActiveCommunicator)
                     .WithMany(p => p.FeedbackActiveCommunicatorNavigation)
-                    .HasForeignKey(d => d.ActiveCommunicator)
+                    .HasForeignKey(d => d.ActiveCommunicatorId)
                     .HasConstraintName("feedback$FK24d69phv895w36amup5ln7mj9");
 
-                entity.HasOne(d => d.GettingThingsDoneNavigation)
+                entity.HasOne(d => d.GettingThingsDone)
                     .WithMany(p => p.FeedbackGettingThingsDoneNavigation)
-                    .HasForeignKey(d => d.GettingThingsDone)
+                    .HasForeignKey(d => d.GettingThingsDoneId)
                     .HasConstraintName("feedback$FKop4fqdtd6kitwhhjv73xw1s92");
 
-                entity.HasOne(d => d.LearningAbilityNavigation)
+                entity.HasOne(d => d.LearningAbility)
                     .WithMany(p => p.FeedbackLearningAbilityNavigation)
-                    .HasForeignKey(d => d.LearningAbility)
+                    .HasForeignKey(d => d.LearningAbilityId)
                     .HasConstraintName("feedback$FKabc7yjjg1b1mc5d4dv25vqvvw");
 
-                entity.HasOne(d => d.PassionalInitiativeNavigation)
+                entity.HasOne(d => d.PassionalInitiative)
                     .WithMany(p => p.FeedbackPassionalInitiativeNavigation)
-                    .HasForeignKey(d => d.PassionalInitiative)
+                    .HasForeignKey(d => d.PassionalInitiativeId)
                     .HasConstraintName("feedback$FKd2qxv9cx9g0g0bt44u7f5v4ba");
 
-                entity.HasOne(d => d.TeamWorkNavigation)
+                entity.HasOne(d => d.TeamWork)
                     .WithMany(p => p.FeedbackTeamWorkNavigation)
-                    .HasForeignKey(d => d.TeamWork)
+                    .HasForeignKey(d => d.TeamWorkId)
                     .HasConstraintName("feedback$FKbipci40s10odbiucjstll3n93");
 
-                entity.HasOne(d => d.TechnicalCompetenceNavigation)
+                entity.HasOne(d => d.TechnicalCompetence)
                     .WithMany(p => p.FeedbackTechnicalCompetenceNavigation)
-                    .HasForeignKey(d => d.TechnicalCompetence)
+                    .HasForeignKey(d => d.TechnicalCompetenceId)
                     .HasConstraintName("feedback$FK425br58le4dv9xgmnvnu8jvkd");
             });
 
