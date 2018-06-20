@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Ras.DAL;
+﻿using Ras.DAL;
 
 namespace Ras.BLL.Implementation
 {
-    class Service
+    internal class Service
     {
         protected IUnitOfWork unitOfWork;
 

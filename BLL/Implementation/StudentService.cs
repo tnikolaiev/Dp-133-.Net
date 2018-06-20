@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Ras.BLL.DTO;
 using Ras.DAL;
+using Ras.DAL.Entity;
+
 namespace Ras.BLL.Implementation
 {
-    class StudentService : Service, IStudentService
+    internal class StudentService : Service, IStudentService
     {
         public StudentService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
@@ -18,7 +18,13 @@ namespace Ras.BLL.Implementation
 
         public StudentDTO CreateStudent(UserDTO user)
         {
-            throw new NotImplementedException();
+            var dUser = unitOfWork.UsersRepository.Read(user.Id);
+            var dStudent = new Student
+            {
+                User = dUser
+            };
+
+            return new StudentDTO(unitOfWork.StudentsRepository.Create(dStudent));
         }
 
         public StudentDTO UpdateStudent(StudentDTO student)

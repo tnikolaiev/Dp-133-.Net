@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Ras.DAL;
+using Ras.DAL.Entity;
 
 namespace Ras.BLL.DTO
 {
     public class StudentDTO
     {
-        public StudentDTO(DAL.Entity.Student dStudent)
+        public StudentDTO(Student dStudent)
         {
             Id = dStudent.Id;
             UserDTO = new UserDTO(dStudent.User);
@@ -41,8 +40,11 @@ namespace Ras.BLL.DTO
             ExpertScore = dStudent.ExpertScore;
             EmployeeId = dStudent.EmployeeId;
             if (dStudent.UserId == null)
+            {
                 throw new ArgumentException("UserId can not be null");
-            UserId = (int)dStudent.UserId;
+            }
+
+            UserId = (int) dStudent.UserId;
             ExpertFeedbackDTO = new FeedbackDTO(dStudent.ExpertStudentFeedback);
             TeacherFeedbackDTO = new FeedbackDTO(dStudent.TeacherStudentFeedback);
             EnglishLevel = dStudent.EnglishLevel.Name;
@@ -70,8 +72,5 @@ namespace Ras.BLL.DTO
         public FeedbackDTO TeacherFeedbackDTO { get; set; }
         public string EnglishLevel { get; set; }
         public string StudentStatus { get; set; }
-
-
-
     }
 }

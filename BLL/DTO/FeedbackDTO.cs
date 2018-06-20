@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Ras.DAL.Entity;
 
 namespace Ras.BLL.DTO
 {
     public class FeedbackDTO
     {
-        public FeedbackDTO(DAL.Entity.Feedback dFeedback)
+        public FeedbackDTO(Feedback dFeedback)
         {
             Id = dFeedback.FeedbackId;
             SummaryComment = dFeedback.SummaryComment;

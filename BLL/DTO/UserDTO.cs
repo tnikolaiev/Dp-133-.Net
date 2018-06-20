@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Ras.DAL.Entity;
 
 namespace Ras.BLL.DTO
 {
     public class UserDTO
     {
-        public UserDTO(DAL.Entity.User dUser)
+        public UserDTO(User dUser)
         {
             Id = dUser.Id;
             Name = dUser.UserName;
