@@ -34,7 +34,7 @@ namespace Ras.BLL.Implementation
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            unitOfWork.StudentsRepository.Delete(id);
         }
     }
 }

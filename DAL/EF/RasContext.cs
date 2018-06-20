@@ -835,7 +835,7 @@ namespace Ras.DAL.EF
             {
                 entity.ToTable("students", "ss_ps_db");
 
-                entity.HasIndex(e => e.AcademyId)
+                entity.HasIndex(e => e.GroupId)
                     .HasName("FKhkcgw9sjsfsune68tsywawccr");
 
                 entity.HasIndex(e => e.EmployeeId)
@@ -858,7 +858,7 @@ namespace Ras.DAL.EF
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.AcademyId).HasColumnName("academy_id");
+                entity.Property(e => e.GroupId).HasColumnName("academy_id");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
 
@@ -920,7 +920,7 @@ namespace Ras.DAL.EF
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.Students)
-                    .HasForeignKey(d => d.AcademyId)
+                    .HasForeignKey(d => d.GroupId)
                     .HasConstraintName("students$FKhkcgw9sjsfsune68tsywawccr");
 
                 entity.HasOne(d => d.Employee)
