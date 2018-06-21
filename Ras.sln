@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{B621B15C-29D2-4C68-9A6A-DC2F398B048A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{B621B15C-29D2-4C68-9A6A-DC2F398B048A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{C232CAEB-F8FA-4778-BE3E-00BD8628D033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{C232CAEB-F8FA-4778-BE3E-00BD8628D033}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{463B7511-6F7E-48E0-AD09-D0D583E0CF55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{463B7511-6F7E-48E0-AD09-D0D583E0CF55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL.Tests", "BLL.Tests\BLL.Tests.csproj", "{C6E81772-2168-4C04-8C46-C4C3B0FC6C00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{463B7511-6F7E-48E0-AD09-D0D583E0CF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{463B7511-6F7E-48E0-AD09-D0D583E0CF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{463B7511-6F7E-48E0-AD09-D0D583E0CF55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6E81772-2168-4C04-8C46-C4C3B0FC6C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6E81772-2168-4C04-8C46-C4C3B0FC6C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6E81772-2168-4C04-8C46-C4C3B0FC6C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6E81772-2168-4C04-8C46-C4C3B0FC6C00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
