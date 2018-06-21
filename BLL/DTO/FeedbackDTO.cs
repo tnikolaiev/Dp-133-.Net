@@ -4,34 +4,35 @@ namespace Ras.BLL.DTO
 {
     public class FeedbackDTO
     {
+        public FeedbackDTO() { }
         public FeedbackDTO(Feedback dFeedback)
         {
             Id = dFeedback.FeedbackId;
             SummaryComment = dFeedback.SummaryComment;
 
-            ActiveCommunicator = dFeedback.ActiveCommunicator.Description;
-            ActiveCommunicatorTitle = dFeedback.ActiveCommunicator.Name;
-            ActiveCommunicatorCharacteristic = dFeedback.ActiveCommunicator.Characteristic.Name;
+            ActiveCommunicator = dFeedback.ActiveCommunicator?.Description;
+            ActiveCommunicatorTitle = dFeedback.ActiveCommunicator?.Name;
+            ActiveCommunicatorCharacteristic = dFeedback.ActiveCommunicator?.Characteristic.Name;
 
-            GettingThingsDone = dFeedback.GettingThingsDone.Description;
-            GettingThingsDoneTitle = dFeedback.GettingThingsDone.Name;
-            GettingThingsDoneCharacteristic = dFeedback.GettingThingsDone.Characteristic.Name;
+            GettingThingsDone = dFeedback.GettingThingsDone?.Description;
+            GettingThingsDoneTitle = dFeedback.GettingThingsDone?.Name;
+            GettingThingsDoneCharacteristic = dFeedback.GettingThingsDone?.Characteristic.Name;
 
-            LearningAbility = dFeedback.LearningAbility.Description;
-            LearningAbilityTitle = dFeedback.LearningAbility.Name;
-            LearningAbilityCharacteristic = dFeedback.LearningAbility.Characteristic.Name;
+            LearningAbility = dFeedback.LearningAbility?.Description;
+            LearningAbilityTitle = dFeedback.LearningAbility?.Name;
+            LearningAbilityCharacteristic = dFeedback.LearningAbility?.Characteristic.Name;
 
-            TechnicalCompetence = dFeedback.TechnicalCompetence.Description;
-            TechnicalCompetenceTitle = dFeedback.TechnicalCompetence.Name;
-            TechnicalCompetenceCharacteristic = dFeedback.TechnicalCompetence.Characteristic.Name;
+            TechnicalCompetence = dFeedback.TechnicalCompetence?.Description;
+            TechnicalCompetenceTitle = dFeedback.TechnicalCompetence?.Name;
+            TechnicalCompetenceCharacteristic = dFeedback.TechnicalCompetence?.Characteristic.Name;
 
-            PassionalInitiative = dFeedback.PassionalInitiative.Description;
-            PassionalInitiativeTitle = dFeedback.PassionalInitiative.Name;
-            PassionalInitiativeCharacteristic = dFeedback.PassionalInitiative.Characteristic.Name;
+            PassionalInitiative = dFeedback.PassionalInitiative?.Description;
+            PassionalInitiativeTitle = dFeedback.PassionalInitiative?.Name;
+            PassionalInitiativeCharacteristic = dFeedback.PassionalInitiative?.Characteristic.Name;
 
-            TeamWork = dFeedback.TeamWork.Description;
-            TeamWorkTitle = dFeedback.TeamWork.Name;
-            TeamWorkCharacteristic = dFeedback.TeamWork.Characteristic.Name;
+            TeamWork = dFeedback.TeamWork?.Description;
+            TeamWorkTitle = dFeedback.TeamWork?.Name;
+            TeamWorkCharacteristic = dFeedback.TeamWork?.Characteristic.Name;
         }
 
         public int Id { get; set; }
