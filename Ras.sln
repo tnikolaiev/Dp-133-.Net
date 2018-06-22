@@ -8,8 +8,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{C232CAEB-F8FA-4778-BE3E-00BD8628D033}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{463B7511-6F7E-48E0-AD09-D0D583E0CF55}"
+<<<<<<< HEAD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL.Tests", "BLL.Tests\BLL.Tests.csproj", "{C6E81772-2168-4C04-8C46-C4C3B0FC6C00}"
+=======
+>>>>>>> 1.16_StudentService
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

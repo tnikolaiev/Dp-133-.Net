@@ -23,6 +23,11 @@ namespace Ras.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<DAL.IUnitOfWork>
+                (s => new DAL.Implementation.EFUnitOfWork("Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;"));
+            var sp = services.BuildServiceProvider();
+            var uow = sp.GetService<DAL.IUnitOfWork>();
+            services.AddTransient<BLL.IStudentService>(s => new BLL.Implementation.StudentService(uow));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
