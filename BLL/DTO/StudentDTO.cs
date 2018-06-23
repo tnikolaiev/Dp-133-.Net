@@ -6,6 +6,7 @@ namespace Ras.BLL.DTO
 {
     public class StudentDTO
     {
+        public StudentDTO() { }
         public StudentDTO(Student dStudent)
         {
             Id = dStudent.Id;
@@ -45,10 +46,10 @@ namespace Ras.BLL.DTO
             }
 
             UserId = (int) dStudent.UserId;
-            ExpertFeedbackDTO = new FeedbackDTO(dStudent.ExpertStudentFeedback);
-            TeacherFeedbackDTO = new FeedbackDTO(dStudent.TeacherStudentFeedback);
-            EnglishLevel = dStudent.EnglishLevel.Name;
-            StudentStatus = dStudent.StudentStatus.Name;
+            ExpertFeedbackDTO = dStudent.ExpertStudentFeedback is null ? new FeedbackDTO() : new FeedbackDTO(dStudent.ExpertStudentFeedback);
+            TeacherFeedbackDTO = dStudent.TeacherStudentFeedback is null ? new FeedbackDTO() : new FeedbackDTO(dStudent.TeacherStudentFeedback);
+            EnglishLevel = dStudent.EnglishLevel?.Name;
+            StudentStatus = dStudent.StudentStatus?.Name;
         }
 
         public int Id { get; set; }
