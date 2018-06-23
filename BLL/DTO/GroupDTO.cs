@@ -12,7 +12,7 @@ namespace Ras.BLL.DTO
             this.CrmGroup = groupDb.CrmGroup;
             this.StartDate = groupDb.StartDate;
             this.EndDate = groupDb.EndDate;
-            //TODO: пиздец. ебанный пиздец. бегите глупцы. мы про бд, а не код
+            //TODO: 
             //this.City = groupDb
             this.Direction = groupDb.Direction.Name;
             this.DirectionId = groupDb.Direction.DirectionId;
