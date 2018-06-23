@@ -9,9 +9,15 @@ namespace Ras.BLL
     {
         GroupDTO GetById(int id);
 
-        GroupDTO Create(GroupDTO group);
+        void Create(GroupDTO group);
 
-        GroupDTO Update(GroupDTO group);
+        void Update(GroupDTO group);
+
+        IEnumerable<StudentDTO> GetStudentsByGroupId(int groupId);
+
+        IEnumerable<GroupDTO> GetAll();
+
+        //IEnumerable<GroupDTO> GetAll();
 
     }
 }

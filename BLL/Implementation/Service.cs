@@ -2,7 +2,7 @@
 
 namespace Ras.BLL.Implementation
 {
-    public class Service
+    public abstract class Service
     {
         protected IUnitOfWork unitOfWork;
 
