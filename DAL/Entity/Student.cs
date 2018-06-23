@@ -29,7 +29,7 @@ namespace Ras.DAL.Entity
         public double? Test10 { get; set; }
         public double? Test3 { get; set; }
         public double? Test2 { get; set; }
-        public int? AcademyId { get; set; }
+        public int? GroupId { get; set; }
         public int? EmployeeId { get; set; }
         public int? EnglishLevelId { get; set; }
         public int? ExpertStudentFeedbackId { get; set; }

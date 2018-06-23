@@ -17,7 +17,7 @@ namespace Ras.DAL.Entity
         }
 
         [Key]
-        public int AcademyId { get; set; }
+        public int Id { get; set; }
 
         public int CrmGroup { get; set; }
         public DateTime EndDate { get; set; }
