@@ -18,7 +18,12 @@ namespace Ras.BLL.Implementation
 
         public StudentDTO GetById(int id)
         {
-            return new StudentDTO(unitOfWork.StudentsRepository.Read(id));
+            var dStudent = unitOfWork.StudentsRepository.Read(id);
+            if (dStudent == null)
+            {
+                throw new ArgumentException("Student with such id does not exist.");
+            }
+            return new StudentDTO(dStudent);
         }
 
         public StudentDTO CreateStudent(UserDTO user, int groupId)
@@ -61,7 +66,7 @@ namespace Ras.BLL.Implementation
 
             return newFeedBack;
         }
-        public FeedbackDTO CreateFeedback( int studentId,TypeOfFeeadBack typeOfFeeadBack,FeedbackDTO feedback)
+        public FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback)
         {
             Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
             Feedback dFeedBack = unitOfWork.FeedbacksRepository.Read(feedback.Id);
@@ -73,7 +78,7 @@ namespace Ras.BLL.Implementation
                 {
                     case TypeOfFeeadBack.expert:
                         {
-                            dStudent.ExpertStudentFeedbackId = newFeedBack.Id;                      
+                            dStudent.ExpertStudentFeedbackId = newFeedBack.Id;
                             break;
                         }
                     case TypeOfFeeadBack.teacher:
@@ -89,7 +94,7 @@ namespace Ras.BLL.Implementation
 
             return newFeedBack;
         }
-       
+
         public void Delete(int id)
         {
             unitOfWork.StudentsRepository.Delete(id);
