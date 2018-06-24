@@ -5,7 +5,7 @@ using Ras.BLL.DTO;
 
 namespace Ras.BLL
 {
-    interface IGroupService
+    public interface IGroupService
     {
         GroupDTO GetById(int id);
 

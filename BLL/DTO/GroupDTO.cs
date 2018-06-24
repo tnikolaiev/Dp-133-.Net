@@ -5,6 +5,7 @@ namespace Ras.BLL.DTO
 {
     public class GroupDTO
     {
+        public GroupDTO() { }
         public GroupDTO(Group groupDb)
         {
             this.Id = groupDb.Id;
