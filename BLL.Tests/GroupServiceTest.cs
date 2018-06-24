@@ -106,7 +106,103 @@ namespace Ras.BLL.Tests
             Assert.AreEqual(4, result.Id);
         }
 
-        
+        [TestMethod]
+        public void GetList_Group_return_not_null()
+        {
+            var mock = new Mock<IUnitOfWork>();
+
+            mock.Setup(a => a.GroupsRepository.All).Returns(new List<Group>
+            {
+                new Group {
+                    Id = 4,
+                    CrmGroup = 45,
+                    Name = "Test group",
+                    StartDate = DateTime.Today.Date,
+                    EndDate = DateTime.Today.Date,
+                    Direction = new Direction {DirectionId=7, Name=".Net"},
+                    Technology = new Technology { TechnologyId=8, Name="Web"},
+                    Stage = new GroupStage { StageId=9, Name="Test"} },
+                new Group {
+                    Id = 5,
+                    CrmGroup = 45,
+                    Name = ".Net group",
+                    StartDate = DateTime.Today.Date,
+                    EndDate = DateTime.Today.Date,
+                    Direction = new Direction {DirectionId=7, Name=".Net"},
+                    Technology = new Technology { TechnologyId=8, Name="Web"},
+                    Stage = new GroupStage { StageId=9, Name="Test"} }
+            }.AsQueryable());
+
+            var service = new GroupService(mock.Object);
+            var result = service.GetAll();
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetList_OfGroupt_WithFilters_return_not_null()
+        {
+            var mock = new Mock<IUnitOfWork>();
+
+            mock.Setup(a => a.GroupsRepository.All).Returns(new List<Group>
+            {
+                new Group {
+                    Id = 4,
+                    CrmGroup = 45,
+                    Name = "Test group",
+                    StartDate = DateTime.Today.Date,
+                    EndDate = DateTime.Today.Date,
+                    Direction = new Direction {DirectionId=7, Name=".Net"},
+                    Technology = new Technology { TechnologyId=8, Name="Web"},
+                    Stage = new GroupStage { StageId=9, Name="Test"} },
+                new Group {
+                    Id = 5,
+                    CrmGroup = 45,
+                    Name = ".Net group",
+                    StartDate = DateTime.Today.Date,
+                    EndDate = DateTime.Today.Date,
+                    Direction = new Direction {DirectionId=7, Name=".Net"},
+                    Technology = new Technology { TechnologyId=8, Name="Web"},
+                    Stage = new GroupStage { StageId=9, Name="Test"} }
+            }.AsQueryable());
+
+            var service = new GroupService(mock.Object);
+            var result = service.GetAll(".Net", null, null, null, null, null, null);
+
+            Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void GetList_OfGroupt_WithFilters_return_empty_list()
+        {
+            var mock = new Mock<IUnitOfWork>();
+
+            mock.Setup(a => a.GroupsRepository.All).Returns(new List<Group>
+            {
+                new Group {
+                    Id = 4,
+                    CrmGroup = 45,
+                    Name = "Test group",
+                    StartDate = DateTime.Today.Date,
+                    EndDate = DateTime.Today.Date,
+                    Direction = new Direction {DirectionId=7, Name=".Net"},
+                    Technology = new Technology { TechnologyId=8, Name="Web"},
+                    Stage = new GroupStage { StageId=9, Name="Test"} },
+                new Group {
+                    Id = 5,
+                    CrmGroup = 45,
+                    Name = ".Net group",
+                    StartDate = DateTime.Today.Date,
+                    EndDate = DateTime.Today.Date,
+                    Direction = new Direction {DirectionId=7, Name=".Net"},
+                    Technology = new Technology { TechnologyId=8, Name="Web"},
+                    Stage = new GroupStage { StageId=9, Name="Test"} }
+            }.AsQueryable());
+
+            var service = new GroupService(mock.Object);
+            var result = service.GetAll("Java", null, null, null, null, null, null).ToList();
+
+            Assert.AreEqual(0, result.Count);
+        }
 
     }
 }
