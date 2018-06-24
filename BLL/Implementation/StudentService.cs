@@ -47,7 +47,7 @@ namespace Ras.BLL.Implementation
             StudentDTO newStudent = null;
             if (dStudent != null)
             {
-                newStudent = new StudentDTO(unitOfWork.StudentsRepository.Upate(dStudent));
+                newStudent = new StudentDTO(unitOfWork.StudentsRepository.Update(dStudent));
                 unitOfWork.SaveChanges();
             }
 
@@ -60,7 +60,7 @@ namespace Ras.BLL.Implementation
             FeedbackDTO newFeedBack = null;
             if (dFeedBack != null)
             {
-                newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Upate(dFeedBack));
+                newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Update(dFeedBack));
                 unitOfWork.SaveChanges();
             }
 
@@ -88,7 +88,7 @@ namespace Ras.BLL.Implementation
                         }
                 }
 
-                unitOfWork.StudentsRepository.Upate(dStudent);
+                unitOfWork.StudentsRepository.Update(dStudent);
                 unitOfWork.SaveChanges();
             }
 

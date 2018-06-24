@@ -37,7 +37,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.Feedback.Find(key);
         }
 
-        public override Feedback Upate(Feedback item)
+        public override Feedback Update(Feedback item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.History.Find(key);
         }
 
-        public override History Upate(History item)
+        public override History Update(History item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

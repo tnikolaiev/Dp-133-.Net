@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.GroupInfo.Find(key);
         }
 
-        public override GroupInfo Upate(GroupInfo item)
+        public override GroupInfo Update(GroupInfo item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

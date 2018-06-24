@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.Users.Find(key);
         }
 
-        public override User Upate(User item)
+        public override User Update(User item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;
