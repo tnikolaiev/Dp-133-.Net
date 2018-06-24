@@ -92,9 +92,9 @@ namespace Ras.BLL.Tests
                 Name = "Test group",
                 StartDate = DateTime.Today.Date,
                 EndDate = DateTime.Today.Date,
-                DirectionId = 7,
-                TechnologyId = 8,
-                StageId = 1
+                Direction = new Direction {DirectionId=7, Name=".Net"},
+                Technology = new Technology { TechnologyId=8, Name="Web"},
+                Stage = new GroupStage { StageId=9, Name="Test"}
             };
 
 
@@ -105,6 +105,8 @@ namespace Ras.BLL.Tests
 
             Assert.AreEqual(4, result.Id);
         }
+
+        
 
     }
 }
