@@ -1,5 +1,5 @@
 ﻿using Ras.BLL.DTO;
-
+using Ras.BLL.Implementation;
 namespace Ras.BLL
 {
     public interface IStudentService
@@ -8,5 +8,7 @@ namespace Ras.BLL
         StudentDTO CreateStudent(UserDTO user, int groupId);
         StudentDTO UpdateStudent(StudentDTO student);
         void Delete(int id);
+        FeedbackDTO UpdateFeedback(FeedbackDTO feedback);
+        FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback);
     }
 }
