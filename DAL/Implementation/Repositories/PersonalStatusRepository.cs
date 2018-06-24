@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.PersonalStatuses.Find(key);
         }
 
-        public override PersonalStatus Upate(PersonalStatus item)
+        public override PersonalStatus Update(PersonalStatus item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

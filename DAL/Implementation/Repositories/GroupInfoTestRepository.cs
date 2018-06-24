@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.GroupInfoTests.Find(key);
         }
 
-        public override GroupInfoTest Upate(GroupInfoTest item)
+        public override GroupInfoTest Update(GroupInfoTest item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

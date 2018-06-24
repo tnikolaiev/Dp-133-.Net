@@ -96,7 +96,7 @@ namespace Ras.BLL.Implementation
 
         public void Update(GroupDTO group)
         {
-            unitOfWork.GroupsRepository.Upate(new Group
+            unitOfWork.GroupsRepository.Update(new Group
             {
                 Id = group.Id,
                 Name = group.Name,

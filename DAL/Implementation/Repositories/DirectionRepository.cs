@@ -37,7 +37,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.Directions.Find(key);
         }
 
-        public override Direction Upate(Direction item)
+        public override Direction Update(Direction item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

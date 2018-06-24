@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.Mark.Find(key);
         }
 
-        public override Mark Upate(Mark item)
+        public override Mark Update(Mark item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

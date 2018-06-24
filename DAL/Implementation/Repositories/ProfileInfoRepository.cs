@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.ProfileInfo.Find(key);
         }
 
-        public override ProfileInfo Upate(ProfileInfo item)
+        public override ProfileInfo Update(ProfileInfo item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

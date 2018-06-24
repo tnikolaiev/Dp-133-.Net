@@ -28,7 +28,7 @@ namespace Ras.BLL.Tests
             mock.Setup(x => x.StudentsRepository.Delete(It.Is<int>(a => a == 3))).Callback(() =>
                         mock.Setup(x => x.StudentsRepository.Read(It.Is<int>(a => a == (3)))).Returns<Student>(null));
 
-            mock.Setup(x => x.StudentsRepository.Upate(It.Is<Student>(a => a.Id == 3)))
+            mock.Setup(x => x.StudentsRepository.Update(It.Is<Student>(a => a.Id == 3)))
                 .Returns(student);
 
             return studentService;
@@ -82,7 +82,7 @@ namespace Ras.BLL.Tests
             var mock = new Mock<IUnitOfWork>();
             var studentService = new StudentService(mock.Object);
             mock.Setup(x => x.FeedbacksRepository.Read(It.IsAny<int>())).Returns(new Feedback());
-            mock.Setup(x => x.FeedbacksRepository.Upate(It.IsAny<Feedback>())).Returns(new Feedback());
+            mock.Setup(x => x.FeedbacksRepository.Update(It.IsAny<Feedback>())).Returns(new Feedback());
             mock.Setup(x => x.SaveChanges());
 
             var result = studentService.UpdateFeedback(new FeedbackDTO());

@@ -15,7 +15,7 @@ namespace Ras.DAL.Implementation
         public abstract IQueryable<T> All { get; }
         public abstract T Create(T item);
         public abstract T Read(params object[] key);
-        public abstract T Upate(T item);
+        public abstract T Update(T item);
         public abstract void Delete(T item);
         public abstract void Delete(params object[] key);
     }

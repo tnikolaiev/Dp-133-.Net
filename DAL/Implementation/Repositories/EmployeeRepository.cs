@@ -37,7 +37,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.Employee.Find(key);
         }
 
-        public override Employee Upate(Employee item)
+        public override Employee Update(Employee item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;
