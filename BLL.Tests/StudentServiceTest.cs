@@ -29,6 +29,7 @@ namespace Ras.BLL.Tests
                 User = new User { Id = 1 },
                 Group = new Group(),
             };
+
         }
 
         private void Initialize()

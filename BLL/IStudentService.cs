@@ -10,5 +10,6 @@ namespace Ras.BLL
         void Delete(int id);
         FeedbackDTO UpdateFeedback(FeedbackDTO feedback);
         FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback);
+        FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack);
     }
 }

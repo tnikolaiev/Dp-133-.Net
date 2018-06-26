@@ -72,7 +72,7 @@ namespace Ras.BLL.Implementation
                 dStudent.Test8 = student.Tests[7];
                 dStudent.Test9 = student.Tests[8];
                 dStudent.Test10 = student.Tests[9];
-                newStudent = new StudentDTO(unitOfWork.StudentsRepository.Upate(dStudent));
+                newStudent = new StudentDTO(unitOfWork.StudentsRepository.Update(dStudent));
                 unitOfWork.SaveChanges();
                 return newStudent;
             }
@@ -87,7 +87,7 @@ namespace Ras.BLL.Implementation
             if (dFeedBack != null)
             {
                 CopyMembers(feedback, dFeedBack);
-                newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Upate(dFeedBack));
+                newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Update(dFeedBack));
                 unitOfWork.SaveChanges();
                 return newFeedBack;
             }
@@ -98,8 +98,7 @@ namespace Ras.BLL.Implementation
         // feedback.ActiveCommunicatorTitle = "Learning ability"; feedback.ActiveCommunicatorCharacteristic = "Quick";
         public FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback)
         {
-            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
-            dStudent = unitOfWork.StudentsRepository.All.FirstOrDefault() ;          
+            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);      
             if (dStudent == null) throw new StudentExeption();
             var creatingFeedback = new Feedback();
             CopyMembers(feedback, creatingFeedback);
@@ -118,11 +117,35 @@ namespace Ras.BLL.Implementation
                     }
             }
 
-            unitOfWork.StudentsRepository.Upate(dStudent);
+            unitOfWork.StudentsRepository.Update(dStudent);
             unitOfWork.SaveChanges();
             return newFeedBack;
         }
-      
+
+        public FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack)
+        {
+            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
+            if (dStudent == null) throw new StudentExeption();
+            Feedback feedback = null;
+            switch (typeOfFeeadBack)
+            {
+                case TypeOfFeeadBack.expert:
+                    {
+                        feedback = dStudent.ExpertStudentFeedback;
+                        break;
+                    }
+                case TypeOfFeeadBack.teacher:
+                    {
+                        feedback = dStudent.TeacherStudentFeedback;
+                        break;
+                    }
+            }
+
+            if (feedback != null)
+                return new FeedbackDTO(feedback);
+            throw new FeedbackExeption();
+        }
+
         public void Delete(int id)
         {
             unitOfWork.StudentsRepository.Delete(id);
