@@ -7,6 +7,7 @@ using Ras.BLL.DTO;
 
 namespace Web.Controllers
 {
+    [Route("api/[controller]")]
     public class GroupInfoController : Controller
     {
         IGroupService groupService;
@@ -20,12 +21,7 @@ namespace Web.Controllers
             groupDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupInfoViewModel, GroupDTO>()).CreateMapper();
         }
 
-        //return Create ViewModel object?
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        [Route("{id}")]
         [HttpGet]
         public IActionResult GetGroupInfo(int id)
         {
