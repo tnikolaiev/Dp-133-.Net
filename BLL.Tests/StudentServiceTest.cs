@@ -5,18 +5,24 @@ using Ras.BLL.Implementation;
 using Ras.DAL;
 using Ras.DAL.Entity;
 using System.Collections.Generic;
+using Ras.BLL.Exeption;
+using Ras.DAL.Implementation;
 
 namespace Ras.BLL.Tests
 {
     [TestClass]
     public class StudentServiceTest
     {
-        private IStudentService Initialize()
-        {
-            var mock = new Mock<IUnitOfWork>();
-            var studentService = new StudentService(mock.Object);
+        private static StudentService studentService;
+        private static Mock<IUnitOfWork> mock;
+        private static Student student;
 
-            var student = new Student
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            mock = new Mock<IUnitOfWork>();
+            studentService = new StudentService(mock.Object);
+            student = new Student
             {
                 Id = 3,
                 UserId = 1,
@@ -24,29 +30,31 @@ namespace Ras.BLL.Tests
                 Group = new Group(),
             };
 
+        }
+
+        private void Initialize()
+        {
             mock.Setup(x => x.StudentsRepository.Read(It.Is<int>(a => a == (3)))).Returns(student);
             mock.Setup(x => x.StudentsRepository.Delete(It.Is<int>(a => a == 3))).Callback(() =>
                         mock.Setup(x => x.StudentsRepository.Read(It.Is<int>(a => a == (3)))).Returns<Student>(null));
 
             mock.Setup(x => x.StudentsRepository.Update(It.Is<Student>(a => a.Id == 3)))
                 .Returns(student);
-
-            return studentService;
         }
 
         [TestMethod]
         public void Delete_ExistStudent_ReturnsWithSuchId()
         {
-            var studentService = Initialize();
+            Initialize();
             studentService.Delete(3);
 
-            Assert.ThrowsException<System.ArgumentException>(()=> studentService.GetById(3));
+            Assert.ThrowsException<StudentExeption>(()=> studentService.GetById(3));
         }
 
         [TestMethod]
         public void GetById_Exist_ReturnsStudentWithSuchId()
         {
-            var studentService = Initialize();
+            Initialize();
 
             var student = studentService.GetById(3);
 
@@ -57,7 +65,7 @@ namespace Ras.BLL.Tests
         [TestMethod]
         public void Update_Existed_Student()
         {
-            var studentService = Initialize();
+            mock.Setup(x => x.FeedbacksRepository.Read(It.IsAny<int>())).Returns<Feedback>(null);
 
             var result = studentService.UpdateStudent(new StudentDTO { Id = 3 });
 
@@ -65,22 +73,17 @@ namespace Ras.BLL.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(StudentExeption))]
         public void Update_No_Existed_Student()
         {
-            var mock = new Mock<IUnitOfWork>();
-            var studentService = new StudentService(mock.Object);
             mock.Setup(x => x.StudentsRepository.Read(It.IsAny<int>())).Returns<Student>(null);
 
             var result = studentService.UpdateStudent(new StudentDTO());
-
-            Assert.IsNull(result);
         }
 
         [TestMethod]
         public void Update_Existed_FeedBack()
         {
-            var mock = new Mock<IUnitOfWork>();
-            var studentService = new StudentService(mock.Object);
             mock.Setup(x => x.FeedbacksRepository.Read(It.IsAny<int>())).Returns(new Feedback());
             mock.Setup(x => x.FeedbacksRepository.Update(It.IsAny<Feedback>())).Returns(new Feedback());
             mock.Setup(x => x.SaveChanges());
@@ -91,15 +94,12 @@ namespace Ras.BLL.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(FeedbackExeption))]
         public void Update_No_Existed_FeedBack()
         {
-            var mock = new Mock<IUnitOfWork>();
-            var studentService = new StudentService(mock.Object);
             mock.Setup(x => x.FeedbacksRepository.Read(It.IsAny<int>())).Returns<Feedback>(null);
 
             var result = studentService.UpdateFeedback(new FeedbackDTO());
-
-            Assert.IsNull(result);
-        }
+        }        
     }
 }

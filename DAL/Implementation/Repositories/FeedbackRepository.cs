@@ -34,6 +34,12 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override Feedback Read(params object[] key)
         {
+            db.Feedback.Include(x => x.ActiveCommunicator).ThenInclude(x=>x.Characteristic).FirstOrDefault(k=>k.FeedbackId==(int)key[0]);
+            db.Feedback.Include(x => x.GettingThingsDone).ThenInclude(x => x.Characteristic).FirstOrDefault(k => k.FeedbackId == (int)key[0]);
+            db.Feedback.Include(x => x.LearningAbility).ThenInclude(x => x.Characteristic).FirstOrDefault(k => k.FeedbackId == (int)key[0]);
+            db.Feedback.Include(x => x.PassionalInitiative).ThenInclude(x => x.Characteristic).FirstOrDefault(k => k.FeedbackId == (int)key[0]);
+            db.Feedback.Include(x => x.TeamWork).ThenInclude(x => x.Characteristic).FirstOrDefault(k => k.FeedbackId == (int)key[0]);
+            db.Feedback.Include(x => x.TechnicalCompetence).ThenInclude(x => x.Characteristic).FirstOrDefault(k => k.FeedbackId == (int)key[0]);
             return db.Feedback.Find(key);
         }
 
