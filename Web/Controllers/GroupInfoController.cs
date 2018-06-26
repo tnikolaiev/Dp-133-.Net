@@ -21,8 +21,7 @@ namespace Web.Controllers
             groupDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupInfoViewModel, GroupDTO>()).CreateMapper();
         }
 
-        [Route("{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetGroupInfo(int id)
         {
             try
@@ -36,6 +35,7 @@ namespace Web.Controllers
             }
         }
 
+        [Route("EditGroup")]
         [HttpPost]
         public IActionResult EditGroupInfo([FromBody] GroupInfoViewModel group)
         {
@@ -51,6 +51,7 @@ namespace Web.Controllers
             }
         }
 
+        [Route("AddGroup")]
         [HttpPost]
         public IActionResult AddGroupInfo([FromBody] GroupInfoViewModel group)
         {
