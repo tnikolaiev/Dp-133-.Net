@@ -29,7 +29,7 @@ namespace Ras.BLL.Implementation
 
         public IEnumerable<GroupDTO> GetAll()
         {
-            var groups = unitOfWork.GroupsRepository.All.ToList();
+            var groups = unitOfWork.GroupsRepository.All.OrderBy(f=>f.Name).Skip(0).Take(10).ToList();
             var groupsDto = new List<GroupDTO>();
             for (int i=0; i<groups.Count; i++)
             {
@@ -38,7 +38,14 @@ namespace Ras.BLL.Implementation
             return groupsDto;
         }
 
-        public IEnumerable<GroupDTO> GetAll(string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid)
+        public IEnumerable<GroupDTO> GetAll(
+            string name="",
+            DateTime? startdate=null,
+            DateTime? enddate=null,
+            int? cityid=null,
+            int? directionid=null,
+            int? technologyid=null,
+            int? stageid=null)
         {
             var filter = unitOfWork.GroupsRepository.All;
             if (name!="")
@@ -70,7 +77,7 @@ namespace Ras.BLL.Implementation
                 filter = filter.Where(g => g.StageId == stageid);
             }
             var resultListOfGroup = new List<GroupDTO>();
-            var tempList = filter.ToList();
+            var tempList = filter.OrderBy(f=>f.Name).Skip(0).Take(10).ToList(); //TODO: filters + page
             for (int i=0; i<tempList.Count; i++)
             {
                 resultListOfGroup.Add(new GroupDTO(tempList[i]));
