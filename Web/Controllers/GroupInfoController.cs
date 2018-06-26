@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Ras.BLL;
 using Ras.Web.Models;
@@ -30,24 +27,47 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public GroupInfoViewModel GetGroupInfo(int id)
+        public IActionResult GetGroupInfo(int id)
         {
-            var group = groupMapper.Map<GroupDTO, GroupInfoViewModel>(groupService.GetById(id));
-            return group;
+            try
+            {
+                var group = groupMapper.Map<GroupDTO, GroupInfoViewModel>(groupService.GetById(id));
+                return Ok(group);
+            }
+            catch(ArgumentException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
-        public void EditGroupInfo([FromBody] GroupInfoViewModel group)
+        public IActionResult EditGroupInfo([FromBody] GroupInfoViewModel group)
         {
-            var groupForEdit = groupDtoMapper.Map<GroupInfoViewModel, GroupDTO>(group);
-            groupService.Update(groupForEdit);
+            try
+            {
+                var groupForEdit = groupDtoMapper.Map<GroupInfoViewModel, GroupDTO>(group);
+                groupService.Update(groupForEdit);
+                return Ok();
+            }
+            catch(Exception)
+            {
+                return BadRequest(group);
+            }
         }
 
         [HttpPost]
-        public void AddGroupInfo([FromBody] GroupInfoViewModel group)
+        public IActionResult AddGroupInfo([FromBody] GroupInfoViewModel group)
         {
-            var groupNew = groupDtoMapper.Map<GroupInfoViewModel, GroupDTO>(group);
-            groupService.Create(groupNew);
+            try
+            {
+                var groupNew = groupDtoMapper.Map<GroupInfoViewModel, GroupDTO>(group);
+                groupService.Create(groupNew);
+                return Ok();
+            }
+            catch(Exception)
+            {
+                return BadRequest(group);
+            }
         }
     }
 }
