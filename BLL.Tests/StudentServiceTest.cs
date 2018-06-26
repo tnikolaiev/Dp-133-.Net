@@ -7,6 +7,8 @@ using Ras.DAL.Entity;
 using System.Collections.Generic;
 using Ras.BLL.Exeption;
 using Ras.DAL.Implementation;
+using System;
+using System.Linq;
 
 namespace Ras.BLL.Tests
 {
@@ -29,7 +31,9 @@ namespace Ras.BLL.Tests
                 User = new User { Id = 1 },
                 Group = new Group(),
             };
-
+            mock.Setup(x => x.CharacteristicsRepository.All).Returns(new List<Characteristic>().AsQueryable());
+            mock.Setup(x => x.MarksRepository.All).Returns(new List<Mark>().AsQueryable());
+           
         }
 
         private void Initialize()
