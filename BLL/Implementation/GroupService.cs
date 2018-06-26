@@ -38,40 +38,47 @@ namespace Ras.BLL.Implementation
             return groupsDto;
         }
 
-        public IEnumerable<GroupDTO> GetAll(string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid)
+        public IEnumerable<GroupDTO> GetAll(
+            string name = "",
+            DateTime? startdate = null,
+            DateTime? enddate = null,
+            int? cityid = null,
+            int? directionid = null,
+            int? technologyid = null,
+            int? stageid = null)
         {
             var filter = unitOfWork.GroupsRepository.All;
-            if (name!="")
+            if (name != "")
             {
                 filter = filter.Where(g => g.Name == name);
             }
-            if (startdate!=null)
+            if (startdate != null)
             {
                 filter = filter.Where(g => g.StartDate >= startdate);
             }
-            if (enddate!=null)
+            if (enddate != null)
             {
                 filter = filter.Where(g => g.EndDate <= enddate);
             }
-            if (cityid!=null)
+            if (cityid != null)
             {
                 filter = filter.Where(g => g.CityId == cityid);
             }
-            if (directionid!=null)
+            if (directionid != null)
             {
                 filter = filter.Where(g => g.DirectionId == directionid);
             }
-            if (technologyid!=null)
+            if (technologyid != null)
             {
                 filter = filter.Where(g => g.TechnologyId == technologyid);
             }
-            if (stageid!=null)
+            if (stageid != null)
             {
                 filter = filter.Where(g => g.StageId == stageid);
             }
             var resultListOfGroup = new List<GroupDTO>();
             var tempList = filter.ToList();
-            for (int i=0; i<tempList.Count; i++)
+            for (int i = 0; i < tempList.Count; i++)
             {
                 resultListOfGroup.Add(new GroupDTO(tempList[i]));
             }
@@ -109,6 +116,14 @@ namespace Ras.BLL.Implementation
                 StageId = group.StageId
             });
             unitOfWork.SaveChanges();
+        }
+
+        public string GetCity(int Id)
+        {
+            var city = unitOfWork.LanguageTranslationsRepository.All.Where(c => c.Tag == "city");
+            city = city.Where(c => c.Local == "en");
+            city = city.Where(c => c.ItemId == Id);
+            return city.FirstOrDefault().Trasnlation;
         }
     }
 }
