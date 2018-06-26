@@ -11,7 +11,7 @@ using Ras.BLL.Implementation;
 
 namespace Web.Controllers
 {
-    //[Route("somerout")]
+    [Route("api/[controller]")]
     public class FeedbackController : Controller
     {
         IStudentService studentService;
@@ -27,14 +27,14 @@ namespace Web.Controllers
             feedbackDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<FeedbackViewModel, FeedbackDTO>()).CreateMapper();
         }
         //id==studentId
-        [HttpGet("{id}")]
+        [HttpGet("getTeacher/{id}")]
         public FeedBackWithDescriptionViewModel GetFeedBackTeacher(int id)
         {
             var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(id, TypeOfFeeadBack.teacher));
             return feedback;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getExpert/{id}")]
         public FeedBackWithDescriptionViewModel GetFeedBackExpert(int id)
         {
             var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(id, TypeOfFeeadBack.expert));
@@ -46,7 +46,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var feedbackDTO = feedbackMapper.Map<FeedbackViewModel, FeedbackDTO>(feedback);
+                var feedbackDTO = feedbackDtoMapper.Map<FeedbackViewModel, FeedbackDTO>(feedback);
                 studentService.UpdateFeedback(feedbackDTO);
                 return Ok(feedback);
             }

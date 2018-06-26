@@ -24,14 +24,12 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]UserViewModel user, int groupId)
+        public IActionResult Create(int userId, int groupId)
         {
-            var userMap = userDTOMapper.Map<UserViewModel, UserDTO>(user);
-
             if (ModelState.IsValid)
             {
-                studentService.CreateStudent(userMap, groupId);
-                return Ok(user);
+                studentService.CreateStudent(userId, groupId);
+                return Ok();
             }
             return BadRequest(ModelState);
         }
