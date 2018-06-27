@@ -26,18 +26,18 @@ namespace Ras.BLL.Implementation
             return new StudentDTO(dStudent);
         }
 
-        public StudentDTO CreateStudent(UserDTO user, int groupId)
+        public StudentDTO CreateStudent(int userId, int groupId)
         {
-            var dUser = unitOfWork.UsersRepository.Read(user.Id);
             var dStudent = new Student
             {
-                User = dUser,
+                UserId = userId,
                 GroupId = groupId,
             };
 
             var student = new StudentDTO(unitOfWork.StudentsRepository.Create(dStudent));
 
             unitOfWork.SaveChanges();
+
             return student;
         }
 

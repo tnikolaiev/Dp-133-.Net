@@ -10,8 +10,7 @@ namespace Ras.BLL.DTO
         public StudentDTO(Student dStudent)
         {
             Id = dStudent.Id;
-            UserDTO = new UserDTO(dStudent.User);
-            GroupId = dStudent.Group.Id;
+            GroupId = dStudent.GroupId;
 
             var tests = new List<double?>
             {
@@ -54,7 +53,7 @@ namespace Ras.BLL.DTO
 
         public int Id { get; set; }
         public UserDTO UserDTO { get; set; }
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
         public List<double?> Tests { get; set; }
         public double? FinalBase { get; set; }
         public double? FinalLang { get; set; }
