@@ -29,7 +29,7 @@ namespace Ras.BLL.Implementation
 
         public IEnumerable<GroupDTO> GetAll()
         {
-            var groups = unitOfWork.GroupsRepository.All.ToList();
+            var groups = unitOfWork.GroupsRepository.All.OrderBy(o=>o.Name).Skip(0).Take(10).ToList();
             var groupsDto = new List<GroupDTO>();
             for (int i=0; i<groups.Count; i++)
             {
