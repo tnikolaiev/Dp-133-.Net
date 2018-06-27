@@ -34,7 +34,9 @@ namespace Ras.BLL.Tests
             };
             mock.Setup(x => x.CharacteristicsRepository.All).Returns(new List<Characteristic>().AsQueryable());
             mock.Setup(x => x.MarksRepository.All).Returns(new List<Mark>().AsQueryable());
-           
+            mock.Setup(x => x.EnglishLevelsRepository.All).Returns(new List<EnglishLevel>().AsQueryable());
+            mock.Setup(x => x.StudentStatusesRepository.All).Returns(new List<StudentStatus>().AsQueryable());
+
         }
 
         private void Initialize()
@@ -70,9 +72,9 @@ namespace Ras.BLL.Tests
         [TestMethod]
         public void Update_Existed_Student()
         {
-            mock.Setup(x => x.FeedbacksRepository.Read(It.IsAny<int>())).Returns<Feedback>(null);
+            mock.Setup(x => x.StudentsRepository.Read(It.IsAny<int>())).Returns(student);         
 
-            var result = studentService.UpdateStudent(new StudentDTO { Id = 3 });
+            var result = studentService.UpdateStudent(new StudentDTO { Id = 3,Tests=new List<double?>(){1,2,3,4,6,7,8,9,0} });
 
             Assert.IsNotNull(result);
         }

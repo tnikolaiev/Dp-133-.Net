@@ -51,7 +51,7 @@ namespace Ras.BLL.Implementation
             if (dStudent != null)
             {
                 dStudent.EngGram = student.EnglishGrammar;
-                dStudent.EnglishLevelId = unitOfWork.EnglishLevelsRepository.All.FirstOrDefault(x => x.Name == student.EnglishLevel).EnglishLevelId;
+                dStudent.EnglishLevelId = unitOfWork.EnglishLevelsRepository.All.FirstOrDefault(x => x.Name == student.EnglishLevel)?.EnglishLevelId;
                 dStudent.EntryScore = student.EntryScore;
                 dStudent.ExpertScore = student.ExpertScore;
                 dStudent.FinalBase = student.FinalBase;
@@ -60,7 +60,7 @@ namespace Ras.BLL.Implementation
                 dStudent.IntermTestLang = student.IntermTestLang;
                 dStudent.InterviewerComment = student.InterviewerComment;
                 dStudent.InterviewerScore = student.InterviewerScore;
-                dStudent.StudentStatusId =unitOfWork.StudentStatusesRepository.All.FirstOrDefault(x=>x.Name== student.StudentStatus).Id;
+                dStudent.StudentStatusId =unitOfWork.StudentStatusesRepository.All.FirstOrDefault(x=>x.Name== student.StudentStatus)?.Id;
                 dStudent.TeacherScore = student.TeacherScore;
                 dStudent.Test1 = student.Tests[0];
                 dStudent.Test2 = student.Tests[1];
@@ -168,7 +168,7 @@ namespace Ras.BLL.Implementation
             int? learningAbilityId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.LearningAbilityTitle)?.CharacteristicId;
             creatingFeedback.LearningAbilityId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == learningAbilityId && x.Name == feedback.LearningAbilityCharacteristic)?.MarkId;
 
-            int? passionalInitiativeId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.PassionalInitiativeTitle).CharacteristicId;
+            int? passionalInitiativeId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.PassionalInitiativeTitle)?.CharacteristicId;
             creatingFeedback.PassionalInitiativeId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == passionalInitiativeId && x.Name == feedback.PassionalInitiativeCharacteristic)?.MarkId;
 
             int? teamWorkId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.TeamWorkTitle)?.CharacteristicId;
