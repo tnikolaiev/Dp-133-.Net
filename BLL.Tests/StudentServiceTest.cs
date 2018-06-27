@@ -29,7 +29,8 @@ namespace Ras.BLL.Tests
                 Id = 3,
                 UserId = 1,
                 User = new User { Id = 1 },
-                Group = new Group(),
+                GroupId = 5,
+                Group = new Group{Id=5},
             };
             mock.Setup(x => x.CharacteristicsRepository.All).Returns(new List<Characteristic>().AsQueryable());
             mock.Setup(x => x.MarksRepository.All).Returns(new List<Mark>().AsQueryable());
