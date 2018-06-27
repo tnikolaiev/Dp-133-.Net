@@ -11,7 +11,12 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Group> All => db.Groups.AsNoTracking();
+        public override IQueryable<Group> All => db.Groups
+                                                   .Include(g => g.City)
+                                                   .Include(g => g.Direction)
+                                                   .Include(g => g.Stage)
+                                                   .Include(g => g.Technology)
+                                                   .AsNoTracking();
 
         public override Group Create(Group item)
         {
@@ -34,7 +39,12 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override Group Read(params object[] key)
         {
-            return db.Groups.Find(key);
+            return db.Groups
+                     .Include(g => g.City)
+                     .Include(g => g.Direction)
+                     .Include(g => g.Stage)
+                     .Include(g => g.Technology)
+                     .FirstOrDefault(k => k.Id == (int) key[0]);
         }
 
         public override Group Update(Group item)
