@@ -30,6 +30,7 @@ namespace Ras.Web
             var sp = services.BuildServiceProvider();
             var uow = sp.GetService<DAL.IUnitOfWork>();
             services.AddTransient<BLL.IStudentService>(s => new BLL.Implementation.StudentService(uow));
+            services.AddTransient<BLL.IGroupService>(s => new BLL.Implementation.GroupService(uow));
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}));
         }

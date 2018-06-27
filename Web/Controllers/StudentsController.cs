@@ -39,7 +39,7 @@ namespace Web.Controllers
         {
             StudentDTO tempStudent = studentService.GetById(id);
             StudentViewModel student = studentMapper.Map<StudentDTO, StudentViewModel>(tempStudent);
-            student.FullName = tempStudent.UserDTO.FirsttName + " " + tempStudent.UserDTO.LastName;
+            student.FullName = tempStudent.UserDTO.FirstName + " " + tempStudent.UserDTO.LastName;
             
             return student;
         }
