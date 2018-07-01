@@ -51,7 +51,7 @@ namespace Ras.BLL.Implementation
             if (dStudent != null)
             {
                 dStudent.EngGram = student.EnglishGrammar;
-                dStudent.EnglishLevelId = unitOfWork.EnglishLevelsRepository.All.FirstOrDefault(x => x.Name == student.EnglishLevel).EnglishLevelId;
+                dStudent.EnglishLevelId = unitOfWork.EnglishLevelsRepository.All.FirstOrDefault(x => x.Name == student.EnglishLevel)?.EnglishLevelId;
                 dStudent.EntryScore = student.EntryScore;
                 dStudent.ExpertScore = student.ExpertScore;
                 dStudent.FinalBase = student.FinalBase;
@@ -60,7 +60,7 @@ namespace Ras.BLL.Implementation
                 dStudent.IntermTestLang = student.IntermTestLang;
                 dStudent.InterviewerComment = student.InterviewerComment;
                 dStudent.InterviewerScore = student.InterviewerScore;
-                dStudent.StudentStatusId =unitOfWork.StudentStatusesRepository.All.FirstOrDefault(x=>x.Name== student.StudentStatus).Id;
+                dStudent.StudentStatusId =unitOfWork.StudentStatusesRepository.All.FirstOrDefault(x=>x.Name== student.StudentStatus)?.Id;
                 dStudent.TeacherScore = student.TeacherScore;
                 dStudent.Test1 = student.Tests[0];
                 dStudent.Test2 = student.Tests[1];
@@ -94,8 +94,7 @@ namespace Ras.BLL.Implementation
 
             throw new FeedbackExeption();          
         }
-
-       
+      
         public FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback)
         {
             Student dStudent = unitOfWork.StudentsRepository.Read(studentId);      
@@ -155,27 +154,26 @@ namespace Ras.BLL.Implementation
             unitOfWork.SaveChanges();
         }
 
-        // feedback.ActiveCommunicatorTitle = "Learning ability"; feedback.ActiveCommunicatorCharacteristic = "Quick";
         private void CopyMembers(FeedbackDTO feedback,Feedback creatingFeedback)
         {
             
-            int? activeCommunicatorId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.ActiveCommunicatorTitle)?.CharacteristicId;
-            creatingFeedback.ActiveCommunicatorId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == activeCommunicatorId && x.Name == feedback.ActiveCommunicatorCharacteristic)?.MarkId;           
+            int? activeCommunicatorId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.ActiveCommunicatorCharacteristic)?.CharacteristicId;
+            creatingFeedback.ActiveCommunicatorId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == activeCommunicatorId && x.Name == feedback.ActiveCommunicatorTitle)?.MarkId;
 
-            int? gettingThingsDoneId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.GettingThingsDoneTitle)?.CharacteristicId;
-            creatingFeedback.GettingThingsDoneId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == gettingThingsDoneId && x.Name == feedback.GettingThingsDoneCharacteristic)?.MarkId;
+            int? gettingThingsDoneId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.GettingThingsDoneCharacteristic)?.CharacteristicId;
+            creatingFeedback.GettingThingsDoneId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == gettingThingsDoneId && x.Name == feedback.GettingThingsDoneTitle)?.MarkId;
 
-            int? learningAbilityId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.LearningAbilityTitle)?.CharacteristicId;
-            creatingFeedback.LearningAbilityId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == learningAbilityId && x.Name == feedback.LearningAbilityCharacteristic)?.MarkId;
+            int? learningAbilityId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.LearningAbilityCharacteristic)?.CharacteristicId;
+            creatingFeedback.LearningAbilityId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == learningAbilityId && x.Name == feedback.LearningAbilityTitle)?.MarkId;
 
-            int? passionalInitiativeId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.PassionalInitiativeTitle).CharacteristicId;
-            creatingFeedback.PassionalInitiativeId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == passionalInitiativeId && x.Name == feedback.PassionalInitiativeCharacteristic)?.MarkId;
+            int? passionalInitiativeId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.PassionalInitiativeCharacteristic)?.CharacteristicId;
+            creatingFeedback.PassionalInitiativeId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == passionalInitiativeId && x.Name == feedback.PassionalInitiativeTitle)?.MarkId;
 
-            int? teamWorkId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.TeamWorkTitle)?.CharacteristicId;
-            creatingFeedback.TeamWorkId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == teamWorkId && x.Name == feedback.TeamWorkCharacteristic)?.MarkId;
+            int? teamWorkId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.TeamWorkCharacteristic)?.CharacteristicId;
+            creatingFeedback.TeamWorkId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == teamWorkId && x.Name == feedback.TeamWorkTitle)?.MarkId;
 
-            int? technicalCompetenceId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.TechnicalCompetenceTitle)?.CharacteristicId;
-            creatingFeedback.TechnicalCompetenceId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == technicalCompetenceId && x.Name == feedback.TechnicalCompetenceCharacteristic)?.MarkId;
+            int? technicalCompetenceId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.TechnicalCompetenceCharacteristic)?.CharacteristicId;
+            creatingFeedback.TechnicalCompetenceId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == technicalCompetenceId && x.Name == feedback.TechnicalCompetenceTitle)?.MarkId;
 
             creatingFeedback.SummaryComment = feedback.SummaryComment;
         }

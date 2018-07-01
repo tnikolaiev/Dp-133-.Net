@@ -11,7 +11,7 @@ namespace Ras.BLL.DTO
         {
             Id = dStudent.Id;
             UserDTO = new UserDTO(dStudent.User);
-            GroupId = (int)dStudent.GroupId;
+            GroupId = dStudent.GroupId ?? 0;
 
             var tests = new List<double?>
             {

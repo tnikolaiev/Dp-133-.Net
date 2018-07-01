@@ -69,9 +69,12 @@ namespace Ras.BLL.Tests
         [TestMethod]
         public void Update_Existed_Student()
         {
-            mock.Setup(x => x.FeedbacksRepository.Read(It.IsAny<int>())).Returns<Feedback>(null);
+            mock.Setup(x => x.StudentsRepository.Read(It.IsAny<int>())).Returns(student );
+            mock.Setup(x => x.EnglishLevelsRepository.All).Returns(new List<EnglishLevel>().AsQueryable());
+            mock.Setup(x => x.StudentStatusesRepository.All).Returns(new List<StudentStatus>().AsQueryable());
+            mock.Setup(x => x.StudentsRepository.Update(It.IsAny<Student>())).Returns(student);
 
-            var result = studentService.UpdateStudent(new StudentDTO { Id = 3 });
+            var result = studentService.UpdateStudent(new StudentDTO { Id = 3, Tests = new List<double?>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 } });
 
             Assert.IsNotNull(result);
         }

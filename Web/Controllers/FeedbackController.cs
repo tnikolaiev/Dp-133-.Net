@@ -27,17 +27,17 @@ namespace Web.Controllers
             feedbackDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<FeedbackViewModel, FeedbackDTO>()).CreateMapper();
         }
         //id==studentId
-        [HttpGet("getTeacher/{id}")]
-        public FeedBackWithDescriptionViewModel GetFeedBackTeacher(int id)
+        [HttpGet("teacher/{studentId}")]
+        public FeedBackWithDescriptionViewModel GetFeedBackTeacher(int studentId)
         {
-            var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(id, TypeOfFeeadBack.teacher));
+            var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(studentId, TypeOfFeeadBack.teacher));
             return feedback;
         }
 
-        [HttpGet("getExpert/{id}")]
-        public FeedBackWithDescriptionViewModel GetFeedBackExpert(int id)
+        [HttpGet("expert/{studentId}")]
+        public FeedBackWithDescriptionViewModel GetFeedBackExpert(int studentId)
         {
-            var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(id, TypeOfFeeadBack.expert));
+            var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(studentId, TypeOfFeeadBack.expert));
             return feedback;
         }
 
@@ -52,26 +52,26 @@ namespace Web.Controllers
             }
             return BadRequest(ModelState);
         }
-
-        [HttpPost("teacher/{id}")]
-        public IActionResult CreateTeacherFeedBack(int id,[FromBody] FeedbackViewModel feedback)
+        
+        [HttpPost("teacher/{studentId}")]
+        public IActionResult CreateTeacherFeedBack(int studentId, [FromBody] FeedbackViewModel feedback)
         {
             if (ModelState.IsValid)
             {
                 var feedbackDTO = feedbackDtoMapper.Map<FeedbackViewModel, FeedbackDTO>(feedback);
-                studentService.CreateFeedback(id, TypeOfFeeadBack.teacher, feedbackDTO);
+                studentService.CreateFeedback(studentId, TypeOfFeeadBack.teacher, feedbackDTO);
                 return Ok(feedback);
             }
             return BadRequest(ModelState);
         }
 
-        [HttpPost("expert/{id}")]
-        public IActionResult CreateExpertFeedBack(int id, [FromBody] FeedbackViewModel feedback)
+        [HttpPost("expert/{studentId}")]
+        public IActionResult CreateExpertFeedBack(int studentId, [FromBody] FeedbackViewModel feedback)
         {
             if (ModelState.IsValid)
             {
                 var feedbackDTO = feedbackDtoMapper.Map<FeedbackViewModel, FeedbackDTO>(feedback);
-                studentService.CreateFeedback(id, TypeOfFeeadBack.expert, feedbackDTO);
+                studentService.CreateFeedback(studentId, TypeOfFeeadBack.expert, feedbackDTO);
                 return Ok(feedback);
             }
             return BadRequest(ModelState);
