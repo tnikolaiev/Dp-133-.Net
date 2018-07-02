@@ -11,7 +11,7 @@ namespace Ras.Web.Models
         public DateTime EndDate { get; set; }
         public int CityId { get; set; }
         public Dictionary<int,string> Cities { get; set; }
-        public string DirectionId { get; set; }     //CommonDirection
+        public int DirectionId { get; set; }     //CommonDirection
         public Dictionary<int, string> Directions { get; set; }
         public int TechnologyId { get; set; }       //Direction
         public Dictionary<int, string> Technologies { get; set; }
