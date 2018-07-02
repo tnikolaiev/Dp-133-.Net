@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.StudentStatuses.Find(key);
         }
 
-        public override StudentStatus Upate(StudentStatus item)
+        public override StudentStatus Update(StudentStatus item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

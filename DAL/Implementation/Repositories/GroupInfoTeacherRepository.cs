@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.GroupInfoTeachers.Find(key);
         }
 
-        public override GroupInfoTeacher Upate(GroupInfoTeacher item)
+        public override GroupInfoTeacher Update(GroupInfoTeacher item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

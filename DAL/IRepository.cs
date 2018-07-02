@@ -13,7 +13,7 @@ namespace Ras.DAL
 
         T Read(params object[] key);
 
-        T Upate(T item);
+        T Update(T item);
 
         void Delete(T item);
 

@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.GroupPaymentStatus.Find(key);
         }
 
-        public override GroupPaymentStatus Upate(GroupPaymentStatus item)
+        public override GroupPaymentStatus Update(GroupPaymentStatus item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

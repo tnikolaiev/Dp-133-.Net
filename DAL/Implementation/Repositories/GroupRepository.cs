@@ -37,7 +37,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.Groups.Find(key);
         }
 
-        public override Group Upate(Group item)
+        public override Group Update(Group item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;
