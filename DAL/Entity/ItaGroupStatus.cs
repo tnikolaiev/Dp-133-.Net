@@ -14,6 +14,6 @@ namespace Ras.DAL.Entity
         public string CrmStatus { get; set; }
         public string CrmStatusCode { get; set; }
 
-        public ICollection<ItaGroup> ItaAcademy { get; set; }
+        public virtual ICollection<ItaGroup> ItaAcademy { get; set; }
     }
 }
