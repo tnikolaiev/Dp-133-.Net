@@ -14,7 +14,6 @@ namespace Web.Controllers
         IDictionariesService dictionariesService;
         IMapper groupMapper;
         IMapper groupDtoMapper;
-        IMapper dictionariesMapper;
 
         public GroupInfoController(IGroupService serviceGroup, IDictionariesService serviceDictionaries)
         {
@@ -22,7 +21,6 @@ namespace Web.Controllers
             dictionariesService = serviceDictionaries;
             groupMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupDTO, GroupInfoViewModel>()).CreateMapper();
             groupDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupInfoViewModel, GroupDTO>()).CreateMapper();
-            dictionariesMapper = new MapperConfiguration(cfg => cfg.CreateMap<DictionariesDTO, GroupInfoViewModel>()).CreateMapper();
         }
 
         [HttpGet("{id}")]
@@ -31,7 +29,8 @@ namespace Web.Controllers
             try
             {
                 var group = groupMapper.Map<GroupDTO, GroupInfoViewModel>(groupService.GetById(id));
-                group = dictionariesMapper.Map<DictionariesDTO, GroupInfoViewModel>(dictionariesService.GetGroupInfoDictionaries());
+                var dictionaries = dictionariesService.GetGroupInfoDictionaries();
+                mapDictionaryFromDto(group, dictionaries);
                 return Ok(group);
             }
             catch(ArgumentException)
@@ -70,6 +69,17 @@ namespace Web.Controllers
             {
                 return BadRequest(group);
             }
+        }
+
+        private void mapDictionaryFromDto(GroupInfoViewModel model, DictionariesDTO dictionaries)
+        {
+            model.Cities = dictionaries.Cities;
+            model.Directions = dictionaries.Directions;
+            model.NamesForSite = dictionaries.NamesForSite;
+            model.PaymentStatuses = dictionaries.PaymentStatuses;
+            model.Profiles = dictionaries.Profiles;
+            model.Stages = dictionaries.Stages;
+            model.Technologies = dictionaries.Technologies;
         }
     }
 }
