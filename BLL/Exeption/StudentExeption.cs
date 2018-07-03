@@ -4,8 +4,16 @@ using System.Text;
 
 namespace Ras.BLL.Exeption
 {
-    public class StudentExeption:Exception
+    public class StudentNotFoundException:Exception
     {
-        public StudentExeption():base("Student doesn't exist!") { }
+        public StudentNotFoundException() : base()
+        {
+
+        }
+
+        public StudentNotFoundException(string message) : base(message)
+        {
+
+        }
     }
 }

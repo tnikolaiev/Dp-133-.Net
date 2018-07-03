@@ -24,7 +24,7 @@ namespace Ras.BLL.Implementation
             var dStudent = unitOfWork.StudentsRepository.Read(id);
             if (dStudent == null)
             {
-                throw new StudentExeption();
+                throw new StudentNotFoundException();
             }
             return new StudentDTO(dStudent);
         }
@@ -77,7 +77,7 @@ namespace Ras.BLL.Implementation
                 return newStudent;
             }
 
-            throw new StudentExeption();          
+            throw new StudentNotFoundException();          
         }
 
         public FeedbackDTO UpdateFeedback(FeedbackDTO feedback)
@@ -100,7 +100,7 @@ namespace Ras.BLL.Implementation
         {
             Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
             dStudent = unitOfWork.StudentsRepository.All.FirstOrDefault() ;          
-            if (dStudent == null) throw new StudentExeption();
+            if (dStudent == null) throw new StudentNotFoundException();
             var creatingFeedback = new Feedback();
             CopyMembers(feedback, creatingFeedback);
             var newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Create(creatingFeedback));          

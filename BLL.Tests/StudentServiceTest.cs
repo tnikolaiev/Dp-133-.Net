@@ -41,13 +41,15 @@ namespace Ras.BLL.Tests
                 .Returns(student);
         }
 
+        
+
         [TestMethod]
         public void Delete_ExistStudent_ReturnsWithSuchId()
         {
             Initialize();
             studentService.Delete(3);
 
-            Assert.ThrowsException<StudentExeption>(()=> studentService.GetById(3));
+            Assert.ThrowsException<StudentNotFoundException>(()=> studentService.GetById(3));
         }
 
         [TestMethod]
@@ -72,7 +74,7 @@ namespace Ras.BLL.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(StudentExeption))]
+        [ExpectedException(typeof(StudentNotFoundException))]
         public void Update_No_Existed_Student()
         {
             mock.Setup(x => x.StudentsRepository.Read(It.IsAny<int>())).Returns<Student>(null);
