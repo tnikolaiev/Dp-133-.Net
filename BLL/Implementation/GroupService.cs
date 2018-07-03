@@ -6,7 +6,6 @@ using Ras.DAL;
 using Ras.DAL.Entity;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore.;
 
 namespace Ras.BLL.Implementation
 {
