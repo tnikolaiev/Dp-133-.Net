@@ -19,7 +19,7 @@ namespace Ras.BLL
 
         IEnumerable<GroupDTO> GetAll(string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid);
 
-        string GetCity(int Id);
+        //string GetCity(int Id);
 
     }
 }
