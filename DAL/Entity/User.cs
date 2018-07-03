@@ -23,7 +23,7 @@ namespace Ras.DAL.Entity
         public string Salt { get; set; }
         public string UserName { get; set; }
 
-        public ICollection<ItaGroup> ItaAcademy { get; set; }
-        public ICollection<Student> Students { get; set; }
+        public virtual ICollection<ItaGroup> ItaAcademy { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

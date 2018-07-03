@@ -20,8 +20,8 @@ namespace Ras.DAL.Entity
         public DateTime? HrEndDate { get; set; }
         public string HrComment { get; set; }
 
-        public Group Academy { get; set; }
-        public ItaGroupStatus ItAcademyStatus { get; set; }
-        public User User { get; set; }
+        public virtual Group Academy { get; set; }
+        public virtual ItaGroupStatus ItAcademyStatus { get; set; }
+        public virtual User User { get; set; }
     }
 }
