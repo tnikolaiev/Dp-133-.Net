@@ -34,15 +34,15 @@ namespace Ras.DAL.Entity
         public int? DirectionId { get; set; }
         public int? TechnologyId { get; set; }
 
-        public City City { get; set; }
-        public Direction Direction { get; set; }
-        public GroupStage Stage { get; set; }
-        public Technology Technology { get; set; }
-        public ICollection<GroupInfo> GroupInfo { get; set; }
-        public ICollection<GroupInfoTeacher> GroupInfoTeachers { get; set; }
-        public ICollection<GroupInfoTest> GroupInfoTests { get; set; }
-        public ICollection<ItaGroup> ItaAcademy { get; set; }
-        public ICollection<Student> Students { get; set; }
-        public ICollection<TestName> TestesNames { get; set; }
+        public virtual City City { get; set; }
+        public virtual Direction Direction { get; set; }
+        public virtual GroupStage Stage { get; set; }
+        public virtual Technology Technology { get; set; }
+        public virtual ICollection<GroupInfo> GroupInfo { get; set; }
+        public virtual ICollection<GroupInfoTeacher> GroupInfoTeachers { get; set; }
+        public virtual ICollection<GroupInfoTest> GroupInfoTests { get; set; }
+        public virtual ICollection<ItaGroup> ItaAcademy { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<TestName> TestesNames { get; set; }
     }
 }

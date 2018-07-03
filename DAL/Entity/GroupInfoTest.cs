@@ -29,6 +29,6 @@ namespace Ras.DAL.Entity
         public string Test2Name { get; set; }
         public int? AcademyId { get; set; }
 
-        public Group Academy { get; set; }
+        public virtual Group Academy { get; set; }
     }
 }
