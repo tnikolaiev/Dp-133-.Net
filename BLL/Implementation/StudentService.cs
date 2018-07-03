@@ -2,8 +2,8 @@
 using Ras.BLL.DTO;
 using Ras.DAL;
 using Ras.DAL.Entity;
-using Ras.BLL.Exeption;
 using System.Linq;
+using Ras.BLL.Exeptions;
 
 
 namespace Ras.BLL.Implementation

@@ -5,7 +5,7 @@ using Ras.BLL.Implementation;
 using Ras.DAL;
 using Ras.DAL.Entity;
 using System.Collections.Generic;
-using Ras.BLL.Exeption;
+using Ras.BLL.Exeptions;
 using Ras.DAL.Implementation;
 
 namespace Ras.BLL.Tests
