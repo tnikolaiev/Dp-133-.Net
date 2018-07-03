@@ -42,17 +42,18 @@ namespace Ras.BLL.Tests
             Mock.Setup(x => x.FeedbacksRepository.All).Returns(new[] { new Feedback() }.AsQueryable());
 
             Mock.Setup(x => x.FeedbacksRepository.Upate(It.IsAny<Feedback>())).Returns(new Feedback());
-            Mock.Setup(x => x.SaveChanges());
 
             Mock.Setup(x => x.CharacteristicsRepository.All).Returns(new[] { new Characteristic() }.AsQueryable());
 
             Mock.Setup(x => x.MarksRepository.All).Returns(new[] { new Mark() }.AsQueryable());
 
+            Mock.Setup(x => x.SaveChanges());
+
             StudentService = new StudentService(Mock.Object);
         }
 
         [TestMethod]
-        public void Delete_ExistStudent_ReturnsWithSuchId()
+        public void Delete_ExistStudent_DeletesStudentWithSuchId()
         {
             StudentService.Delete(3);
 
@@ -68,7 +69,7 @@ namespace Ras.BLL.Tests
         }
 
         [TestMethod]
-        public void Update_Existed_Student()
+        public void UpdateExistStudent_ReturnsNotNullStudentDto()
         {
             Mock.Setup(x => x.FeedbacksRepository.Read(It.IsAny<int>())).Returns<Feedback>(null);
 
@@ -79,7 +80,7 @@ namespace Ras.BLL.Tests
 
         [TestMethod]
         [ExpectedException(typeof(StudentNotFoundException))]
-        public void Update_No_Existed_Student()
+        public void UpdateNotExistStudent_ThrowsException()
         {
             Mock.Setup(x => x.StudentsRepository.Read(It.IsAny<int>())).Returns<Student>(null);
 
@@ -87,7 +88,7 @@ namespace Ras.BLL.Tests
         }
 
         [TestMethod]
-        public void Update_Existed_FeedBack()
+        public void UpdateExistFeedback_RetunsNotNullFeedbackDTO()
         {
             var result = StudentService.UpdateFeedback(new FeedbackDTO());
 
