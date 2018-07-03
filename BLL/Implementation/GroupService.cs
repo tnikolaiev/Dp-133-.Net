@@ -121,6 +121,7 @@ namespace Ras.BLL.Implementation
                 groupDto.City = GetCity(groupDto.CityId);
                 groupDto.AmountStudentForGraduate = getCountStudentForGraduate(groupDto.Id);
                 groupDto.AmountStudentForEnrollment = getCountStudentForEnrollment(groupDto.Id);
+                groupDto.AmountStudenActual = group.Students.Count;
                 return groupDto;
             }
         } //TODO: Create class for exception 
