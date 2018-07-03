@@ -11,15 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Student> All => db.Students
-                                                     .Include(s => s.Employee)
-                                                     .Include(s => s.User)
-                                                     .Include(s => s.EnglishLevel)
-                                                     .Include(s => s.Group)
-                                                     .Include(s => s.StudentStatus)
-                                                     .Include(s => s.TeacherStudentFeedback)
-                                                     .Include(s => s.ExpertStudentFeedback)
-                                                     .AsNoTracking();
+        public override IQueryable<Student> All => db.Students.AsNoTracking();
 
         public override Student Create(Student item)
         {
@@ -28,15 +20,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override Student Read(params object[] key)
         {
-            Student st = db.Students
-                     .Include(s => s.Employee)
-                     .Include(s => s.User)
-                     .Include(s => s.EnglishLevel)
-                     .Include(s => s.Group)
-                     .Include(s => s.StudentStatus)
-                     .Include(s => s.TeacherStudentFeedback)
-                     .Include(s => s.ExpertStudentFeedback)
-                     .FirstOrDefault(k => k.Id == (int)key[0]);
+            Student st = db.Students.FirstOrDefault(k => k.Id == (int)key[0]);
 
             return st;
         }

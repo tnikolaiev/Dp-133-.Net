@@ -9,7 +9,6 @@ namespace Ras.DAL.Implementation
     public class EFUnitOfWork : IUnitOfWork
     {
         private RasContext db;
-
         private GroupRepository groupRepository;
         private GroupPaymentStatusRepository groupPaymentStatusRepository;
         private ProfileInfoRepository profileInfoRepository;
@@ -36,7 +35,6 @@ namespace Ras.DAL.Implementation
         {
             db = new RasContext(connectionString);
         }
-
         public IRepository<Group> GroupsRepository
         {
             get
