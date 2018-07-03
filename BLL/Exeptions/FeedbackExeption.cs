@@ -4,12 +4,7 @@ namespace Ras.BLL.Exeptions
 {
     public class FeedbackExeption : Exception
     {
-        public FeedbackExeption() : base()
-        {
-
-        }
-
-        public FeedbackExeption(string message) : base(message)
+        public FeedbackExeption() : base("Feedback with such id does not found.")
         {
 
         }

@@ -4,14 +4,8 @@ namespace Ras.BLL.Exeptions
 {
     public class StudentNotFoundException:Exception
     {
-        public StudentNotFoundException() : base()
+        public StudentNotFoundException() : base("Student with such id does not found.")
         {
-
-        }
-
-        public StudentNotFoundException(string message) : base(message)
-        {
-
         }
     }
 }
