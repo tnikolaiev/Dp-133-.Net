@@ -21,7 +21,7 @@ namespace Ras.DAL.Entity
         public string Username { get; set; }
         public int? EmployeeId { get; set; }
 
-        public Employee Employee { get; set; }
-        public ICollection<LoginuserEmployeeroles> LoginuserEmployeeroles { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual ICollection<LoginuserEmployeeroles> LoginuserEmployeeroles { get; set; }
     }
 }
