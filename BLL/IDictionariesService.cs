@@ -1,4 +1,6 @@
-﻿namespace Ras.BLL.DTO
+﻿using Ras.BLL.DTO;
+
+namespace Ras.BLL
 {
     public interface IDictionariesService
     {
