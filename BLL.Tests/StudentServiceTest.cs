@@ -67,6 +67,12 @@ namespace Ras.BLL.Tests
 
             Assert.AreEqual(3, student.Id);
         }
+        [ExpectedException(typeof(StudentNotFoundException))]
+        [TestMethod]
+        public void GetById_NotExist_TrowsException()
+        {
+            var student = StudentService.GetById(5);
+        }
 
         [TestMethod]
         public void UpdateExistStudent_ReturnsNotNullStudentDto()
