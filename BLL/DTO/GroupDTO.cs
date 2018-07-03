@@ -6,21 +6,23 @@ namespace Ras.BLL.DTO
     public class GroupDTO
     {
         public GroupDTO() { }
-        public GroupDTO(Group groupDb)
+        public GroupDTO(Group groupDb, IGroupService groupService)
         {
+            var service = groupService;
             this.Id = groupDb.Id;
             this.Name = groupDb.Name;
             this.CrmGroup = groupDb.CrmGroup;
             this.StartDate = groupDb.StartDate;
             this.EndDate = groupDb.EndDate;
-            //TODO: 
-            //this.City = groupDb
+            this.CityId = (int) groupDb.CityId;
+            this.City = service.GetCity(CityId);
             this.Direction = groupDb.Direction.Name;
             this.DirectionId = groupDb.Direction.DirectionId;
             this.Technology = groupDb.Technology.Name;
             this.TechnologyId = groupDb.Technology.TechnologyId;
             this.Stage = groupDb.Stage.Name;
             this.StageId = groupDb.Stage.StageId;
+            this.CountStudents = groupDb.Students.Count;
 
         }
         public int Id { get; set; }
@@ -36,5 +38,6 @@ namespace Ras.BLL.DTO
         public string Technology { get; set; }
         public int StageId { get; set; }
         public string Stage { get; set; }
+        public int CountStudents { get; set; }
     }
 }
