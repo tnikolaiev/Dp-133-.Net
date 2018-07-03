@@ -11,14 +11,18 @@ namespace Web.Controllers
     public class GroupInfoController : Controller
     {
         IGroupService groupService;
+        IDictionariesService dictionariesService;
         IMapper groupMapper;
         IMapper groupDtoMapper;
+        IMapper dictionariesMapper;
 
-        public GroupInfoController(IGroupService service)
+        public GroupInfoController(IGroupService serviceGroup, IDictionariesService serviceDictionaries)
         {
-            groupService = service;
+            groupService = serviceGroup;
+            dictionariesService = serviceDictionaries;
             groupMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupDTO, GroupInfoViewModel>()).CreateMapper();
             groupDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupInfoViewModel, GroupDTO>()).CreateMapper();
+            dictionariesMapper = new MapperConfiguration(cfg => cfg.CreateMap<DictionariesDTO, GroupInfoViewModel>()).CreateMapper();
         }
 
         [HttpGet("{id}")]
@@ -27,6 +31,7 @@ namespace Web.Controllers
             try
             {
                 var group = groupMapper.Map<GroupDTO, GroupInfoViewModel>(groupService.GetById(id));
+                group = dictionariesMapper.Map<DictionariesDTO, GroupInfoViewModel>(dictionariesService.GetGroupInfoDictionaries());
                 return Ok(group);
             }
             catch(ArgumentException)
