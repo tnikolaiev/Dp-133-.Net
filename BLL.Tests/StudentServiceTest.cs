@@ -77,7 +77,7 @@ namespace Ras.BLL.Tests
         }
 
         [TestMethod]
-        public void UpdateExistStudent_ReturnsNotNullStudentDto()
+        public void UpdateExistStudent_ReturnsStudentDtoWithSuchId()
         {
             Mock.Setup(x => x.StudentsRepository.Read(It.Is<int>(a => a == 3))).Returns(Student);
             var result = StudentService.UpdateStudent(new StudentDTO {Id = 3});
