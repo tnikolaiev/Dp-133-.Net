@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ras.BLL.DTO;
 using Ras.DAL;
 using Ras.DAL.Entity;
@@ -152,6 +153,26 @@ namespace Ras.BLL.Implementation
         {
             unitOfWork.StudentsRepository.Delete(id);
             unitOfWork.SaveChanges();
+        }
+
+        public IEnumerable<FeedbackDTO> GetFeedBacksInGroup(int groupId, TypeOfFeeadBack typeOfFeeadBack)
+        {
+            IEnumerable<FeedbackDTO> feedbacks = null;
+            switch (typeOfFeeadBack)
+            {
+                case TypeOfFeeadBack.expert:
+                    {
+                        feedbacks = unitOfWork.GroupsRepository.Read(groupId)?.Students.Select(x =>new FeedbackDTO( x.ExpertStudentFeedback));
+                        break;
+                    }
+                case TypeOfFeeadBack.teacher:
+                    {
+                        feedbacks = unitOfWork.GroupsRepository.Read(groupId)?.Students.Select(x => new FeedbackDTO(x.TeacherStudentFeedback));
+                        break;
+                    }
+            }
+
+            return feedbacks;
         }
 
         private void CopyMembers(FeedbackDTO feedback,Feedback creatingFeedback)

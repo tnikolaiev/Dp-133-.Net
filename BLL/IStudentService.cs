@@ -1,4 +1,5 @@
-﻿using Ras.BLL.DTO;
+﻿using System.Collections.Generic;
+using Ras.BLL.DTO;
 using Ras.BLL.Implementation;
 namespace Ras.BLL
 {
@@ -11,5 +12,6 @@ namespace Ras.BLL
         FeedbackDTO UpdateFeedback(FeedbackDTO feedback);
         FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback);
         FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack);
+        IEnumerable<FeedbackDTO> GetFeedBacksInGroup(int groupId, TypeOfFeeadBack typeOfFeeadBack);
     }
 }
