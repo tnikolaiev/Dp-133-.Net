@@ -19,5 +19,6 @@ namespace Ras.BLL
         /// <param name="feedback">Feedback data.</param>
         /// <returns></returns>
         FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback);
+        FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack);
     }
 }

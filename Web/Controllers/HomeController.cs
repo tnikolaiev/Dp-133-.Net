@@ -22,9 +22,6 @@ namespace Ras.Web.Controllers
 
         public IActionResult Index()
         {
-
-            var st = new StudentService(new EFUnitOfWork("Server = localhost; user id = ras; database = ss_ps_db; Pwd = 1111; persistsecurityinfo = True; "));
-            st.CreateFeedback(134, TypeOfFeeadBack.expert, new FeedbackDTO());
             // example
             using (var db = new DAL.EF.RasContext("Server=localhost;user id=ras;database = ss_ps_db;Pwd=1111;persistsecurityinfo = True;"))
             {
