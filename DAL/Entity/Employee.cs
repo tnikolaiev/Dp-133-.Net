@@ -21,8 +21,8 @@ namespace Ras.DAL.Entity
         public string LastNameUkr { get; set; }
         public string SecondNameUkr { get; set; }
 
-        public ICollection<GroupInfoTeacher> GroupInfoTeachers { get; set; }
-        public ICollection<LoginUser> LoginUser { get; set; }
-        public ICollection<Student> Students { get; set; }
+        public virtual ICollection<GroupInfoTeacher> GroupInfoTeachers { get; set; }
+        public virtual ICollection<LoginUser> LoginUser { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

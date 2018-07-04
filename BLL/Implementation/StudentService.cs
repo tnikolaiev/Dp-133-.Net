@@ -24,14 +24,14 @@ namespace Ras.BLL.Implementation
             var dStudent = unitOfWork.StudentsRepository.Read(id);
             if (dStudent == null)
             {
-                throw new StudentNotFoundException();
+                throw new ArgumentException("Student with such id does not exist.");
             }
             return new StudentDTO(dStudent);
         }
 
-        public StudentDTO CreateStudent(int userId, int groupId)
+        public StudentDTO CreateStudent(UserDTO user, int groupId)
         {
-            var dUser = unitOfWork.UsersRepository.Read(userId);
+            var dUser = unitOfWork.UsersRepository.Read(user.Id);
             var dStudent = new Student
             {
                 User = dUser,
@@ -77,7 +77,7 @@ namespace Ras.BLL.Implementation
                 return newStudent;
             }
 
-            throw new StudentNotFoundException();          
+            return newStudent;
         }
 
         public FeedbackDTO UpdateFeedback(FeedbackDTO feedback)
@@ -94,35 +94,35 @@ namespace Ras.BLL.Implementation
 
             throw new FeedbackExeption();          
         }
-
-        // feedback.ActiveCommunicatorTitle = "Learning ability"; feedback.ActiveCommunicatorCharacteristic = "Quick";
         public FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback)
         {
             Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
-            dStudent = unitOfWork.StudentsRepository.All.FirstOrDefault() ;          
-            if (dStudent == null) throw new StudentNotFoundException();
-            var creatingFeedback = new Feedback();
-            CopyMembers(feedback, creatingFeedback);
-            var newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Create(creatingFeedback));          
-            switch (typeOfFeeadBack)
+            Feedback dFeedBack = unitOfWork.FeedbacksRepository.Read(feedback.Id);
+            FeedbackDTO newFeedBack = null;
+            if (dFeedBack != null && dStudent != null)
             {
-                case TypeOfFeeadBack.expert:
-                    {
-                        dStudent.ExpertStudentFeedbackId = newFeedBack.Id;
-                        break;
-                    }
-                case TypeOfFeeadBack.teacher:
-                    {
-                        dStudent.TeacherStudentFeedbackId = newFeedBack.Id;
-                        break;
-                    }
+                newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Create(dFeedBack));
+                switch (typeOfFeeadBack)
+                {
+                    case TypeOfFeeadBack.expert:
+                        {
+                            dStudent.ExpertStudentFeedbackId = newFeedBack.Id;
+                            break;
+                        }
+                    case TypeOfFeeadBack.teacher:
+                        {
+                            dStudent.TeacherStudentFeedbackId = newFeedBack.Id;
+                            break;
+                        }
+                }
+
+                unitOfWork.StudentsRepository.Update(dStudent);
+                unitOfWork.SaveChanges();
             }
 
-            unitOfWork.StudentsRepository.Update(dStudent);
-            unitOfWork.SaveChanges();
             return newFeedBack;
         }
-      
+
         public void Delete(int id)
         {
             unitOfWork.StudentsRepository.Delete(id);

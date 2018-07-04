@@ -16,7 +16,7 @@ namespace Ras.DAL.Entity
         public string ProfileName { get; set; }
         public int? TechnologyId { get; set; }
 
-        public Technology Technology { get; set; }
-        public ICollection<GroupInfo> GroupInfo { get; set; }
+        public virtual Technology Technology { get; set; }
+        public virtual ICollection<GroupInfo> GroupInfo { get; set; }
     }
 }

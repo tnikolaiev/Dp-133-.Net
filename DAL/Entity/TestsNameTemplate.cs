@@ -11,6 +11,6 @@ namespace Ras.DAL.Entity
         public string TestName { get; set; }
         public int? TemplateDirectionId { get; set; }
 
-        public Technology TemplateDirection { get; set; }
+        public virtual Technology TemplateDirection { get; set; }
     }
 }

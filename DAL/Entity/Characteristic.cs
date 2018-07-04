@@ -15,6 +15,6 @@ namespace Ras.DAL.Entity
 
         public string Name { get; set; }
 
-        public ICollection<Mark> Mark { get; set; }
+        public virtual ICollection<Mark> Mark { get; set; }
     }
 }

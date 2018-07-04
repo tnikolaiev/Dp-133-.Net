@@ -13,7 +13,7 @@ namespace Ras.DAL.Entity
         [Column(Order = 2)]
         public int EmployeerolesId { get; set; }
 
-        public EmployeeRole Employeeroles { get; set; }
-        public LoginUser IdNavigation { get; set; }
+        public virtual EmployeeRole Employeeroles { get; set; }
+        public virtual LoginUser IdNavigation { get; set; }
     }
 }
