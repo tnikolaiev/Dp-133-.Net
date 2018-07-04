@@ -1,0 +1,10 @@
+diff a/BLL/Implementation/StudentService.cs b/BLL/Implementation/StudentService.cs	(rejected hunks)
+@@ -77,7 +77,7 @@
+                 return newStudent;
+             }
+ 
+-            throw new StudentNotFoundException();          
++            return newStudent;
+         }
+ 
+         public FeedbackDTO UpdateFeedback(FeedbackDTO feedback)

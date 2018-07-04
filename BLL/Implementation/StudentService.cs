@@ -24,14 +24,15 @@ namespace Ras.BLL.Implementation
             var dStudent = unitOfWork.StudentsRepository.Read(id);
             if (dStudent == null)
             {
-                throw new ArgumentException("Student with such id does not exist.");
+                throw new StudentNotFoundException();
             }
             return new StudentDTO(dStudent);
         }
 
-        public StudentDTO CreateStudent(UserDTO user, int groupId)
+
+        public StudentDTO CreateStudent(int userId, int groupId)
         {
-            var dUser = unitOfWork.UsersRepository.Read(user.Id);
+            var dUser = unitOfWork.UsersRepository.Read(userId);
             var dStudent = new Student
             {
                 User = dUser,
@@ -77,7 +78,7 @@ namespace Ras.BLL.Implementation
                 return newStudent;
             }
 
-            return newStudent;
+            throw new StudentNotFoundException();          
         }
 
         public FeedbackDTO UpdateFeedback(FeedbackDTO feedback)
