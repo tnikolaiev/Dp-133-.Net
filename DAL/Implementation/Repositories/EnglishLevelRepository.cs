@@ -37,7 +37,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.EnglishLevel.Find(key);
         }
 
-        public override EnglishLevel Upate(EnglishLevel item)
+        public override EnglishLevel Update(EnglishLevel item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

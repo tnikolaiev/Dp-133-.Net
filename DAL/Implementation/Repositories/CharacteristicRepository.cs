@@ -37,7 +37,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.Characteristic.Find(key);
         }
 
-        public override Characteristic Upate(Characteristic item)
+        public override Characteristic Update(Characteristic item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.Technologies.Find(key);
         }
 
-        public override Technology Upate(Technology item)
+        public override Technology Update(Technology item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

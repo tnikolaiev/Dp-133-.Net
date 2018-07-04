@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.TeacherTypes.Find(key);
         }
 
-        public override TeacherType Upate(TeacherType item)
+        public override TeacherType Update(TeacherType item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

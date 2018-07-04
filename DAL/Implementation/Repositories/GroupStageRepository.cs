@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.AcademyStages.Find(key);
         }
 
-        public override GroupStage Upate(GroupStage item)
+        public override GroupStage Update(GroupStage item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;

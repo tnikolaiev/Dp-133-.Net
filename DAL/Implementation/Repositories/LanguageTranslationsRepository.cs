@@ -23,7 +23,7 @@ namespace Ras.DAL.Implementation.Repositories
             return db.LanguageTranslations.Find(key);
         }
 
-        public override LanguageTranslations Upate(LanguageTranslations item)
+        public override LanguageTranslations Update(LanguageTranslations item)
         {
             db.Entry(item).State = EntityState.Modified;
             return item;
