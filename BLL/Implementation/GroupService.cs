@@ -5,7 +5,7 @@ using Ras.BLL.DTO;
 using Ras.DAL;
 using Ras.DAL.Entity;
 using System.Linq;
-
+using Ras.BLL.Exceptions;
 
 namespace Ras.BLL.Implementation
 {
@@ -16,8 +16,6 @@ namespace Ras.BLL.Implementation
         {
             if (group != null)
             {
-                try
-                {
                     unitOfWork.GroupsRepository.Create(new Group
                     {
                         Id = group.Id,
@@ -38,15 +36,10 @@ namespace Ras.BLL.Implementation
                         AcademyId = group.Id
                     });
                     unitOfWork.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    
-                }
             }
             else
             {
-                throw new ArgumentException("Error");
+                throw new ArgumentException("Get empty group");
             }
         }
 
@@ -113,7 +106,7 @@ namespace Ras.BLL.Implementation
             var group = unitOfWork.GroupsRepository.Read(id);
             if (group==null)
             {
-                throw new ArgumentException("Group with such id does not exist!");
+                throw new GroupNotFoundException();
             }
             else
             {
@@ -124,7 +117,7 @@ namespace Ras.BLL.Implementation
                 groupDto.AmountStudenActual = group.Students.Count;
                 return groupDto;
             }
-        } //TODO: Create class for exception 
+        }  
 
         public IEnumerable<StudentDTO> GetStudentsByGroupId(int groupId)
         {
@@ -138,9 +131,9 @@ namespace Ras.BLL.Implementation
                 }
                 return studentDTOs;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new ArgumentException(e.Message);
+                throw new GroupNotFoundException();
             }
         }
 
