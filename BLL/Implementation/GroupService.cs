@@ -14,8 +14,6 @@ namespace Ras.BLL.Implementation
         public GroupService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
         public void Create(GroupDTO group)
         {
-            if (group != null)
-            {
                     unitOfWork.GroupsRepository.Create(new Group
                     {
                         Id = group.Id,
@@ -36,11 +34,6 @@ namespace Ras.BLL.Implementation
                         AcademyId = group.Id
                     });
                     unitOfWork.SaveChanges();
-            }
-            else
-            {
-                throw new ArgumentException("Get empty group");
-            }
         }
 
         public IEnumerable<GroupDTO> GetAll()
@@ -139,8 +132,6 @@ namespace Ras.BLL.Implementation
 
         public void Update(GroupDTO group)
         {
-            if (group != null)
-            {
                 unitOfWork.GroupsRepository.Update(new Group
                 {
                     Id = group.Id,
@@ -153,9 +144,7 @@ namespace Ras.BLL.Implementation
                     TechnologyId = group.TechnologyId,
                     StageId = group.StageId
                 });
-                
                 unitOfWork.SaveChanges();
-            }
         } //TODO: Information about count students
 
 
