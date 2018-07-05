@@ -64,7 +64,7 @@ namespace Ras.BLL.Tests
                 StageId = 1
             };
             bool isUpdated = false;
-            mock.Setup(a => a.GroupsRepository.Upate(It.Is<Group>
+            mock.Setup(a => a.GroupsRepository.Update(It.Is<Group>
                 (gr =>
                         (gr.Id == group.Id) &&
                         (gr.Name == group.Name) &&

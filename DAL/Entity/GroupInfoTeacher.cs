@@ -13,8 +13,8 @@ namespace Ras.DAL.Entity
         public int? EmployeeId { get; set; }
         public int? TeacherTypeId { get; set; }
 
-        public Group Academy { get; set; }
-        public Employee Employee { get; set; }
-        public TeacherType TeacherType { get; set; }
+        public virtual Group Academy { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual TeacherType TeacherType { get; set; }
     }
 }

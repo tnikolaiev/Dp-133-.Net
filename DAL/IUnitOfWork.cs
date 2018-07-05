@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Ras.DAL.Entity;
+using Ras.DAL.EF;
 
 namespace Ras.DAL
 {

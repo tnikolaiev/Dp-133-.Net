@@ -15,6 +15,6 @@ namespace Ras.DAL.Entity
 
         public string Authority { get; set; }
 
-        public ICollection<LoginuserEmployeeroles> LoginuserEmployeeroles { get; set; }
+        public virtual ICollection<LoginuserEmployeeroles> LoginuserEmployeeroles { get; set; }
     }
 }
