@@ -43,14 +43,7 @@ namespace Ras.DAL.EF
         public RasContext(string connectionString)
         {
             this.connectionString = connectionString;
-            //Database.EnsureCreated();
         }
-
-        //TODO: check this ctor
-        //public RasContext()
-        //{
-            
-        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
