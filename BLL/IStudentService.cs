@@ -1,4 +1,5 @@
 ﻿using Ras.BLL.DTO;
+using Ras.BLL.Implementation;
 
 namespace Ras.BLL
 {
@@ -8,5 +9,16 @@ namespace Ras.BLL
         StudentDTO CreateStudent(int userId, int groupId);
         StudentDTO UpdateStudent(StudentDTO student);
         void Delete(int id);
+        FeedbackDTO UpdateFeedback(FeedbackDTO feedback);
+
+        /// <summary>
+        ///     Creates Feedback entry for this student.
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <param name="typeOfFeeadBack">Type of feedback will be created.</param>
+        /// <param name="feedback">Feedback data.</param>
+        /// <returns></returns>
+        FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback);
+        FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack);
     }
 }

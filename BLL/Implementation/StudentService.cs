@@ -100,5 +100,10 @@ namespace Ras.BLL.Implementation
             unitOfWork.StudentsRepository.Delete(id);
             unitOfWork.SaveChanges();
         }
+
+        public FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

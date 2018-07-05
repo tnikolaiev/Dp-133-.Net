@@ -35,8 +35,10 @@ namespace Web.Controllers
         [HttpGet("{id}")]
         public StudentViewModel Get(int id)
         {
-            StudentViewModel student = studentMapper.Map<StudentDTO, StudentViewModel>(studentService.GetById(id));
-
+            StudentDTO tempStudent = studentService.GetById(id);
+            StudentViewModel student = studentMapper.Map<StudentDTO, StudentViewModel>(tempStudent);
+            //student.FullName = tempStudent.UserDTO.FirstName + " " + tempStudent.UserDTO.LastName;
+            
             return student;
         }
 
