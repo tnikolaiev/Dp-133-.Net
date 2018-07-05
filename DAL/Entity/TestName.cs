@@ -12,6 +12,6 @@ namespace Ras.DAL.Entity
         public string Name { get; set; }
         public int? TestSequence { get; set; }
 
-        public Group Academy { get; set; }
+        public virtual Group Academy { get; set; }
     }
 }

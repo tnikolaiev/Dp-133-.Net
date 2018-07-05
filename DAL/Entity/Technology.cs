@@ -23,8 +23,8 @@ namespace Ras.DAL.Entity
         public short? Ita { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Group> Academy { get; set; }
-        public ICollection<ProfileInfo> ProfileInfo { get; set; }
-        public ICollection<TestsNameTemplate> TestsNameTemplate { get; set; }
+        public virtual ICollection<Group> Academy { get; set; }
+        public virtual ICollection<ProfileInfo> ProfileInfo { get; set; }
+        public virtual ICollection<TestsNameTemplate> TestsNameTemplate { get; set; }
     }
 }

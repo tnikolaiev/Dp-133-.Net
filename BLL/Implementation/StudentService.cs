@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Ras.BLL.DTO;
+using Ras.BLL.Exeptions;
 using Ras.DAL;
 using Ras.DAL.Entity;
-using Ras.BLL.Exeption;
-using System.Linq;
-
 
 namespace Ras.BLL.Implementation
 {
@@ -14,6 +13,7 @@ namespace Ras.BLL.Implementation
         teacher,
         expert
     }
+
     public class StudentService : Service, IStudentService
     {
         public StudentService(IUnitOfWork unitOfWork) : base(unitOfWork)
@@ -25,18 +25,20 @@ namespace Ras.BLL.Implementation
             var dStudent = unitOfWork.StudentsRepository.Read(id);
             if (dStudent == null)
             {
-                throw new StudentExeption();
+                throw new StudentNotFoundException();
             }
+
             return new StudentDTO(dStudent);
         }
+
 
         public StudentDTO CreateStudent(int userId, int groupId)
         {
             var dUser = unitOfWork.UsersRepository.Read(userId);
             var dStudent = new Student
             {
-                UserId = userId,
-                GroupId = groupId,
+                User = dUser,
+                GroupId = groupId
             };
 
             var student = new StudentDTO(unitOfWork.StudentsRepository.Create(dStudent));
@@ -47,7 +49,7 @@ namespace Ras.BLL.Implementation
 
         public StudentDTO UpdateStudent(StudentDTO student)
         {
-            Student dStudent = unitOfWork.StudentsRepository.Read(student.Id);
+            var dStudent = unitOfWork.StudentsRepository.Read(student.Id);
             StudentDTO newStudent = null;
             if (dStudent != null)
             {
@@ -56,34 +58,34 @@ namespace Ras.BLL.Implementation
                 dStudent.EntryScore = student.EntryScore;
                 dStudent.ExpertScore = student.ExpertScore;
                 dStudent.FinalBase = student.FinalBase;
-                dStudent.IncomingTest = (int?)student.IncomingTest;
+                dStudent.IncomingTest = (int?) student.IncomingTest;
                 dStudent.IntermTestBase = student.IntermTestBase;
                 dStudent.IntermTestLang = student.IntermTestLang;
                 dStudent.InterviewerComment = student.InterviewerComment;
                 dStudent.InterviewerScore = student.InterviewerScore;
-                dStudent.StudentStatusId =unitOfWork.StudentStatusesRepository.All.FirstOrDefault(x=>x.Name== student.StudentStatus)?.Id;
+                dStudent.StudentStatusId = unitOfWork.StudentStatusesRepository.All.FirstOrDefault(x => x.Name == student.StudentStatus)?.Id;
                 dStudent.TeacherScore = student.TeacherScore;
-                dStudent.Test1 = student.Tests[0];
-                dStudent.Test2 = student.Tests[1];
-                dStudent.Test3 = student.Tests[2];
-                dStudent.Test4 = student.Tests[3];
-                dStudent.Test5 = student.Tests[4];
-                dStudent.Test6 = student.Tests[5];
-                dStudent.Test7 = student.Tests[6];
-                dStudent.Test8 = student.Tests[7];
-                dStudent.Test9 = student.Tests[8];
-                dStudent.Test10 = student.Tests[9];
+                dStudent.Test1 = student.Tests?[0];
+                dStudent.Test2 = student.Tests?[1];
+                dStudent.Test3 = student.Tests?[2];
+                dStudent.Test4 = student.Tests?[3];
+                dStudent.Test5 = student.Tests?[4];
+                dStudent.Test6 = student.Tests?[5];
+                dStudent.Test7 = student.Tests?[6];
+                dStudent.Test8 = student.Tests?[7];
+                dStudent.Test9 = student.Tests?[8];
+                dStudent.Test10 = student.Tests?[9];
                 newStudent = new StudentDTO(unitOfWork.StudentsRepository.Update(dStudent));
                 unitOfWork.SaveChanges();
                 return newStudent;
             }
 
-            throw new StudentExeption();          
+            throw new StudentNotFoundException();
         }
 
         public FeedbackDTO UpdateFeedback(FeedbackDTO feedback)
         {
-            Feedback dFeedBack = unitOfWork.FeedbacksRepository.Read(feedback.Id);
+            var dFeedBack = unitOfWork.FeedbacksRepository.Read(feedback.Id);
             FeedbackDTO newFeedBack = null;
             if (dFeedBack != null)
             {
@@ -93,16 +95,17 @@ namespace Ras.BLL.Implementation
                 return newFeedBack;
             }
 
-            throw new FeedbackExeption();          
+            throw new FeedbackNotFoundExeption();
         }
-      
+
         public FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback)
         {
-            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);      
-            if (dStudent == null) throw new StudentExeption();
+            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
+            dStudent = unitOfWork.StudentsRepository.All.FirstOrDefault() ;          
+            if (dStudent == null) throw new StudentNotFoundException();
             var creatingFeedback = new Feedback();
             CopyMembers(feedback, creatingFeedback);
-            var newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Create(creatingFeedback));          
+            var newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Create(creatingFeedback));
             switch (typeOfFeeadBack)
             {
                 case TypeOfFeeadBack.expert:
@@ -116,7 +119,7 @@ namespace Ras.BLL.Implementation
                         break;
                     }
             }
-
+            
             unitOfWork.StudentsRepository.Update(dStudent);
             unitOfWork.SaveChanges();
             return newFeedBack;
@@ -125,20 +128,20 @@ namespace Ras.BLL.Implementation
         public FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack)
         {
             Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
-            if (dStudent == null) throw new StudentExeption();
-         
+            if (dStudent == null) throw new StudentNotFoundException();
+
 
             Feedback feedback = null;
             switch (typeOfFeeadBack)
             {
                 case TypeOfFeeadBack.expert:
-                    {                                         
-                        feedback =unitOfWork.FeedbacksRepository.Read( dStudent.ExpertStudentFeedback.FeedbackId);
+                    {
+                        feedback = unitOfWork.FeedbacksRepository.Read(dStudent.ExpertStudentFeedback.FeedbackId);
                         break;
                     }
                 case TypeOfFeeadBack.teacher:
-                    {                
-                        feedback = unitOfWork.FeedbacksRepository.Read(dStudent.TeacherStudentFeedback.FeedbackId); 
+                    {
+                        feedback = unitOfWork.FeedbacksRepository.Read(dStudent.TeacherStudentFeedback.FeedbackId);
 
                         break;
                     }
@@ -146,7 +149,7 @@ namespace Ras.BLL.Implementation
 
             if (feedback != null)
                 return new FeedbackDTO(feedback);
-            throw new FeedbackExeption();
+            throw new FeedbackNotFoundExeption();
         }
 
         public void Delete(int id)
