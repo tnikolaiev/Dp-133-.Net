@@ -152,6 +152,9 @@ namespace Ras.BLL.Tests
                     Name = "Test group",
                     StartDate = DateTime.Today.Date,
                     EndDate = DateTime.Today.Date,
+                    DirectionId=6,
+                    TechnologyId=8,
+                    StageId =10,
                     Direction = new Direction {DirectionId=7, Name=".Net"},
                     Technology = new Technology { TechnologyId=8, Name="Web"},
                     Stage = new GroupStage { StageId=9, Name="Test"} },
@@ -161,13 +164,16 @@ namespace Ras.BLL.Tests
                     Name = ".Net group",
                     StartDate = DateTime.Today.Date,
                     EndDate = DateTime.Today.Date,
+                    DirectionId=7,
+                    TechnologyId=8,
+                    StageId=9,
                     Direction = new Direction {DirectionId=7, Name=".Net"},
                     Technology = new Technology { TechnologyId=8, Name="Web"},
                     Stage = new GroupStage { StageId=9, Name="Test"} }
             }.AsQueryable());
 
             var service = new GroupService(mock.Object);
-            var result = service.GetAll(".Net", null, null, null, null, null, null);
+            var result = service.GetAll(name: ".Net");
 
             Assert.IsNotNull(result);
         }
@@ -199,7 +205,7 @@ namespace Ras.BLL.Tests
             }.AsQueryable());
 
             var service = new GroupService(mock.Object);
-            var result = service.GetAll("Java", null, null, null, null, null, null).ToList();
+            var result = service.GetAll(name: "Java").ToList();
 
             Assert.AreEqual(0, result.Count);
         }

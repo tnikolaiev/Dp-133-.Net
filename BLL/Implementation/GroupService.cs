@@ -5,6 +5,7 @@ using Ras.BLL.DTO;
 using Ras.DAL;
 using Ras.DAL.Entity;
 using System.Linq;
+using Ras.BLL.Exceptions;
 
 namespace Ras.BLL.Implementation
 {
@@ -13,18 +14,26 @@ namespace Ras.BLL.Implementation
         public GroupService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
         public void Create(GroupDTO group)
         {
-            unitOfWork.GroupsRepository.Create(new Group {
-                Id = group.Id,
-                Name = group.Name,
-                CrmGroup = group.CrmGroup,
-                StartDate = group.StartDate,
-                EndDate = group.EndDate,
-                //TODO: City
-                DirectionId = group.DirectionId,
-                TechnologyId = group.TechnologyId,
-                StageId = group.StageId
-            });
-            unitOfWork.SaveChanges();
+                    unitOfWork.GroupsRepository.Create(new Group
+                    {
+                        Id = group.Id,
+                        Name = group.Name,
+                        CrmGroup = group.CrmGroup,
+                        StartDate = group.StartDate,
+                        EndDate = group.EndDate,
+                        CityId = group.CityId,
+                        DirectionId = group.DirectionId,
+                        TechnologyId = group.TechnologyId,
+                        StageId = group.StageId
+                    });
+                    unitOfWork.GroupsInfoRepsitory.Create(new GroupInfo
+                    {
+                        GroupName = group.Name,
+                        StudentsPlannedToEnrollment = group.AmountStudentForEnrollment,
+                        StudentsPlannedToGraduate = group.AmountStudentForGraduate,
+                        AcademyId = group.Id
+                    });
+                    unitOfWork.SaveChanges();
         }
 
         public IEnumerable<GroupDTO> GetAll()
@@ -38,40 +47,47 @@ namespace Ras.BLL.Implementation
             return groupsDto;
         }
 
-        public IEnumerable<GroupDTO> GetAll(string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid)
+        public IEnumerable<GroupDTO> GetAll
+            (string name = "",
+            DateTime? startdate = null,
+            DateTime? enddate = null,
+            int? cityid = null,
+            int? directionid = null,
+            int? technologyid = null,
+            int? stageid = null)
         {
             var filter = unitOfWork.GroupsRepository.All;
-            if (name!="")
+            if (name != "")
             {
                 filter = filter.Where(g => g.Name == name);
             }
-            if (startdate!=null)
+            if (startdate != null)
             {
                 filter = filter.Where(g => g.StartDate >= startdate);
             }
-            if (enddate!=null)
+            if (enddate != null)
             {
                 filter = filter.Where(g => g.EndDate <= enddate);
             }
-            if (cityid!=null)
+            if (cityid != null)
             {
                 filter = filter.Where(g => g.CityId == cityid);
             }
-            if (directionid!=null)
+            if (directionid != null)
             {
                 filter = filter.Where(g => g.DirectionId == directionid);
             }
-            if (technologyid!=null)
+            if (technologyid != null)
             {
                 filter = filter.Where(g => g.TechnologyId == technologyid);
             }
-            if (stageid!=null)
+            if (stageid != null)
             {
                 filter = filter.Where(g => g.StageId == stageid);
             }
             var resultListOfGroup = new List<GroupDTO>();
             var tempList = filter.ToList();
-            for (int i=0; i<tempList.Count; i++)
+            for (int i = 0; i < tempList.Count; i++)
             {
                 resultListOfGroup.Add(new GroupDTO(tempList[i]));
             }
@@ -80,35 +96,77 @@ namespace Ras.BLL.Implementation
 
         public GroupDTO GetById(int id)
         {
-            return new GroupDTO(unitOfWork.GroupsRepository.Read(id));
-        }
+            var group = unitOfWork.GroupsRepository.Read(id);
+            if (group==null)
+            {
+                throw new GroupNotFoundException();
+            }
+            else
+            {
+                var groupDto = new GroupDTO(group);
+                groupDto.City = GetCity(groupDto.CityId);
+                groupDto.AmountStudentForGraduate = getCountStudentForGraduate(groupDto.Id);
+                groupDto.AmountStudentForEnrollment = getCountStudentForEnrollment(groupDto.Id);
+                groupDto.AmountStudenActual = group.Students.Count;
+                return groupDto;
+            }
+        }  
 
         public IEnumerable<StudentDTO> GetStudentsByGroupId(int groupId)
         {
-            var students = unitOfWork.StudentsRepository.All.Where(g => g.GroupId == groupId).ToList();
             List<StudentDTO> studentDTOs = new List<StudentDTO>();
-            for (int i=0; i<students.Count; i++)
+            try
             {
-                studentDTOs.Add(new StudentDTO(students[i]));
+                var students = unitOfWork.StudentsRepository.All.Where(g => g.GroupId == groupId).ToList();
+                for (int i = 0; i < students.Count; i++)
+                {
+                    studentDTOs.Add(new StudentDTO(students[i]));
+                }
+                return studentDTOs;
             }
-            return studentDTOs;            
+            catch (Exception)
+            {
+                throw new GroupNotFoundException();
+            }
         }
 
         public void Update(GroupDTO group)
         {
-            unitOfWork.GroupsRepository.Update(new Group
-            {
-                Id = group.Id,
-                Name = group.Name,
-                CrmGroup = group.CrmGroup,
-                StartDate = group.StartDate,
-                EndDate = group.EndDate,
-                //TODO: City
-                DirectionId = group.DirectionId,
-                TechnologyId = group.TechnologyId,
-                StageId = group.StageId
-            });
-            unitOfWork.SaveChanges();
+                unitOfWork.GroupsRepository.Update(new Group
+                {
+                    Id = group.Id,
+                    Name = group.Name,
+                    CrmGroup = group.CrmGroup,
+                    StartDate = group.StartDate,
+                    EndDate = group.EndDate,
+                    CityId=group.CityId,
+                    DirectionId = group.DirectionId,
+                    TechnologyId = group.TechnologyId,
+                    StageId = group.StageId
+                });
+                unitOfWork.SaveChanges();
+        } //TODO: Information about count students
+
+
+
+        private string GetCity(int Id)
+        {
+            var city = unitOfWork.LanguageTranslationsRepository.All.Where(c => c.Tag == "city");
+            city = city.Where(c => c.Local == "en");
+            city = city.Where(c => c.ItemId == Id); 
+            return city.FirstOrDefault().Trasnlation;
         }
+
+        private int getCountStudentForGraduate(int groupId)
+        {
+            return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().StudentsPlannedToGraduate;
+        }
+
+        private int getCountStudentForEnrollment(int groupId)
+        {
+            return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().StudentsPlannedToEnrollment;
+        }
+
+
     }
 }
