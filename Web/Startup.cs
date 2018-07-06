@@ -29,8 +29,8 @@ namespace Ras.Web
                 (s => new DAL.Implementation.EFUnitOfWork("Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;"));
             var sp = services.BuildServiceProvider();
             var uow = sp.GetService<DAL.IUnitOfWork>();
-            services.AddTransient<BLL.IStudentService>(s => new BLL.Implementation.StudentService(uow));
-            services.AddTransient<BLL.IDictionariesGroupService>(s => new BLL.Implementation.DictionariesGroupService(uow));
+            services.AddTransient<BLL.IStudentService, BLL.Implementation.StudentService>();
+            services.AddTransient<BLL.IDictionariesGroupService, BLL.Implementation.DictionariesGroupService>();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}));
         }
 
