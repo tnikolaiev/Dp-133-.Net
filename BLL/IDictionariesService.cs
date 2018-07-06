@@ -4,6 +4,7 @@ namespace Ras.BLL
 {
     public interface IDictionariesService
     {
-        DictionariesDTO GetGroupInfoDictionaries();
+        DictionariesGroupDTO GetGroupInfoDictionaries();
+        DictionariesStudentDTO GetStudentDictionaries();
     }
 }

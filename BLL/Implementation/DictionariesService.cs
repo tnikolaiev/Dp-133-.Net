@@ -10,9 +10,9 @@ namespace Ras.BLL.Implementation
         public DictionariesService(IUnitOfWork unitOfWork) : base(unitOfWork)
         { }
 
-        public DictionariesDTO GetGroupInfoDictionaries()
+        public DictionariesGroupDTO GetGroupInfoDictionaries()
         {
-            var setOfDictionaries = new DictionariesDTO();
+            var setOfDictionaries = new DictionariesGroupDTO();
             setOfDictionaries.Cities = getAllCities();
             setOfDictionaries.Directions = getAllDirections();
             setOfDictionaries.Technologies = getAllTechnologies();
@@ -20,6 +20,14 @@ namespace Ras.BLL.Implementation
             setOfDictionaries.NamesForSite = getAllNamesForSite();
             setOfDictionaries.PaymentStatuses = getAllPaymentStatuses();
             setOfDictionaries.Profiles = getAllProfiles();
+            return setOfDictionaries;
+        }
+
+        public DictionariesStudentDTO GetStudentDictionaries()
+        {
+            var setOfDictionaries = new DictionariesStudentDTO();
+            setOfDictionaries.StudentStatuses = getAllStudentStatuses();
+            setOfDictionaries.Experts = getAllExpertsInGroup();
             return setOfDictionaries;
         }
 
@@ -84,6 +92,16 @@ namespace Ras.BLL.Implementation
             foreach (var k in keys)
                 values.Add(unitOfWork.ProfileInfosRepository.All.Where(p => p.ProfileId == k).Select(p => p.ProfileName).FirstOrDefault());
             return createDictionary(keys, values);
+        }
+
+        private Dictionary<int, string> getAllStudentStatuses()
+        {
+            return new Dictionary<int, string>();
+        }
+
+        private Dictionary<int, string> getAllExpertsInGroup()
+        {
+            return new Dictionary<int, string>();
         }
     }
 }

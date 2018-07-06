@@ -2,11 +2,8 @@
 
 namespace Ras.BLL.DTO
 {
-    public class DictionariesDTO
+    public class DictionariesGroupDTO
     {
-        public DictionariesDTO()
-        { }
-
         public Dictionary<int, string> Cities { get; set; }
         public Dictionary<int, string> Directions { get; set; }     //CommonDirection
         public Dictionary<int, string> Technologies { get; set; }
