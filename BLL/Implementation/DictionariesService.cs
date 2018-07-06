@@ -31,6 +31,18 @@ namespace Ras.BLL.Implementation
             return setOfDictionaries;
         }
 
+        public DictionariesFeedbackDTO GetFeedbackDictionaries()
+        {
+            var setOfDictionaries = new DictionariesFeedbackDTO();
+            setOfDictionaries.LearningAbilities = getAllLearningAbilities();
+            setOfDictionaries.OverallTechnicalCompetences = getAllOverallTechnicalCompetences();
+            setOfDictionaries.ProfessionalInitistives = getAllProfessionalInitistives();
+            setOfDictionaries.TeamWorkStatuses = getAllTeamWorkStatuses();
+            setOfDictionaries.GettingThingsDoneStatuses = getAllGettingThingsDoneStatuses();
+            setOfDictionaries.ActiveCommunicatorStatuses = getAllActiveCommunicatorStatuses();
+            return setOfDictionaries;
+        }    
+
         private Dictionary<int,string> createDictionary(IList<int> keys, IList<string> values)
         {
             var dictionary = new Dictionary<int, string>();
@@ -100,6 +112,31 @@ namespace Ras.BLL.Implementation
         }
 
         private Dictionary<int, string> getAllExpertsInGroup()
+        {
+            return new Dictionary<int, string>();
+        }
+
+        private Dictionary<int, string> getAllLearningAbilities()
+        {
+            return new Dictionary<int, string>();
+        }
+        private Dictionary<int, string> getAllOverallTechnicalCompetences()
+        {
+            return new Dictionary<int, string>();
+        }
+        private Dictionary<int, string> getAllProfessionalInitistives()
+        {
+            return new Dictionary<int, string>();
+        }
+        private Dictionary<int, string> getAllTeamWorkStatuses()
+        {
+            return new Dictionary<int, string>();
+        }
+        private Dictionary<int, string> getAllGettingThingsDoneStatuses()
+        {
+            return new Dictionary<int, string>();
+        }
+        private Dictionary<int, string> getAllActiveCommunicatorStatuses()
         {
             return new Dictionary<int, string>();
         }

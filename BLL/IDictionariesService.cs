@@ -6,5 +6,6 @@ namespace Ras.BLL
     {
         DictionariesGroupDTO GetGroupInfoDictionaries();
         DictionariesStudentDTO GetStudentDictionaries();
+        DictionariesFeedbackDTO GetFeedbackDictionaries();
     }
 }
