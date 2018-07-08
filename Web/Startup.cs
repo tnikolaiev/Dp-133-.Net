@@ -30,10 +30,11 @@ namespace Ras.Web
             services.AddTransient<IUnitOfWork>
                 (s => new EFUnitOfWork("Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;"));
 
+            var sp = services.BuildServiceProvider();
+            var uow = sp.GetService<IUnitOfWork>();
 
             services.AddTransient<IStudentService>(s =>
             {
-                var uow = s.GetService<IUnitOfWork>();
                 var ss = new StudentService(uow);
                 var logger = s.GetService<ILogger<StudentServiceLogProxy>>();
 
@@ -42,7 +43,6 @@ namespace Ras.Web
 
             services.AddTransient<IGroupService>(s =>
             {
-                var uow = s.GetService<IUnitOfWork>();
                 var gs = new GroupService(uow);
                 var logger = s.GetService<ILogger<GroupServiceLogProxy>>();
 
@@ -51,29 +51,26 @@ namespace Ras.Web
 
             services.AddTransient<IDictionariesGroupService>(s =>
             {
-                var uow = s.GetService<IUnitOfWork>();
-                var gs = new DictionariesGroupService(uow);
+                var dgs = new DictionariesGroupService(uow);
                 var logger = s.GetService<ILogger<DictionariesGroupServiceLogProxy>>();
 
-                return new DictionariesGroupServiceLogProxy(gs, logger);
+                return new DictionariesGroupServiceLogProxy(dgs, logger);
             });
 
             services.AddTransient<IDictionariesStudentService>(s =>
             {
-                var uow = s.GetService<IUnitOfWork>();
-                var ss = new DictionariesStudentService(uow);
+                var dss = new DictionariesStudentService(uow);
                 var logger = s.GetService<ILogger<DictionariesStudentServiceLogProxy>>();
 
-                return new DictionariesStudentServiceLogProxy(ss, logger);
+                return new DictionariesStudentServiceLogProxy(dss, logger);
             });
 
             services.AddTransient<IDictionariesFeedbackService>(s =>
             {
-                var uow = s.GetService<IUnitOfWork>();
-                var fs = new DictionariesFeedbackService(uow);
+                var dfs = new DictionariesFeedbackService(uow);
                 var logger = s.GetService<ILogger<DictionariesFeedbackServiceLogProxy>>();
 
-                return new DictionariesFeedbackServiceLogProxy(fs, logger);
+                return new DictionariesFeedbackServiceLogProxy(dfs, logger);
             });
 
             services.AddTransient<IGroupService, GroupService>();
