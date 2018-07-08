@@ -1,25 +1,28 @@
-﻿using Ras.BLL.DTO;
-using Ras.DAL;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Ras.BLL.DTO;
+using Ras.DAL;
 
 namespace Ras.BLL.Implementation
 {
     public class DictionariesGroupService : Service, IDictionariesGroupService
     {
         public DictionariesGroupService(IUnitOfWork unitOfWork) : base(unitOfWork)
-        { }
+        {
+        }
 
         public DictionariesGroupDTO GetGroupInfoDictionaries()
         {
-            var setOfDictionaries = new DictionariesGroupDTO();
-            setOfDictionaries.Cities = GetAllCities();
-            setOfDictionaries.Directions = GetAllDirections();
-            setOfDictionaries.Technologies = GetAllTechnologies();
-            setOfDictionaries.Stages = GetAllStages();
-            setOfDictionaries.NamesForSite = GetAllNamesForSite();
-            setOfDictionaries.PaymentStatuses = GetAllPaymentStatuses();
-            setOfDictionaries.Profiles = GetAllProfiles();
+            var setOfDictionaries = new DictionariesGroupDTO
+            {
+                Cities = GetAllCities(),
+                Directions = GetAllDirections(),
+                Technologies = GetAllTechnologies(),
+                Stages = GetAllStages(),
+                NamesForSite = GetAllNamesForSite(),
+                PaymentStatuses = GetAllPaymentStatuses(),
+                Profiles = GetAllProfiles()
+            };
             return setOfDictionaries;
         }
 
@@ -31,24 +34,24 @@ namespace Ras.BLL.Implementation
         private Dictionary<int, string> GetAllDirections()
         {
             var dictionary = unitOfWork.DirectionsRepository.All
-                .Select(d => new { d.DirectionId, d.Name })
-                .ToDictionary(d => d.DirectionId, d => d.Name);
+                                       .Select(d => new {d.DirectionId, d.Name})
+                                       .ToDictionary(d => d.DirectionId, d => d.Name);
             return dictionary;
         }
 
         private Dictionary<int, string> GetAllTechnologies()
         {
             var dictionary = unitOfWork.TechnologiesRepository.All
-                .Select(d => new { d.TechnologyId, d.Name })
-                .ToDictionary(d => d.TechnologyId, d => d.Name);
+                                       .Select(d => new {d.TechnologyId, d.Name})
+                                       .ToDictionary(d => d.TechnologyId, d => d.Name);
             return dictionary;
         }
 
         private Dictionary<int, string> GetAllStages()
         {
             var dictionary = unitOfWork.GroupStagesRepository.All
-                .Select(s => new { s.StageId, s.Name })
-                .ToDictionary(d => d.StageId, d => d.Name);
+                                       .Select(s => new {s.StageId, s.Name})
+                                       .ToDictionary(d => d.StageId, d => d.Name);
             return dictionary;
         }
 
@@ -60,16 +63,16 @@ namespace Ras.BLL.Implementation
         private Dictionary<int, string> GetAllPaymentStatuses()
         {
             var dictionary = unitOfWork.GroupPaymentStatusesRepository.All
-                .Select(p => new { p.GroupPaymentStatusId, p.GroupPaymentStatusName })
-                .ToDictionary(d => d.GroupPaymentStatusId, d => d.GroupPaymentStatusName);
+                                       .Select(p => new {p.GroupPaymentStatusId, p.GroupPaymentStatusName})
+                                       .ToDictionary(d => d.GroupPaymentStatusId, d => d.GroupPaymentStatusName);
             return dictionary;
         }
 
         private Dictionary<int, string> GetAllProfiles()
         {
             var dictionary = unitOfWork.ProfileInfosRepository.All
-                .Select(p => new { p.ProfileId, p.ProfileName })
-                .ToDictionary(d => d.ProfileId, d => d.ProfileName);
+                                       .Select(p => new {p.ProfileId, p.ProfileName})
+                                       .ToDictionary(d => d.ProfileId, d => d.ProfileName);
             return dictionary;
         }
     }
