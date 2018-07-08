@@ -80,6 +80,8 @@ namespace Ras.Web
 
             services.AddTransient<IDictionariesGroupService, DictionariesGroupService>();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}));
+            services.AddScoped<Filters.LoggerFilterAttribute>();
+            services.AddScoped<Filters.CustomExeptionFilterAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
