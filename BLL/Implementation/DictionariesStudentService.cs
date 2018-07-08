@@ -4,7 +4,7 @@ using Ras.DAL;
 
 namespace Ras.BLL.Implementation
 {
-    internal class DictionariesStudentService : Service, IDictionariesStudentService
+    public class DictionariesStudentService : Service, IDictionariesStudentService
     {
         public DictionariesStudentService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {

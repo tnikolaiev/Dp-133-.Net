@@ -4,7 +4,7 @@ using Ras.DAL;
 
 namespace Ras.BLL.Implementation
 {
-    internal class DictionariesFeedbackService : Service, IDictionariesFeedbackService
+    public class DictionariesFeedbackService : Service, IDictionariesFeedbackService
     {
         public DictionariesFeedbackService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
