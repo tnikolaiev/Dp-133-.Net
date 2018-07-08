@@ -8,9 +8,13 @@ using Ras.Web.Models;
 using AutoMapper;
 using Ras.BLL.DTO;
 using Ras.BLL.Implementation;
+using Ras.Web.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace Web.Controllers
 {
+    [ServiceFilter(typeof(LoggerFilterAttribute))]
+    [ServiceFilter(typeof(CustomExeptionFilterAttribute))]
     [Route("api/[controller]")]
     public class FeedbackController : Controller
     {
@@ -31,14 +35,14 @@ namespace Web.Controllers
         [HttpGet("teacher/{studentId}")]
         public FeedBackWithDescriptionViewModel GetFeedBackTeacher(int studentId)
         {
-            var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(studentId, TypeOfFeeadBack.teacher));
+            var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(studentId, TypeOfFeedBack.teacher));
             return feedback;
         }
 
         [HttpGet("expert/{studentId}")]
         public FeedBackWithDescriptionViewModel GetFeedBackExpert(int studentId)
         {
-            var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(studentId, TypeOfFeeadBack.expert));
+            var feedback = feedbackWithDescriptionMapper.Map<FeedbackDTO, FeedBackWithDescriptionViewModel>(studentService.GetFeedback(studentId, TypeOfFeedBack.expert));
             return feedback;
         }
 
@@ -66,7 +70,7 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 var feedbackDTO = feedbackDtoMapper.Map<FeedbackViewModel, FeedbackDTO>(feedback);
-                studentService.CreateFeedback(studentId, TypeOfFeeadBack.teacher, feedbackDTO);
+                studentService.CreateFeedback(studentId, TypeOfFeedBack.teacher, feedbackDTO);
                 return Ok(feedback);
             }
             return BadRequest(ModelState);
@@ -78,7 +82,7 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 var feedbackDTO = feedbackDtoMapper.Map<FeedbackViewModel, FeedbackDTO>(feedback);
-                studentService.CreateFeedback(studentId, TypeOfFeeadBack.expert, feedbackDTO);
+                studentService.CreateFeedback(studentId, TypeOfFeedBack.expert, feedbackDTO);
                 return Ok(feedback);
             }
             return BadRequest(ModelState);
@@ -93,17 +97,17 @@ namespace Web.Controllers
             return Ok(feedback);
         }
 
-        [HttpGet("teacher/{groupId}")]
+        [HttpGet("teacherInGroup/{groupId}")]
         public IActionResult GetAllTeacherFeedBacksInGroup(int groupId)
         {
-            var feedbacks = feedbackWithDescriptionMapper.Map<IEnumerable<FeedbackDTO>, IEnumerable<FeedbackViewModel>>(studentService.GetFeedBacksInGroup(groupId, TypeOfFeeadBack.teacher));
+            var feedbacks = feedbackWithDescriptionMapper.Map<IEnumerable<FeedbackDTO>, IEnumerable<FeedbackViewModel>>(studentService.GetFeedBacksInGroup(groupId, TypeOfFeedBack.teacher));
             return Ok(feedbacks);
         }
 
-        [HttpGet("expert/{groupId}")]
+        [HttpGet("expertInGroup/{groupId}")]
         public IActionResult GetAllExpertFeedBacksInGroup(int groupId)
         {
-            var feedbacks = feedbackWithDescriptionMapper.Map<IEnumerable<FeedbackDTO>, IEnumerable<FeedbackViewModel>>(studentService.GetFeedBacksInGroup(groupId, TypeOfFeeadBack.expert));
+            var feedbacks = feedbackWithDescriptionMapper.Map<IEnumerable<FeedbackDTO>, IEnumerable<FeedbackViewModel>>(studentService.GetFeedBacksInGroup(groupId, TypeOfFeedBack.expert));
             return Ok(feedbacks);
         }
     }

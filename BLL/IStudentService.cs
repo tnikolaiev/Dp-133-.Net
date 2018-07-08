@@ -19,8 +19,8 @@ namespace Ras.BLL
         /// <param name="typeOfFeeadBack">Type of feedback will be created.</param>
         /// <param name="feedback">Feedback data.</param>
         /// <returns></returns>
-        FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback);
-        FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack);
-        IEnumerable<FeedbackDTO> GetFeedBacksInGroup(int groupId, TypeOfFeeadBack typeOfFeeadBack);
+        FeedbackDTO CreateFeedback(int studentId, TypeOfFeedBack typeOfFeeadBack, FeedbackDTO feedback);
+        FeedbackDTO GetFeedback(int studentId, TypeOfFeedBack typeOfFeeadBack);
+        IEnumerable<FeedbackDTO> GetFeedBacksInGroup(int groupId, TypeOfFeedBack typeOfFeeadBack);
     }
 }

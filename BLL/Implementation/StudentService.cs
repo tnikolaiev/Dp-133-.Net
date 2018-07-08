@@ -8,7 +8,7 @@ using Ras.DAL.Entity;
 
 namespace Ras.BLL.Implementation
 {
-    public enum TypeOfFeeadBack
+    public enum TypeOfFeedBack
     {
         teacher,
         expert
@@ -98,22 +98,21 @@ namespace Ras.BLL.Implementation
             throw new FeedbackNotFoundExeption();
         }
 
-        public FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback)
+        public FeedbackDTO CreateFeedback(int studentId, TypeOfFeedBack typeOfFeeadBack, FeedbackDTO feedback)
         {
-            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
-            dStudent = unitOfWork.StudentsRepository.All.FirstOrDefault() ;          
+            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);           
             if (dStudent == null) throw new StudentNotFoundException();
             var creatingFeedback = new Feedback();
             CopyMembers(feedback, creatingFeedback);
             var newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Create(creatingFeedback));
             switch (typeOfFeeadBack)
             {
-                case TypeOfFeeadBack.expert:
+                case TypeOfFeedBack.expert:
                     {
                         dStudent.ExpertStudentFeedbackId = newFeedBack.Id;
                         break;
                     }
-                case TypeOfFeeadBack.teacher:
+                case TypeOfFeedBack.teacher:
                     {
                         dStudent.TeacherStudentFeedbackId = newFeedBack.Id;
                         break;
@@ -125,7 +124,7 @@ namespace Ras.BLL.Implementation
             return newFeedBack;
         }
 
-        public FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack)
+        public FeedbackDTO GetFeedback(int studentId, TypeOfFeedBack typeOfFeeadBack)
         {
             Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
             if (dStudent == null) throw new StudentNotFoundException();
@@ -134,12 +133,12 @@ namespace Ras.BLL.Implementation
             Feedback feedback = null;
             switch (typeOfFeeadBack)
             {
-                case TypeOfFeeadBack.expert:
+                case TypeOfFeedBack.expert:
                     {
                         feedback = unitOfWork.FeedbacksRepository.Read(dStudent.ExpertStudentFeedback.FeedbackId);
                         break;
                     }
-                case TypeOfFeeadBack.teacher:
+                case TypeOfFeedBack.teacher:
                     {
                         feedback = unitOfWork.FeedbacksRepository.Read(dStudent.TeacherStudentFeedback.FeedbackId);
 
@@ -158,17 +157,17 @@ namespace Ras.BLL.Implementation
             unitOfWork.SaveChanges();
         }
 
-        public IEnumerable<FeedbackDTO> GetFeedBacksInGroup(int groupId, TypeOfFeeadBack typeOfFeeadBack)
+        public IEnumerable<FeedbackDTO> GetFeedBacksInGroup(int groupId, TypeOfFeedBack typeOfFeeadBack)
         {
             IEnumerable<FeedbackDTO> feedbacks = null;
             switch (typeOfFeeadBack)
             {
-                case TypeOfFeeadBack.expert:
+                case TypeOfFeedBack.expert:
                     {
                         feedbacks = unitOfWork.GroupsRepository.Read(groupId)?.Students.Select(x =>new FeedbackDTO( x.ExpertStudentFeedback));
                         break;
                     }
-                case TypeOfFeeadBack.teacher:
+                case TypeOfFeedBack.teacher:
                     {
                         feedbacks = unitOfWork.GroupsRepository.Read(groupId)?.Students.Select(x => new FeedbackDTO(x.TeacherStudentFeedback));
                         break;

@@ -31,7 +31,10 @@ namespace Ras.Web
             var uow = sp.GetService<DAL.IUnitOfWork>();
             services.AddTransient<BLL.IStudentService>(s => new BLL.Implementation.StudentService(uow));
 
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}));
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" }));
+
+            services.AddScoped<Filters.LoggerFilterAttribute>();
+            services.AddScoped<Filters.CustomExeptionFilterAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
