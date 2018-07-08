@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using Ras.BLL.DTO;
 
 namespace Ras.BLL.Implementation.Proxies.Logging
@@ -57,24 +58,35 @@ namespace Ras.BLL.Implementation.Proxies.Logging
             return result;
         }
 
-        public FeedbackDTO CreateFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack, FeedbackDTO feedback)
+        public FeedbackDTO CreateFeedback(int studentId, TypeOfFeedBack typeOfFeedBack, FeedbackDTO feedback)
         {
             logger.Log(LogLevel.Trace,
-                       $"Begin StudentService.CreateFeedback(int studentId = {studentId}, TypeOfFeeadBack typeOfFeeadBack = {typeOfFeeadBack}, FeedbackDTO feedback = {feedback})");
-            var result = studentService.CreateFeedback(studentId, typeOfFeeadBack, feedback);
+                       $"Begin StudentService.CreateFeedback(int studentId = {studentId}, TypeOfFeeadBack typeOfFeeadBack = {typeOfFeedBack}, FeedbackDTO feedback = {feedback})");
+            var result = studentService.CreateFeedback(studentId, typeOfFeedBack, feedback);
             logger.Log(LogLevel.Trace,
-                       $"End StudentService.CreateFeedback(int studentId = {studentId}, TypeOfFeeadBack typeOfFeeadBack = {typeOfFeeadBack}, FeedbackDTO feedback = {feedback})");
+                       $"End StudentService.CreateFeedback(int studentId = {studentId}, TypeOfFeeadBack typeOfFeeadBack = {typeOfFeedBack}, FeedbackDTO feedback = {feedback})");
 
             return result;
         }
 
-        public FeedbackDTO GetFeedback(int studentId, TypeOfFeeadBack typeOfFeeadBack)
+        public FeedbackDTO GetFeedback(int studentId, TypeOfFeedBack typeOfFeedBack)
         {
             logger.Log(LogLevel.Trace,
-                       $"Begin StudentService.GetFeedback(int studentId  = {studentId}, TypeOfFeeadBack typeOfFeeadBack = {typeOfFeeadBack})");
-            var result = studentService.GetFeedback(studentId, typeOfFeeadBack);
+                       $"Begin StudentService.GetFeedback(int studentId  = {studentId}, TypeOfFeeadBack typeOfFeeadBack = {typeOfFeedBack})");
+            var result = studentService.GetFeedback(studentId, typeOfFeedBack);
             logger.Log(LogLevel.Trace,
-                       $"End StudentService.GetFeedback(int studentId  = {studentId}, TypeOfFeeadBack typeOfFeeadBack = {typeOfFeeadBack})");
+                       $"End StudentService.GetFeedback(int studentId  = {studentId}, TypeOfFeeadBack typeOfFeeadBack = {typeOfFeedBack})");
+
+            return result;
+        }
+
+        public IEnumerable<FeedbackDTO> GetFeedBacksInGroup(int groupId, TypeOfFeedBack typeOfFeedBack)
+        {
+            logger.Log(LogLevel.Trace,
+                       $"Begin StudentService.GetFeedBacksInGroup(int groupId = {groupId}, TypeOfFeedBack typeOfFeedBack = {typeOfFeedBack})");
+            var result = studentService.GetFeedBacksInGroup(groupId, typeOfFeedBack);
+            logger.Log(LogLevel.Trace,
+                       $"End StudentService.GetFeedBacksInGroup(int groupId = {groupId}, TypeOfFeedBack typeOfFeedBack = {typeOfFeedBack})");
 
             return result;
         }
