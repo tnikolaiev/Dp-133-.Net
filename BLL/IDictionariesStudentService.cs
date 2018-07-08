@@ -2,7 +2,7 @@
 
 namespace Ras.BLL
 {
-    interface IDictionariesStudentService
+    public interface IDictionariesStudentService
     {
         DictionariesStudentDTO GetStudentDictionaries();
     }

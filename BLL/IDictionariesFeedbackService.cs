@@ -2,7 +2,7 @@
 
 namespace Ras.BLL
 {
-    interface IDictionariesFeedbackService
+    public interface IDictionariesFeedbackService
     {
         DictionariesFeedbackDTO GetFeedbackDictionaries();
     }
