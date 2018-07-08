@@ -1,24 +1,26 @@
-﻿using Ras.BLL.DTO;
+﻿using System.Collections.Generic;
+using Ras.BLL.DTO;
 using Ras.DAL;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Ras.BLL.Implementation
 {
-    class DictionariesFeedbackService:Service,IDictionariesFeedbackService
+    internal class DictionariesFeedbackService : Service, IDictionariesFeedbackService
     {
         public DictionariesFeedbackService(IUnitOfWork unitOfWork) : base(unitOfWork)
-        { }
+        {
+        }
 
         public DictionariesFeedbackDTO GetFeedbackDictionaries()
         {
-            var setOfDictionaries = new DictionariesFeedbackDTO();
-            setOfDictionaries.LearningAbilities = GetAllLearningAbilities();
-            setOfDictionaries.OverallTechnicalCompetences = GetAllOverallTechnicalCompetences();
-            setOfDictionaries.ProfessionalInitistives = GetAllProfessionalInitistives();
-            setOfDictionaries.TeamWorkStatuses = GetAllTeamWorkStatuses();
-            setOfDictionaries.GettingThingsDoneStatuses = GetAllGettingThingsDoneStatuses();
-            setOfDictionaries.ActiveCommunicatorStatuses = GetAllActiveCommunicatorStatuses();
+            var setOfDictionaries = new DictionariesFeedbackDTO
+            {
+                LearningAbilities = GetAllLearningAbilities(),
+                OverallTechnicalCompetences = GetAllOverallTechnicalCompetences(),
+                ProfessionalInitistives = GetAllProfessionalInitistives(),
+                TeamWorkStatuses = GetAllTeamWorkStatuses(),
+                GettingThingsDoneStatuses = GetAllGettingThingsDoneStatuses(),
+                ActiveCommunicatorStatuses = GetAllActiveCommunicatorStatuses()
+            };
             return setOfDictionaries;
         }
 
@@ -26,22 +28,27 @@ namespace Ras.BLL.Implementation
         {
             return new Dictionary<int, string>();
         }
+
         private Dictionary<int, string> GetAllOverallTechnicalCompetences()
         {
             return new Dictionary<int, string>();
         }
+
         private Dictionary<int, string> GetAllProfessionalInitistives()
         {
             return new Dictionary<int, string>();
         }
+
         private Dictionary<int, string> GetAllTeamWorkStatuses()
         {
             return new Dictionary<int, string>();
         }
+
         private Dictionary<int, string> GetAllGettingThingsDoneStatuses()
         {
             return new Dictionary<int, string>();
         }
+
         private Dictionary<int, string> GetAllActiveCommunicatorStatuses()
         {
             return new Dictionary<int, string>();

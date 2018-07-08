@@ -1,20 +1,22 @@
-﻿using Ras.BLL.DTO;
+﻿using System.Collections.Generic;
+using Ras.BLL.DTO;
 using Ras.DAL;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Ras.BLL.Implementation
 {
-    class DictionariesStudentService:Service,IDictionariesStudentService
+    internal class DictionariesStudentService : Service, IDictionariesStudentService
     {
         public DictionariesStudentService(IUnitOfWork unitOfWork) : base(unitOfWork)
-        { }
+        {
+        }
 
         public DictionariesStudentDTO GetStudentDictionaries()
         {
-            var setOfDictionaries = new DictionariesStudentDTO();
-            setOfDictionaries.StudentStatuses = GetAllStudentStatuses();
-            setOfDictionaries.Experts = GetAllExpertsInGroup();
+            var setOfDictionaries = new DictionariesStudentDTO
+            {
+                StudentStatuses = GetAllStudentStatuses(),
+                Experts = GetAllExpertsInGroup()
+            };
             return setOfDictionaries;
         }
 
