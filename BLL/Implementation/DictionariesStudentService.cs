@@ -6,16 +6,18 @@ using System.Linq;
 
 namespace Ras.BLL.Implementation
 {
-    class DictionariesStudentService:Service,IDictionariesStudentService
+    public class DictionariesStudentService : Service, IDictionariesStudentService
     {
         public DictionariesStudentService(IUnitOfWork unitOfWork) : base(unitOfWork)
         { }
 
         public DictionariesStudentDTO GetStudentDictionaries(int groupId)
         {
-            var setOfDictionaries = new DictionariesStudentDTO();
-            setOfDictionaries.StudentStatuses = GetAllStudentStatuses();
-            setOfDictionaries.Experts = GetAllExpertsInGroup(groupId);
+            var setOfDictionaries = new DictionariesStudentDTO()
+            {
+                StudentStatuses = GetAllStudentStatuses(),
+                Experts = GetAllExpertsInGroup(groupId)
+            };
             return setOfDictionaries;
         }
 
