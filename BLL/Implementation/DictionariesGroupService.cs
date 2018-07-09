@@ -57,6 +57,7 @@ namespace Ras.BLL.Implementation
 
         private Dictionary<int, string> GetAllNamesForSite()
         {
+
             return new Dictionary<int, string>();
         }
 
