@@ -73,8 +73,6 @@ namespace Ras.Web
                 return new DictionariesFeedbackServiceLogProxy(dfs, logger);
             });
 
-            services.AddTransient<IGroupService, GroupService>();
-
             services.AddTransient<IDictionariesGroupService, DictionariesGroupService>();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}));
             services.AddScoped<Filters.LoggerFilterAttribute>();
