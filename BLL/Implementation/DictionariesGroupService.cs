@@ -19,7 +19,6 @@ namespace Ras.BLL.Implementation
                 Directions = GetAllDirections(),
                 Technologies = GetAllTechnologies(),
                 Stages = GetAllStages(),
-                NamesForSite = GetAllNamesForSite(),
                 PaymentStatuses = GetAllPaymentStatuses(),
                 Profiles = GetAllProfiles()
             };
@@ -53,11 +52,6 @@ namespace Ras.BLL.Implementation
                                        .Select(s => new {s.StageId, s.Name})
                                        .ToDictionary(d => d.StageId, d => d.Name);
             return dictionary;
-        }
-
-        private Dictionary<int, string> GetAllNamesForSite()
-        {
-            return new Dictionary<int, string>();
         }
 
         private Dictionary<int, string> GetAllPaymentStatuses()
