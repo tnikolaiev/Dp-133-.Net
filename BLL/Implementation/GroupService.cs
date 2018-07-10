@@ -112,6 +112,7 @@ namespace Ras.BLL.Implementation
             {
                 var groupDto = new GroupDTO(group);
                 groupDto.City = GetCity(groupDto.CityId);
+                groupDto.Name = GetNameGroup(groupDto.Id);
                 groupDto.AmountStudentForGraduate = GetCountStudentForGraduate(groupDto.Id);
                 groupDto.AmountStudentForEnrollment = GetCountStudentForEnrollment(groupDto.Id);
                 groupDto.AmountStudenActual = group.Students.Count;
@@ -151,8 +152,24 @@ namespace Ras.BLL.Implementation
                     TechnologyId = group.TechnologyId,
                     StageId = group.StageId
                 });
-                unitOfWork.SaveChanges();
-        } //TODO: Information about count students
+            var groupinfo = unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == group.Id).FirstOrDefault();
+            groupinfo.StudentsPlannedToEnrollment = group.AmountStudentForEnrollment;
+            groupinfo.StudentsPlannedToGraduate = group.AmountStudentForGraduate;
+            unitOfWork.GroupsInfoRepsitory.Update(groupinfo);
+            unitOfWork.HistoryRepository.Create(new History
+            {
+                AcademyId = group.Id,
+                AcademyName=group.Name,
+                NameForSite=group.NameForSite,
+                Location=group.City,
+                StartDate=group.StartDate,
+                EndDate=group.EndDate,
+                Stage=group.Stage,
+                Direction=group.Direction,
+                ModifyDate=DateTime.Now
+            }); //TODO: Modified by
+            unitOfWork.SaveChanges();
+        } 
 
 
 
@@ -162,6 +179,11 @@ namespace Ras.BLL.Implementation
             city = city.Where(c => c.Local == "en");
             city = city.Where(c => c.ItemId == Id); 
             return city.FirstOrDefault().Trasnlation;
+        }
+
+        private string GetNameGroup(int groupId)
+        {
+            return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().GroupName;
         }
 
         private int GetCountStudentForGraduate(int groupId)
