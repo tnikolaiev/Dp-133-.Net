@@ -45,6 +45,7 @@ namespace Ras.BLL.DTO
             }
 
             UserId = (int) dStudent.UserId;
+            UserDTO = new UserDTO(dStudent.User);
             ExpertFeedbackDTO = dStudent.ExpertStudentFeedback is null ? new FeedbackDTO() : new FeedbackDTO(dStudent.ExpertStudentFeedback);
             TeacherFeedbackDTO = dStudent.TeacherStudentFeedback is null ? new FeedbackDTO() : new FeedbackDTO(dStudent.TeacherStudentFeedback);
             EnglishLevel = dStudent.EnglishLevel?.Name;

@@ -40,10 +40,6 @@ namespace Ras.Web.Models
 
         public int? EmployeeId { get; set; } // ApprovedBy
 
-        //public FeedbackViewModel ExpertFeedback { get; set; }
-
-        //public FeedbackViewModel TeacherFeedback { get; set; }
-
         //public string PersonStatus { get; set; }
     }
 }
