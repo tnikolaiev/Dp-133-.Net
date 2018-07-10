@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Student> All => db.Students.AsNoTracking();
+        public override IQueryable<Student> All => db.Students;
 
         public override Student Create(Student item)
         {
