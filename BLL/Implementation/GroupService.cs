@@ -38,10 +38,10 @@ namespace Ras.BLL.Implementation
                     unitOfWork.SaveChanges();
         }
 
-        public IEnumerable<GroupDTO> GetAll(string property, int skip, int count)
+        public IEnumerable<GroupDTO> GetAll(string orderby, int skip, int count)
         {
             var groups = unitOfWork.GroupsRepository.All;
-            var groupsList = OrderBy(groups, property).Skip(skip).Take(count).ToList();
+            var groupsList = OrderBy(groups, orderby).Skip(skip).Take(count).ToList();
             var groupsDto = new List<GroupDTO>();
             for (int i=0; i<groupsList.Count; i++)
             {
@@ -52,7 +52,7 @@ namespace Ras.BLL.Implementation
 
         public IEnumerable<GroupDTO> GetAll
             (
-            string property,
+            string orderby,
             int skip, 
             int count,
             string name = "",
@@ -93,7 +93,7 @@ namespace Ras.BLL.Implementation
                 filter = filter.Where(g => g.StageId == stageid);
             }
             var resultListOfGroup = new List<GroupDTO>();
-            var tempList = OrderBy(filter, property).Skip(skip).Take(count).ToList();
+            var tempList = OrderBy(filter, orderby).Skip(skip).Take(count).ToList();
             for (int i = 0; i < tempList.Count; i++)
             {
                 resultListOfGroup.Add(new GroupDTO(tempList[i]));

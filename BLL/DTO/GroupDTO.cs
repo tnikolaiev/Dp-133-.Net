@@ -13,7 +13,7 @@ namespace Ras.BLL.DTO
             this.CrmGroup = groupDb.CrmGroup;
             this.StartDate = groupDb.StartDate;
             this.EndDate = groupDb.EndDate;
-            this.CityId = (int) groupDb.CityId;
+            this.CityId = groupDb.CityId.GetValueOrDefault(0);
             this.Direction = groupDb.Direction.Name;
             this.DirectionId = groupDb.Direction.DirectionId;
             this.Technology = groupDb.Technology.Name;

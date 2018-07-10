@@ -15,9 +15,9 @@ namespace Ras.BLL
 
         IEnumerable<StudentDTO> GetStudentsByGroupId(int groupId);
 
-        IEnumerable<GroupDTO> GetAll(string property, int skip, int count);
+        IEnumerable<GroupDTO> GetAll(string orderby, int skip, int count);
 
-        IEnumerable<GroupDTO> GetAll(string property, int skip, int count, string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid);
+        IEnumerable<GroupDTO> GetAll(string orderby, int skip, int count, string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid);
 
     }
 }

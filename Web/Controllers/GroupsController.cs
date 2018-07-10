@@ -15,28 +15,26 @@ namespace Web.Controllers
     {
         IGroupService groupService;
         IMapper groupMapper;
-        IMapper groupDtoMapper;
 
-        public GroupsController(IGroupService groupService, IMapper groupMapper, IMapper groupDtoMapper)
+        public GroupsController(IGroupService groupService)
         {
             this.groupService = groupService;
-            this.groupMapper = groupMapper;
-            this.groupDtoMapper = groupDtoMapper;
+            this.groupMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupDTO, GroupInfoViewModel>()).CreateMapper(); 
         }
 
-        [HttpGet("page={page}/count={count}/orderby={property}")]
-        public List<GroupInfoViewModel> GetListOfGroup(int page, int count, string property)
+        [HttpGet("getgroups/page={page}/count={count}")]
+        public List<GroupInfoViewModel> GetListOfGroup(int page, int count, string orderby="Name")
         {
             int skip = (page - 1) * count;
-            var groups = groupMapper.Map<IEnumerable<GroupDTO>, List<GroupInfoViewModel>>(groupService.GetAll(property, skip, count));
+            var groups = groupMapper.Map<IEnumerable<GroupDTO>, List<GroupInfoViewModel>>(groupService.GetAll(orderby, skip, count));
             return groups;
         }
 
-        [HttpGet("page={page}/count={count}/orderby={property}/name={name}")]
+        [HttpGet("getgroupsfilters/page={page}/count={count}")]
         public List<GroupInfoViewModel> GetListOfGroup(
             int page, 
             int count, 
-            string property,
+            string orderby="Name",
             string name = "",
             DateTime? startdate = null,
             DateTime? enddate = null,
@@ -46,7 +44,7 @@ namespace Web.Controllers
             int? stageid = null)
         {
             int skip = (page - 1) * count;
-            var groups = groupMapper.Map<IEnumerable<GroupDTO>, List<GroupInfoViewModel>>(groupService.GetAll(property, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid));
+            var groups = groupMapper.Map<IEnumerable<GroupDTO>, List<GroupInfoViewModel>>(groupService.GetAll(orderby, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid));
             return groups;
         }
     }

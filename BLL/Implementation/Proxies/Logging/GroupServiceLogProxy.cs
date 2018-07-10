@@ -48,21 +48,21 @@ namespace Ras.BLL.Implementation.Proxies.Logging
             return result;
         }
 
-        public IEnumerable<GroupDTO> GetAll(string property, int skip, int count)
+        public IEnumerable<GroupDTO> GetAll(string orderby, int skip, int count)
         {
             logger.Log(LogLevel.Trace, $"Begin GroupService.GetAll().");
-            var result = groupService.GetAll(property, skip, count);
+            var result = groupService.GetAll(orderby, skip, count);
             logger.Log(LogLevel.Trace, $"Begin GroupService.GetAll().");
 
             return result;
         }
 
         public IEnumerable<GroupDTO> GetAll
-            (string property, int skip, int count, string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid)
+            (string orderby, int skip, int count, string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid)
         {
             logger.Log(LogLevel.Trace,
                        $"Begin GroupService.GetAll(string name = {name}, DateTime? startdate = {startdate?.ToString()}, DateTime? enddate = {enddate?.ToString()}, int? cityid = {cityid?.ToString()}, int? directionid = {directionid?.ToString()}, int? technologyid = {technologyid?.ToString()}, int? stageid = {stageid?.ToString()}).");
-            var result = groupService.GetAll(property, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid);
+            var result = groupService.GetAll(orderby, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid);
             logger.Log(LogLevel.Trace,
                        $"Begin GroupService.GetAll(string name = {name}, DateTime? startdate = {startdate?.ToString()}, DateTime? enddate = {enddate?.ToString()}, int? cityid = {cityid?.ToString()}, int? directionid = {directionid?.ToString()}, int? technologyid = {technologyid?.ToString()}, int? stageid = {stageid?.ToString()}).");
 
