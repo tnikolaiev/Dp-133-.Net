@@ -6,6 +6,8 @@ using Ras.DAL;
 using Ras.DAL.Entity;
 using System.Linq;
 using Ras.BLL.Exceptions;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Ras.BLL.Implementation
 {
@@ -36,19 +38,24 @@ namespace Ras.BLL.Implementation
                     unitOfWork.SaveChanges();
         }
 
-        public IEnumerable<GroupDTO> GetAll()
+        public IEnumerable<GroupDTO> GetAll(string property, int skip, int count)
         {
-            var groups = unitOfWork.GroupsRepository.All.ToList();
+            var groups = unitOfWork.GroupsRepository.All;
+            var groupsList = OrderBy(groups, property).Skip(skip).Take(count).ToList();
             var groupsDto = new List<GroupDTO>();
-            for (int i=0; i<groups.Count; i++)
+            for (int i=0; i<groupsList.Count; i++)
             {
-                groupsDto.Add(new GroupDTO(groups[i]));
+                groupsDto.Add(new GroupDTO(groupsList[i]));
             }
             return groupsDto;
         }
 
         public IEnumerable<GroupDTO> GetAll
-            (string name = "",
+            (
+            string property,
+            int skip, 
+            int count,
+            string name = "",
             DateTime? startdate = null,
             DateTime? enddate = null,
             int? cityid = null,
@@ -86,7 +93,7 @@ namespace Ras.BLL.Implementation
                 filter = filter.Where(g => g.StageId == stageid);
             }
             var resultListOfGroup = new List<GroupDTO>();
-            var tempList = filter.ToList();
+            var tempList = OrderBy(filter, property).Skip(skip).Take(count).ToList();
             for (int i = 0; i < tempList.Count; i++)
             {
                 resultListOfGroup.Add(new GroupDTO(tempList[i]));
@@ -105,8 +112,8 @@ namespace Ras.BLL.Implementation
             {
                 var groupDto = new GroupDTO(group);
                 groupDto.City = GetCity(groupDto.CityId);
-                groupDto.AmountStudentForGraduate = getCountStudentForGraduate(groupDto.Id);
-                groupDto.AmountStudentForEnrollment = getCountStudentForEnrollment(groupDto.Id);
+                groupDto.AmountStudentForGraduate = GetCountStudentForGraduate(groupDto.Id);
+                groupDto.AmountStudentForEnrollment = GetCountStudentForEnrollment(groupDto.Id);
                 groupDto.AmountStudenActual = group.Students.Count;
                 return groupDto;
             }
@@ -157,16 +164,50 @@ namespace Ras.BLL.Implementation
             return city.FirstOrDefault().Trasnlation;
         }
 
-        private int getCountStudentForGraduate(int groupId)
+        private int GetCountStudentForGraduate(int groupId)
         {
             return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().StudentsPlannedToGraduate;
         }
 
-        private int getCountStudentForEnrollment(int groupId)
+        private int GetCountStudentForEnrollment(int groupId)
         {
             return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().StudentsPlannedToEnrollment;
         }
 
+        public static IOrderedQueryable<T> OrderBy<T>(
+            IQueryable<T> source,
+            string property)
+        {
+            return ApplyOrder<T>(source, property, "OrderBy");
+        }
 
+        static IOrderedQueryable<T> ApplyOrder<T>(
+            IQueryable<T> source,
+            string property,
+            string methodName)
+        {
+            string[] props = property.Split('.');
+            Type type = typeof(T);
+            ParameterExpression arg = Expression.Parameter(type, "x");
+            Expression expr = arg;
+            foreach (string prop in props)
+            {
+                // use reflection (not ComponentModel) to mirror LINQ
+                PropertyInfo pi = type.GetProperty(prop);
+                expr = Expression.Property(expr, pi);
+                type = pi.PropertyType;
+            }
+            Type delegateType = typeof(Func<,>).MakeGenericType(typeof(T), type);
+            LambdaExpression lambda = Expression.Lambda(delegateType, expr, arg);
+
+            object result = typeof(Queryable).GetMethods().Single(
+                    method => method.Name == methodName
+                            && method.IsGenericMethodDefinition
+                            && method.GetGenericArguments().Length == 2
+                            && method.GetParameters().Length == 2)
+                    .MakeGenericMethod(typeof(T), type)
+                    .Invoke(null, new object[] { source, lambda });
+            return (IOrderedQueryable<T>)result;
+        }
     }
 }

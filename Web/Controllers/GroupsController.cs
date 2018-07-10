@@ -6,9 +6,11 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Ras.BLL;
 using Ras.BLL.DTO;
+using Ras.Web.Models;
 
 namespace Web.Controllers
 {
+    [Route("api/[controller]")]
     public class GroupsController : Controller
     {
         IGroupService groupService;
@@ -22,19 +24,19 @@ namespace Web.Controllers
             this.groupDtoMapper = groupDtoMapper;
         }
 
-        public IActionResult Index()
+        [HttpGet("page={page}/count={count}/orderby={property}")]
+        public List<GroupInfoViewModel> GetListOfGroup(int page, int count, string property)
         {
-            return View();
-        }
-
-        public List<GroupInfoViewModel> GetListOfGroup()
-        {
-            var groups = groupMapper.Map<IEnumerable<GroupDTO>, List<GroupInfoViewModel>>(groupService.GetAll());
+            int skip = (page - 1) * count;
+            var groups = groupMapper.Map<IEnumerable<GroupDTO>, List<GroupInfoViewModel>>(groupService.GetAll(property, skip, count));
             return groups;
         }
 
-        [HttpPost]
+        [HttpGet("page={page}/count={count}/orderby={property}/name={name}")]
         public List<GroupInfoViewModel> GetListOfGroup(
+            int page, 
+            int count, 
+            string property,
             string name = "",
             DateTime? startdate = null,
             DateTime? enddate = null,
@@ -43,8 +45,9 @@ namespace Web.Controllers
             int? technologyid = null,
             int? stageid = null)
         {
-            var groups = groupMapper.Map<IEnumerable<GroupDTO>, List<GroupInfoViewModel>>(groupService.GetAll(name, startdate, enddate, cityid, directionid, technologyid, stageid));
-            return groups);
+            int skip = (page - 1) * count;
+            var groups = groupMapper.Map<IEnumerable<GroupDTO>, List<GroupInfoViewModel>>(groupService.GetAll(property, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid));
+            return groups;
         }
     }
 }
