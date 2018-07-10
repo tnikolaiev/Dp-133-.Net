@@ -6,14 +6,10 @@ namespace Ras.BLL.DTO
 {
     public class StudentDTO
     {
-        public StudentDTO()
-        {
-        }
-
+        public StudentDTO() { }
         public StudentDTO(Student dStudent)
         {
             Id = dStudent.Id;
-            UserDTO = new UserDTO(dStudent.User);
             GroupId = dStudent.GroupId ?? 0;
 
             var tests = new List<double?>
@@ -49,6 +45,7 @@ namespace Ras.BLL.DTO
             }
 
             UserId = (int) dStudent.UserId;
+            UserDTO = new UserDTO(dStudent.User);
             ExpertFeedbackDTO = dStudent.ExpertStudentFeedback is null ? new FeedbackDTO() : new FeedbackDTO(dStudent.ExpertStudentFeedback);
             TeacherFeedbackDTO = dStudent.TeacherStudentFeedback is null ? new FeedbackDTO() : new FeedbackDTO(dStudent.TeacherStudentFeedback);
             EnglishLevel = dStudent.EnglishLevel?.Name;
@@ -57,7 +54,7 @@ namespace Ras.BLL.DTO
 
         public int Id { get; set; }
         public UserDTO UserDTO { get; set; }
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
         public List<double?> Tests { get; set; }
         public double? FinalBase { get; set; }
         public double? FinalLang { get; set; }

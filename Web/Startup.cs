@@ -27,8 +27,9 @@ namespace Ras.Web
         {
             services.AddMvc();
             services.AddMvcCore().AddApiExplorer();
+            string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddTransient<IUnitOfWork>
-                (s => new EFUnitOfWork("Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;"));
+                (s => new EFUnitOfWork(connection));
 
             var sp = services.BuildServiceProvider();
             var uow = sp.GetService<IUnitOfWork>();

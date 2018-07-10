@@ -40,6 +40,6 @@ namespace Ras.Web.Models
 
         public int? EmployeeId { get; set; } // ApprovedBy
 
-        //public string PersonStatus { get; set; }      //is absent in DTO
+        //public string PersonStatus { get; set; }
     }
 }
