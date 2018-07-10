@@ -14,10 +14,10 @@ namespace Ras.BLL.Implementation.Proxies.Logging
             this.dictionariesStudentService = dictionariesStudentService;
         }
 
-        public DictionariesStudentDTO GetStudentDictionaries()
+        public DictionariesStudentDTO GetStudentDictionaries(int groupId)
         {
             logger.Log(LogLevel.Trace, $"Begin DictionariesStudentService.GetStudentDictionaries()");
-            var result = dictionariesStudentService.GetStudentDictionaries();
+            var result = dictionariesStudentService.GetStudentDictionaries(groupId);
             logger.Log(LogLevel.Trace, $"End DictionariesStudentService.GetStudentDictionaries()");
 
             return result;
