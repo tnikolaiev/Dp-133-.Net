@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Ras.Web.Models;
 using AutoMapper;
 using Ras.BLL.DTO;
+using Ras.Web.Filters;
 
 namespace Web.Controllers
 {
+    [ServiceFilter(typeof(LoggerFilterAttribute))]
+    [ServiceFilter(typeof(CustomExeptionFilterAttribute))]
     [Route("api/[controller]")]
     public class StudentsController : Controller
     {
