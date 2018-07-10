@@ -22,12 +22,12 @@ namespace Ras.DAL.Entity
         public string Name { get; set; }
         public int? CharacteristicId { get; set; }
 
-        public Characteristic Characteristic { get; set; }
-        public ICollection<Feedback> FeedbackActiveCommunicatorNavigation { get; set; }
-        public ICollection<Feedback> FeedbackGettingThingsDoneNavigation { get; set; }
-        public ICollection<Feedback> FeedbackLearningAbilityNavigation { get; set; }
-        public ICollection<Feedback> FeedbackPassionalInitiativeNavigation { get; set; }
-        public ICollection<Feedback> FeedbackTeamWorkNavigation { get; set; }
-        public ICollection<Feedback> FeedbackTechnicalCompetenceNavigation { get; set; }
+        public virtual Characteristic Characteristic { get; set; }
+        public virtual ICollection<Feedback> FeedbackActiveCommunicatorNavigation { get; set; }
+        public virtual ICollection<Feedback> FeedbackGettingThingsDoneNavigation { get; set; }
+        public virtual ICollection<Feedback> FeedbackLearningAbilityNavigation { get; set; }
+        public virtual ICollection<Feedback> FeedbackPassionalInitiativeNavigation { get; set; }
+        public virtual ICollection<Feedback> FeedbackTeamWorkNavigation { get; set; }
+        public virtual ICollection<Feedback> FeedbackTechnicalCompetenceNavigation { get; set; }
     }
 }

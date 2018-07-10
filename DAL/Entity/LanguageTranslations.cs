@@ -10,6 +10,6 @@
         public string Trasnlation { get; set; }
         public int? LanguageId { get; set; }
 
-        public Language Language { get; set; }
+        public virtual Language Language { get; set; }
     }
 }

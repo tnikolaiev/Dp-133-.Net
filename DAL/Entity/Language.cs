@@ -13,6 +13,6 @@ namespace Ras.DAL.Entity
         public string Local { get; set; }
         public string Name { get; set; }
 
-        public ICollection<LanguageTranslations> LanguageTranslations { get; set; }
+        public virtual ICollection<LanguageTranslations> LanguageTranslations { get; set; }
     }
 }

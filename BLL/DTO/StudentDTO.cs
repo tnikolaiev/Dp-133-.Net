@@ -6,12 +6,15 @@ namespace Ras.BLL.DTO
 {
     public class StudentDTO
     {
-        public StudentDTO() { }
+        public StudentDTO()
+        {
+        }
+
         public StudentDTO(Student dStudent)
         {
             Id = dStudent.Id;
             UserDTO = new UserDTO(dStudent.User);
-            GroupId = dStudent.Group.Id;
+            GroupId = dStudent.GroupId ?? 0;
 
             var tests = new List<double?>
             {

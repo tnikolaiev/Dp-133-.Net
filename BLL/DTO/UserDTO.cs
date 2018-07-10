@@ -10,7 +10,7 @@ namespace Ras.BLL.DTO
             Id = dUser.Id;
             Name = dUser.UserName;
             Email = dUser.Email;
-            FirtstName = dUser.FirstName;
+            FirsttName = dUser.FirstName;
             LastName = dUser.LastName;
             EnglishLevel = dUser.EngLevel;
             Phone = dUser.Phone;
@@ -21,7 +21,7 @@ namespace Ras.BLL.DTO
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string FirtstName { get; set; }
+        public string FirsttName { get; set; }
         public string LastName { get; set; }
         public int? EnglishLevel { get; set; }
         public string Phone { get; set; }

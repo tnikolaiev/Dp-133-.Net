@@ -13,6 +13,6 @@ namespace Ras.DAL.Entity
         public string Name { get; set; }
         public short Sort { get; set; }
 
-        public ICollection<Group> Academy { get; set; }
+        public virtual ICollection<Group> Academy { get; set; }
     }
 }

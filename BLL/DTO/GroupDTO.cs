@@ -13,15 +13,13 @@ namespace Ras.BLL.DTO
             this.CrmGroup = groupDb.CrmGroup;
             this.StartDate = groupDb.StartDate;
             this.EndDate = groupDb.EndDate;
-            //TODO: 
-            //this.City = groupDb
+            this.CityId = (int) groupDb.CityId;
             this.Direction = groupDb.Direction.Name;
             this.DirectionId = groupDb.Direction.DirectionId;
             this.Technology = groupDb.Technology.Name;
             this.TechnologyId = groupDb.Technology.TechnologyId;
             this.Stage = groupDb.Stage.Name;
             this.StageId = groupDb.Stage.StageId;
-
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -36,5 +34,10 @@ namespace Ras.BLL.DTO
         public string Technology { get; set; }
         public int StageId { get; set; }
         public string Stage { get; set; }
+        public int AmountStudentForGraduate { get; set; }
+        public int AmountStudentForEnrollment { get; set; }
+        public int AmountStudenActual { get; set; }
+        public int TeacherId { get; set; }
+        public int ExpertId { get; set; }
     }
 }
