@@ -16,6 +16,6 @@ namespace Ras.DAL.Entity
         public int CrmId { get; set; }
         public int? Ita { get; set; }
 
-        public ICollection<Group> Academy { get; set; }
+        public virtual ICollection<Group> Academy { get; set; }
     }
 }

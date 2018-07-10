@@ -1,12 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Ras.BLL;
+using Ras.BLL.Implementation;
+using Ras.BLL.Implementation.Proxies.Logging;
+using Ras.DAL;
+using Ras.DAL.Implementation;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Ras.Web
@@ -25,13 +27,55 @@ namespace Ras.Web
         {
             services.AddMvc();
             services.AddMvcCore().AddApiExplorer();
-            services.AddTransient<DAL.IUnitOfWork>
-                (s => new DAL.Implementation.EFUnitOfWork("Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;"));
+            services.AddTransient<IUnitOfWork>
+                (s => new EFUnitOfWork("Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;"));
+
             var sp = services.BuildServiceProvider();
-            var uow = sp.GetService<DAL.IUnitOfWork>();
-            services.AddTransient<BLL.IStudentService>(s => new BLL.Implementation.StudentService(uow));
-            services.AddTransient<BLL.IDictionariesGroupService>(s => new BLL.Implementation.DictionariesGroupService(uow));
+            var uow = sp.GetService<IUnitOfWork>();
+
+            services.AddTransient<IStudentService>(s =>
+            {
+                var ss = new StudentService(uow);
+                var logger = s.GetService<ILogger<StudentServiceLogProxy>>();
+
+                return new StudentServiceLogProxy(ss, logger);
+            });
+
+            services.AddTransient<IGroupService>(s =>
+            {
+                var gs = new GroupService(uow);
+                var logger = s.GetService<ILogger<GroupServiceLogProxy>>();
+
+                return new GroupServiceLogProxy(gs, logger);
+            });
+
+            services.AddTransient<IDictionariesGroupService>(s =>
+            {
+                var dgs = new DictionariesGroupService(uow);
+                var logger = s.GetService<ILogger<DictionariesGroupServiceLogProxy>>();
+
+                return new DictionariesGroupServiceLogProxy(dgs, logger);
+            });
+
+            services.AddTransient<IDictionariesStudentService>(s =>
+            {
+                var dss = new DictionariesStudentService(uow);
+                var logger = s.GetService<ILogger<DictionariesStudentServiceLogProxy>>();
+
+                return new DictionariesStudentServiceLogProxy(dss, logger);
+            });
+
+            services.AddTransient<IDictionariesFeedbackService>(s =>
+            {
+                var dfs = new DictionariesFeedbackService(uow);
+                var logger = s.GetService<ILogger<DictionariesFeedbackServiceLogProxy>>();
+
+                return new DictionariesFeedbackServiceLogProxy(dfs, logger);
+            });
+
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}));
+            services.AddScoped<Filters.LoggerFilterAttribute>();
+            services.AddScoped<Filters.CustomExeptionFilterAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,16 +99,16 @@ namespace Ras.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Swagger", action = "Index" });
+                    "spa-fallback",
+                    new {controller = "Swagger", action = "Index"});
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(c=>c.SwaggerEndpoint("/swagger/v1/swagger.json", "App"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "App"));
         }
     }
 }

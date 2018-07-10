@@ -37,12 +37,12 @@ namespace Ras.DAL.Entity
         public int? TeacherStudentFeedbackId { get; set; }
         public int? UserId { get; set; }
 
-        public Group Group { get; set; }
-        public Employee Employee { get; set; }
-        public EnglishLevel EnglishLevel { get; set; }
-        public Feedback ExpertStudentFeedback { get; set; }
-        public StudentStatus StudentStatus { get; set; }
-        public Feedback TeacherStudentFeedback { get; set; }
-        public User User { get; set; }
+        public virtual Group Group { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual EnglishLevel EnglishLevel { get; set; }
+        public virtual Feedback ExpertStudentFeedback { get; set; }
+        public virtual StudentStatus StudentStatus { get; set; }
+        public virtual Feedback TeacherStudentFeedback { get; set; }
+        public virtual User User { get; set; }
     }
 }

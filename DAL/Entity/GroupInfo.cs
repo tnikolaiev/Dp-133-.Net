@@ -13,7 +13,7 @@ namespace Ras.DAL.Entity
         public int AcademyId { get; set; }
         public int? ProfileId { get; set; }
 
-        public Group Academy { get; set; }
-        public ProfileInfo Profile { get; set; }
+        public virtual Group Academy { get; set; }
+        public virtual ProfileInfo Profile { get; set; }
     }
 }
