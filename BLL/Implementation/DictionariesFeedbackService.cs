@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Ras.BLL.DTO;
+using Ras.BLL.Enums;
 using Ras.DAL;
+using System.Linq;
 
 namespace Ras.BLL.Implementation
 {
@@ -26,32 +28,56 @@ namespace Ras.BLL.Implementation
 
         private Dictionary<int, string> GetAllLearningAbilities()
         {
-            return new Dictionary<int, string>();
+            var dictionary = unitOfWork.MarksRepository.All
+                .Where(d => d.CharacteristicId == (int)MarksEnum.LearningAbility)
+                .Select(d=>new { d.MarkId, d.Name})
+                .ToDictionary(d => d.MarkId, d => d.Name);
+            return dictionary;
         }
 
         private Dictionary<int, string> GetAllOverallTechnicalCompetences()
         {
-            return new Dictionary<int, string>();
+            var dictionary = unitOfWork.MarksRepository.All
+                .Where(d => d.CharacteristicId == (int)MarksEnum.OverallTechnicalCompetence)
+                .Select(d => new { d.MarkId, d.Name })
+                .ToDictionary(d => d.MarkId, d => d.Name);
+            return dictionary;
         }
 
         private Dictionary<int, string> GetAllProfessionalInitistives()
         {
-            return new Dictionary<int, string>();
+            var dictionary = unitOfWork.MarksRepository.All
+                .Where(d => d.CharacteristicId == (int)MarksEnum.PassionalInitiative)
+                .Select(d => new { d.MarkId, d.Name })
+                .ToDictionary(d => d.MarkId, d => d.Name);
+            return dictionary;
         }
 
         private Dictionary<int, string> GetAllTeamWorkStatuses()
         {
-            return new Dictionary<int, string>();
+            var dictionary = unitOfWork.MarksRepository.All
+                .Where(d => d.CharacteristicId == (int)MarksEnum.TeamWork)
+                .Select(d => new { d.MarkId, d.Name })
+                .ToDictionary(d => d.MarkId, d => d.Name);
+            return dictionary;
         }
 
         private Dictionary<int, string> GetAllGettingThingsDoneStatuses()
         {
-            return new Dictionary<int, string>();
+            var dictionary = unitOfWork.MarksRepository.All
+                .Where(d => d.CharacteristicId == (int)MarksEnum.GettingThingsDone)
+                .Select(d => new { d.MarkId, d.Name })
+                .ToDictionary(d => d.MarkId, d => d.Name);
+            return dictionary;
         }
 
         private Dictionary<int, string> GetAllActiveCommunicatorStatuses()
         {
-            return new Dictionary<int, string>();
+            var dictionary = unitOfWork.MarksRepository.All
+                .Where(d => d.CharacteristicId == (int)MarksEnum.ActiveCommunicator)
+                .Select(d => new { d.MarkId, d.Name })
+                .ToDictionary(d => d.MarkId, d => d.Name);
+            return dictionary;
         }
     }
 }
