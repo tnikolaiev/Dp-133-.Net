@@ -22,13 +22,13 @@ namespace Ras.DAL.Entity
         public int? PassionalInitiativeId { get; set; }
         public int? TeamWorkId { get; set; }
 
-        public Mark ActiveCommunicator { get; set; }
-        public Mark GettingThingsDone { get; set; }
-        public Mark LearningAbility { get; set; }
-        public Mark PassionalInitiative { get; set; }
-        public Mark TeamWork { get; set; }
-        public Mark TechnicalCompetence { get; set; }
-        public ICollection<Student> StudentsExpertStudentFeedback { get; set; }
-        public ICollection<Student> StudentsTeacherStudentFeedback { get; set; }
+        public virtual Mark ActiveCommunicator { get; set; }
+        public virtual Mark GettingThingsDone { get; set; }
+        public virtual Mark LearningAbility { get; set; }
+        public virtual Mark PassionalInitiative { get; set; }
+        public virtual Mark TeamWork { get; set; }
+        public virtual Mark TechnicalCompetence { get; set; }
+        public virtual ICollection<Student> StudentsExpertStudentFeedback { get; set; }
+        public virtual ICollection<Student> StudentsTeacherStudentFeedback { get; set; }
     }
 }

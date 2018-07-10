@@ -20,7 +20,9 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override Student Read(params object[] key)
         {
-            return db.Students.Find(key);
+            Student st = db.Students.FirstOrDefault(k => k.Id == (int)key[0]);
+
+            return st;
         }
 
         public override Student Update(Student item)

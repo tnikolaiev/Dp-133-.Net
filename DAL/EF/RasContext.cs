@@ -57,7 +57,8 @@ namespace Ras.DAL.EF
             if (!optionsBuilder.IsConfigured)
             {
                 //optionsBuilder.UseMySQL(@"Server=localhost;user id=ras;database = ss_ps_db;Pwd=1111;persistsecurityinfo = True;");
-                optionsBuilder.UseMySQL(connectionString);
+                optionsBuilder.UseLazyLoadingProxies();
+                optionsBuilder.UseMySql(connectionString);
             }
         }
 
