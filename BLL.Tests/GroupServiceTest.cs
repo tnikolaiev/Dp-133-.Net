@@ -134,7 +134,7 @@ namespace Ras.BLL.Tests
             }.AsQueryable());
 
             var service = new GroupService(mock.Object);
-            var result = service.GetAll();
+            var result = service.GetAll("Name", 0, 10);
 
             Assert.IsNotNull(result);
         }
@@ -173,7 +173,7 @@ namespace Ras.BLL.Tests
             }.AsQueryable());
 
             var service = new GroupService(mock.Object);
-            var result = service.GetAll(name: ".Net");
+            var result = service.GetAll("Name", 0, 10, name: ".Net");
 
             Assert.IsNotNull(result);
         }
@@ -205,7 +205,7 @@ namespace Ras.BLL.Tests
             }.AsQueryable());
 
             var service = new GroupService(mock.Object);
-            var result = service.GetAll(name: "Java").ToList();
+            var result = service.GetAll("Name", 0, 10, name: "Java").ToList();
 
             Assert.AreEqual(0, result.Count);
         }
