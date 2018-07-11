@@ -3,22 +3,23 @@ using Microsoft.AspNetCore.Mvc;
 using Ras.Web.Models;
 using AutoMapper;
 using Ras.BLL.DTO;
+using Ras.Web.Filters;
 
 namespace Web.Controllers
 {
+    [ServiceFilter(typeof(LoggerFilterAttribute))]
+    [ServiceFilter(typeof(CustomExeptionFilterAttribute))]
     [Route("api/[controller]")]
     public class StudentsController : Controller
     {
         private IStudentService studentService;
 
-        private readonly IMapper userDTOMapper;
         private readonly IMapper studentMapper;
         private readonly IMapper studentDTOMapper;
 
         public StudentsController(IStudentService studentService)
         {
             this.studentService = studentService;
-            userDTOMapper = new MapperConfiguration(cfg => cfg.CreateMap<UserViewModel, UserDTO>()).CreateMapper();
             studentMapper = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
             studentDTOMapper = new MapperConfiguration(cfg => cfg.CreateMap<StudentViewModel, StudentDTO>()).CreateMapper();
         }
@@ -39,7 +40,7 @@ namespace Web.Controllers
         {
             StudentDTO tempStudent = studentService.GetById(id);
             StudentViewModel student = studentMapper.Map<StudentDTO, StudentViewModel>(tempStudent);
-            student.FullName = tempStudent.UserDTO.FirsttName + " " + tempStudent.UserDTO.LastName;
+            student.FullName = tempStudent.UserDTO.FirstName + " " + tempStudent.UserDTO.LastName;
             
             return student;
         }
