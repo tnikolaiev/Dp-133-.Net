@@ -1,4 +1,5 @@
 using System;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ namespace Ras.Web
             {
                 logger.Debug("init main");
                 BuildWebHost(args).Run();
+                TelemetryConfiguration.Active.DisableTelemetry = true;
             }
             catch (Exception ex)
             {
@@ -38,7 +40,6 @@ namespace Ras.Web
                           .ConfigureLogging(logging =>
                           {
                               logging.ClearProviders();
-                              logging.SetMinimumLevel(LogLevel.Trace);
                           })
                           .UseNLog() // NLog: setup NLog for Dependency injection
                           .Build();
