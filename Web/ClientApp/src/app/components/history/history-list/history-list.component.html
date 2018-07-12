@@ -1,0 +1,16 @@
+<h1>History ...</h1>
+<p>This component demonstrates history data from the server.</p>
+
+<p *ngIf="!dataTable"><em>Loading...</em></p>
+
+<p-dataTable [value]="dataTable" scrollable="true" columnResizeMode="expand">
+  <p-column field="academyName" header="Group name"></p-column>
+  <p-column field="nameForSite" header="Name for site"></p-column>
+  <p-column field="location" header="Location"></p-column>
+  <p-column field="startDate" header="Start Date"></p-column>
+  <p-column field="endDate" header="End Date"></p-column>
+  <p-column field="stage" header="Status"></p-column>
+  <p-column field="direction" header="Common Direction"></p-column>
+  <p-column field="modifyDate" header="Modify Date"></p-column>
+  <p-column field="modifyBy" header="Modify by"></p-column>
+</p-dataTable>
