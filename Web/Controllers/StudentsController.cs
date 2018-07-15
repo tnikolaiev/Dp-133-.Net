@@ -14,12 +14,14 @@ namespace Web.Controllers
     {
         private IStudentService studentService;
 
+        private readonly IMapper userDTOMapper;
         private readonly IMapper studentMapper;
         private readonly IMapper studentDTOMapper;
 
         public StudentsController(IStudentService studentService)
         {
             this.studentService = studentService;
+            userDTOMapper = new MapperConfiguration(cfg => cfg.CreateMap<UserViewModel, UserDTO>()).CreateMapper();
             studentMapper = new MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
             studentDTOMapper = new MapperConfiguration(cfg => cfg.CreateMap<StudentViewModel, StudentDTO>()).CreateMapper();
         }

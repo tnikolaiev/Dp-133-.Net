@@ -3,22 +3,17 @@ using Ras.BLL.DTO;
 
 namespace Ras.BLL.Implementation.Proxies.Logging
 {
-    public class DictionariesFeedbackServiceLogProxy : IDictionariesFeedbackService
+    public class DictionariesFeedbackServiceLogProxy : ServiceLogProxy<IDictionariesFeedbackService>, IDictionariesFeedbackService
     {
-        private readonly IDictionariesFeedbackService dictionariesFeedbackService;
-        private readonly ILogger logger;
-
-        public DictionariesFeedbackServiceLogProxy(IDictionariesFeedbackService dictionariesFeedbackService, ILogger logger)
+        public DictionariesFeedbackServiceLogProxy(IDictionariesFeedbackService dictionariesFeedbackService, ILogger logger): base(dictionariesFeedbackService,logger)
         {
-            this.logger = logger;
-            this.dictionariesFeedbackService = dictionariesFeedbackService;
         }
 
         public DictionariesFeedbackDTO GetFeedbackDictionaries()
         {
-            logger.Log(LogLevel.Trace, $"Begin DictionariesFeedbackService.GetFeedbackDictionaries()");
-            var result = dictionariesFeedbackService.GetFeedbackDictionaries();
-            logger.Log(LogLevel.Trace, $"End DictionariesFeedbackService.GetFeedbackDictionaries()");
+            LogBegin();
+            var result = service.GetFeedbackDictionaries();
+            LogEnd();
 
             return result;
         }

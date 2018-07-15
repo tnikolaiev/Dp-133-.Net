@@ -1,0 +1,21 @@
+<p-tabView >
+
+  <p-tabPanel header="Students">
+  </p-tabPanel>
+
+  <p-tabPanel header="Employee">
+  </p-tabPanel>
+
+  <p-tabPanel header="History" [selected]="true">
+    <app-history-list [groupId]="academyId" #showHistory></app-history-list>
+  </p-tabPanel>
+
+  <p-tabPanel header="Feedback" >
+  </p-tabPanel>
+
+  <p-tabPanel header="Tests">
+  </p-tabPanel>
+
+</p-tabView>
+
+
