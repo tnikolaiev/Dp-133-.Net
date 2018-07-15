@@ -140,11 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">
-      <Project>{c232caeb-f8fa-4778-be3e-00bd8628d033}</Project>
+      <Project>{72636588-f1ec-4564-ba1c-c6f4e848a51a}</Project>
       <Name>BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{463b7511-6f7e-48e0-ad09-d0d583e0cf55}</Project>
+      <Project>{602087e4-bd8f-4303-8c57-1a4e9a3d8167}</Project>
       <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
