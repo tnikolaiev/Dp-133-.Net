@@ -1,18 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Ras.BLL;
 using Ras.BLL.DTO;
-using Ras.BLL.Implementation;
-using Ras.BLL.Implementation.Proxies.Logging;
-using Ras.DAL;
-using Ras.DAL.Implementation;
-using Ras.Infastructure.Mapping;
+using Ras.DAL.Entity;
+using Ras.Infastructure;
+using Ras.Web.Filters;
 using Ras.Web.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -36,61 +32,18 @@ namespace Ras.Web
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 
-            services.AddTransient<IUnitOfWork>
-                (s => new EFUnitOfWork("Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;"));
+            ServiceBinder.BindServices(
+                services, "Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;");
 
-            var sp = services.BuildServiceProvider();
-            var uow = sp.GetService<IUnitOfWork>();
+            Bootstrapper.Execute(services);
 
-            Ras.BLL.Bootstrapper.Execute(services);
+            services.AddScoped<LoggerFilterAttribute>();
+            services.AddScoped<CustomExeptionFilterAttribute>();
 
-            services.AddTransient<IStudentService>(s =>
-            {
-                var ss = new StudentService(uow);
-                var logger = s.GetService<ILogger<StudentServiceLogProxy>>();
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}));
 
-                return new StudentServiceLogProxy(ss, logger);
-            });
-
-            services.AddTransient<IGroupService>(s =>
-            {
-                var gs = new GroupService(uow);
-                var logger = s.GetService<ILogger<GroupServiceLogProxy>>();
-
-                return new GroupServiceLogProxy(gs, logger);
-            });
-
-            services.AddTransient<IDictionariesGroupService>(s =>
-            {
-                var dgs = new DictionariesGroupService(uow);
-                var logger = s.GetService<ILogger<DictionariesGroupServiceLogProxy>>();
-
-                return new DictionariesGroupServiceLogProxy(dgs, logger);
-            });
-
-            services.AddTransient<IDictionariesStudentService>(s =>
-            {
-                var dss = new DictionariesStudentService(uow);
-                var logger = s.GetService<ILogger<DictionariesStudentServiceLogProxy>>();
-
-                return new DictionariesStudentServiceLogProxy(dss, logger);
-            });
-
-            services.AddTransient<IDictionariesFeedbackService>(s =>
-            {
-                var dfs = new DictionariesFeedbackService(uow);
-                var logger = s.GetService<ILogger<DictionariesFeedbackServiceLogProxy>>();
-
-                return new DictionariesFeedbackServiceLogProxy(dfs, logger);
-            });
-
-            services.AddScoped<Ras.Web.Filters.LoggerFilterAttribute>();
-            services.AddScoped<Ras.Web.Filters.CustomExeptionFilterAttribute>();
-
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" }));
-
-            Ras.Infastructure.MappingBootstrapper.RegisterMapper<Ras.DAL.Entity.History, GroupHistoryDTO>(services);
-            Ras.Infastructure.MappingBootstrapper.RegisterMapper<GroupHistoryDTO, GroupHistoryViewModel>(services);
+            MappingBootstrapper.RegisterMapper<History, GroupHistoryDTO>(services);
+            MappingBootstrapper.RegisterMapper<GroupHistoryDTO, GroupHistoryViewModel>(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,8 +70,8 @@ namespace Ras.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    "default",
+                    "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
@@ -130,7 +83,7 @@ namespace Ras.Web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer("start");
                 }
             });
         }

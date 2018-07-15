@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Logging;
 
-namespace Ras.BLL.Implementation.Proxies.Logging
+namespace Ras.Infastructure.BLL.Proxies.Logging
 {
-    public abstract class ServiceLogProxy<TService> 
+    public abstract class ServiceLogProxy<TService>
     {
         protected readonly ILogger logger;
         protected readonly TService service;
@@ -23,7 +23,7 @@ namespace Ras.BLL.Implementation.Proxies.Logging
 
             this.service = service;
             this.logger = logger;
-            this.serviceName = GetType().Name.Replace("LogProxy", "");
+            serviceName = GetType().Name.Replace("LogProxy", "");
         }
 
         protected void LogBegin(params object[] arguments)
@@ -46,6 +46,7 @@ namespace Ras.BLL.Implementation.Proxies.Logging
             {
                 return string.Empty;
             }
+
             // TODO change new StackFrame(2) 
             var parametersNames = new StackFrame(2).GetMethod().GetParameters().Select(p => p.Name).ToList();
 

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Ras.BLL;
 using Ras.BLL.DTO;
-using System;
-namespace Ras.BLL.Implementation.Proxies.Logging
+using Ras.BLL.Implementation;
+
+namespace Ras.Infastructure.BLL.Proxies.Logging
 {
     public class StudentServiceLogProxy : ServiceLogProxy<IStudentService>, IStudentService
     {

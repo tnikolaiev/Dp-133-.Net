@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Ras.BLL;
 using Ras.BLL.DTO;
 
-namespace Ras.BLL.Implementation.Proxies.Logging
+namespace Ras.Infastructure.BLL.Proxies.Logging
 {
     public class GroupServiceLogProxy : ServiceLogProxy<IGroupService>, IGroupService
     {
@@ -53,7 +54,10 @@ namespace Ras.BLL.Implementation.Proxies.Logging
         }
 
         public IEnumerable<GroupDTO> GetAll
-            (string orderby, int skip, int count, string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid)
+        (
+            string orderby, int skip, int count, string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid,
+            int? technologyid, int? stageid
+        )
         {
             LogBegin(orderby, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid);
             var result = service.GetAll(orderby, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid);

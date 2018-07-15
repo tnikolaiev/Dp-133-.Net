@@ -1,11 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
+using Ras.BLL;
 using Ras.BLL.DTO;
 
-namespace Ras.BLL.Implementation.Proxies.Logging
+namespace Ras.Infastructure.BLL.Proxies.Logging
 {
     public class DictionariesStudentServiceLogProxy : ServiceLogProxy<IDictionariesStudentService>, IDictionariesStudentService
     {
-        public DictionariesStudentServiceLogProxy(IDictionariesStudentService dictionariesStudentService, ILogger logger) : base(dictionariesStudentService, logger)
+        public DictionariesStudentServiceLogProxy
+            (IDictionariesStudentService dictionariesStudentService, ILogger logger)
+            : base(dictionariesStudentService, logger)
         {
         }
 

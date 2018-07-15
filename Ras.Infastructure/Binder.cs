@@ -1,55 +1,42 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Text;
-//using Microsoft.Extensions.DependencyInjection;
-//using Microsoft.Extensions.Logging;
-//using Ras.DAL;
-//using Ras.DAL.Implementation;
-//using Ras.BLL;
-//using Ras.BLL.Implementation;
-//using Ras.BLL.Implementation.Proxies.Logging;
-//using System.Reflection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Ras.BLL;
+using Ras.BLL.Implementation;
+using Ras.DAL;
+using Ras.DAL.Implementation;
+using Ras.Infastructure.BLL.Proxies.Logging;
 
-//namespace Ras.Infastructure
-//{
-//    public static class Binder
-//    {
-//        public static void BindServices(IServiceCollection services, string connectionString)
-//        {
-//            services.AddTransient<IUnitOfWork>
-//                (s => new EFUnitOfWork(connectionString));
+namespace Ras.Infastructure
+{
+    public static class ServiceBinder
+    {
+        public static void BindServices(IServiceCollection services, string connectionString)
+        {
+            services.AddTransient<IUnitOfWork>
+                (s => new EFUnitOfWork(connectionString));
 
-//            var sp = services.BuildServiceProvider();
-//            var uow = sp.GetService<IUnitOfWork>();
+            BindServiceWithLoggingProxy<IStudentService, StudentService, StudentServiceLogProxy>(services);
+            BindServiceWithLoggingProxy<IGroupService, GroupService, GroupServiceLogProxy>(services);
+            BindServiceWithLoggingProxy<IDictionariesFeedbackService, DictionariesFeedbackService, DictionariesFeedbackServiceLogProxy>(services);
+            BindServiceWithLoggingProxy<IDictionariesGroupService, DictionariesGroupService, DictionariesGroupServiceLogProxy>(services);
+            BindServiceWithLoggingProxy<IDictionariesStudentService, DictionariesStudentService, DictionariesStudentServiceLogProxy>(services);
+        }
 
-//            services.AddTransient<IStudentService>(s =>
-//            {
-//                var ss = new StudentService(uow);
-//                var logger = s.GetService<ILogger<StudentServiceLogProxy>>();
+        private static void BindServiceWithLoggingProxy<TService, TImplementation, TLogProxy>(IServiceCollection services)
+            where TService : class
+            where TImplementation : Service, TService
+            where TLogProxy : ServiceLogProxy<TService>, TService
+        {
+            var sp = services.BuildServiceProvider();
+            var uow = sp.GetService<IUnitOfWork>();
 
-//                return new StudentServiceLogProxy(ss, logger);
-//            });
+            var realService = (TService) Activator.CreateInstance(typeof(TImplementation), uow);
+            var logger = sp.GetService<ILogger<TImplementation>>();
 
+            var proxy = (TLogProxy) Activator.CreateInstance(typeof(TLogProxy), realService, logger);
 
-//            BindService<IStudentService,>
-//        }
-
-//        private static void BindService<TService, TImplementation, TProxy1>(IServiceCollection services)
-//            where TImplementation : Service, TService
-//        where TProxy1 : 
-//        {
-//            var sp = services.BuildServiceProvider();
-//            var uow = sp.GetService<IUnitOfWork>();
-
-//            var ss = (TService) Activator.CreateInstance(typeof(TImplementation), uow);
-//            var logger = sp.GetService<ILogger<TImplementation>>();
-
-//            Activator.CreateInstance(typeof())
-
-//            var logProxy = new StudentServiceLogProxy(ss, logger);
-
-
-
-//        }
-//    }
-//}
+            services.AddTransient<TService>(x => proxy);
+        }
+    }
+}
