@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
-    <ProjectReference Include="..\Ras.Infastructure\Ras.Infastructure.csproj" />
   </ItemGroup>
 
 </Project>

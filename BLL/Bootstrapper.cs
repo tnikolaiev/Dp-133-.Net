@@ -7,7 +7,7 @@ namespace Ras.BLL
     {
         public static void Execute(IServiceCollection services)
         {
-            services.AddTransient<IGroupHistoryService, GroupHistoryService>();
+            //services.AddTransient<IGroupHistoryService, GroupHistoryService>();
         }
     }
 }

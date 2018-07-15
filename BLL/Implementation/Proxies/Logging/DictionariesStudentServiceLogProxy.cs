@@ -3,22 +3,17 @@ using Ras.BLL.DTO;
 
 namespace Ras.BLL.Implementation.Proxies.Logging
 {
-    public class DictionariesStudentServiceLogProxy : IDictionariesStudentService
+    public class DictionariesStudentServiceLogProxy : ServiceLogProxy<IDictionariesStudentService>, IDictionariesStudentService
     {
-        private readonly IDictionariesStudentService dictionariesStudentService;
-        private readonly ILogger logger;
-
-        public DictionariesStudentServiceLogProxy(IDictionariesStudentService dictionariesStudentService, ILogger logger)
+        public DictionariesStudentServiceLogProxy(IDictionariesStudentService dictionariesStudentService, ILogger logger) : base(dictionariesStudentService, logger)
         {
-            this.logger = logger;
-            this.dictionariesStudentService = dictionariesStudentService;
         }
 
         public DictionariesStudentDTO GetStudentDictionaries(int groupId)
         {
-            logger.Log(LogLevel.Trace, $"Begin DictionariesStudentService.GetStudentDictionaries()");
-            var result = dictionariesStudentService.GetStudentDictionaries(groupId);
-            logger.Log(LogLevel.Trace, $"End DictionariesStudentService.GetStudentDictionaries()");
+            LogBegin(groupId);
+            var result = service.GetStudentDictionaries(groupId);
+            LogEnd(groupId);
 
             return result;
         }

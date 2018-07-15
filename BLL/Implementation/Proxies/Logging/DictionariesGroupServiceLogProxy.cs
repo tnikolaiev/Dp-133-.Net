@@ -3,22 +3,18 @@ using Ras.BLL.DTO;
 
 namespace Ras.BLL.Implementation.Proxies.Logging
 {
-    public class DictionariesGroupServiceLogProxy : IDictionariesGroupService
+    public class DictionariesGroupServiceLogProxy : ServiceLogProxy<IDictionariesGroupService>, IDictionariesGroupService
     {
-        private readonly IDictionariesGroupService dictionariesGroupService;
-        private readonly ILogger logger;
 
-        public DictionariesGroupServiceLogProxy(IDictionariesGroupService dictionariesGroupService, ILogger logger)
+        public DictionariesGroupServiceLogProxy(IDictionariesGroupService dictionariesGroupService, ILogger logger) : base(dictionariesGroupService, logger)
         {
-            this.logger = logger;
-            this.dictionariesGroupService = dictionariesGroupService;
         }
 
         public DictionariesGroupDTO GetGroupInfoDictionaries()
         {
-            logger.Log(LogLevel.Trace, $"Begin DictionariesGroupService.GetGroupInfoDictionaries()");
-            var result = dictionariesGroupService.GetGroupInfoDictionaries();
-            logger.Log(LogLevel.Trace, $"End DictionariesGroupService.GetGroupInfoDictionaries()");
+            LogBegin();
+            var result = service.GetGroupInfoDictionaries();
+            LogEnd();
 
             return result;
         }
