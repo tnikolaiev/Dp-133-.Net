@@ -15,12 +15,19 @@ namespace Ras.Infastructure
         {
             services.AddTransient<IUnitOfWork>
                 (s => new EFUnitOfWork(connectionString));
-
+#if DEBUG
             BindServiceWithLoggingProxy<IStudentService, StudentService, StudentServiceLogProxy>(services);
             BindServiceWithLoggingProxy<IGroupService, GroupService, GroupServiceLogProxy>(services);
             BindServiceWithLoggingProxy<IDictionariesFeedbackService, DictionariesFeedbackService, DictionariesFeedbackServiceLogProxy>(services);
             BindServiceWithLoggingProxy<IDictionariesGroupService, DictionariesGroupService, DictionariesGroupServiceLogProxy>(services);
             BindServiceWithLoggingProxy<IDictionariesStudentService, DictionariesStudentService, DictionariesStudentServiceLogProxy>(services);
+#else
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IDictionariesFeedbackService, DictionariesFeedbackService>();
+            services.AddTransient<IDictionariesGroupService, DictionariesGroupService>();
+            services.AddTransient<IDictionariesStudentService, DictionariesStudentService>();
+#endif
         }
 
         private static void BindServiceWithLoggingProxy<TService, TImplementation, TLogProxy>(IServiceCollection services)
