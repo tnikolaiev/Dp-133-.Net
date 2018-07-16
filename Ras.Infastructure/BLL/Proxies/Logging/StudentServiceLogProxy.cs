@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Ras.BLL;
 using Ras.BLL.DTO;
+using Ras.BLL.Enums;
 using Ras.BLL.Implementation;
 
 namespace Ras.Infastructure.BLL.Proxies.Logging

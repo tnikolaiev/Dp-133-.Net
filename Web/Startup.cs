@@ -35,8 +35,6 @@ namespace Ras.Web
             ServiceBinder.BindServices(
                 services, "Server = localhost;user id = ras;database = ss_ps_db;Pwd = 1111;persistsecurityinfo = True;");
 
-            Bootstrapper.Execute(services);
-
             services.AddScoped<LoggerFilterAttribute>();
             services.AddScoped<CustomExeptionFilterAttribute>();
 

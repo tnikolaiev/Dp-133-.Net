@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            GroupInfoTest item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.GroupInfoTests.Remove(item);

@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Ras.DAL.Entity;
-using Ras.DAL.EF;
 
 namespace Ras.DAL
 {
+    /// <summary>
+    ///     Container for repositories.
+    /// </summary>
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Group> GroupsRepository { get; }

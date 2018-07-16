@@ -25,7 +25,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            Group item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.Groups.Remove(item);

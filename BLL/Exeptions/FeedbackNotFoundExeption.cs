@@ -6,7 +6,6 @@ namespace Ras.BLL.Exeptions
     {
         public FeedbackNotFoundExeption() : base("Feedback with such id does not found.")
         {
-
         }
     }
 }

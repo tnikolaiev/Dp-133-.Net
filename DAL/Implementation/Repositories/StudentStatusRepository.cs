@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            StudentStatus item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.StudentStatuses.Remove(item);

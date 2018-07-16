@@ -125,6 +125,7 @@ namespace Ras.BLL.Implementation
             {
                 groupDto.City = GetCity((int) groupDto.CityId);
             }
+
             groupDto.Name = GetNameGroup(groupDto.Id);
             groupDto.AmountStudentForGraduate = GetCountStudentForGraduate(groupDto.Id);
             groupDto.AmountStudentForEnrollment = GetCountStudentForEnrollment(groupDto.Id);
@@ -192,6 +193,7 @@ namespace Ras.BLL.Implementation
             city = city.Where(c => c.ItemId == Id);
             return city.FirstOrDefault().Trasnlation;
         }
+
         private string GetNameGroup(int groupId)
         {
             return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().GroupName;

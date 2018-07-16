@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            PersonalStatus item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.PersonalStatuses.Remove(item);

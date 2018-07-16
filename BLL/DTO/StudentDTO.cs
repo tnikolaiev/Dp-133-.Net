@@ -6,7 +6,10 @@ namespace Ras.BLL.DTO
 {
     public class StudentDTO
     {
-        public StudentDTO() { }
+        public StudentDTO()
+        {
+        }
+
         public StudentDTO(Student dStudent)
         {
             Id = dStudent.Id;

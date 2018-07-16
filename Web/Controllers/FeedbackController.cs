@@ -10,6 +10,7 @@ using Ras.BLL.DTO;
 using Ras.BLL.Implementation;
 using Ras.Web.Filters;
 using Microsoft.Extensions.Logging;
+using Ras.BLL.Enums;
 
 namespace Web.Controllers
 {

@@ -4,7 +4,10 @@ namespace Ras.BLL.DTO
 {
     public class UserDTO
     {
-        public UserDTO() { }
+        public UserDTO()
+        {
+        }
+
         public UserDTO(User dUser)
         {
             Id = dUser.Id;

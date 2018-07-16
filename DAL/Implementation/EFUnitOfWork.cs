@@ -1,46 +1,55 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using Ras.DAL.EF;
 using Ras.DAL.Entity;
 using Ras.DAL.Implementation.Repositories;
 
 namespace Ras.DAL.Implementation
 {
+    /// <summary>
+    ///     Contains repositories. Each repository will be created on first access.
+    /// </summary>
     public class EFUnitOfWork : IUnitOfWork
     {
-        private RasContext db;
-        private GroupRepository groupRepository;
-        private GroupPaymentStatusRepository groupPaymentStatusRepository;
-        private ProfileInfoRepository profileInfoRepository;
+        private readonly RasContext db;
+
+        private CharacteristicRepository characteristicRepository;
+        private DirectionRepository directionRepository;
+        private EmployeeRepository employeeRepository;
+        private EnglishLevelRepository englishLevelRepository;
+        private FeedbackRepository feedbackRepository;
         private GroupInfoRepository groupInfoRepository;
         private GroupInfoTeacherRepository groupInfoTeacherRepository;
-        private TeacherTypeRepository teacherTypeRepository;
-        private MarkRepository markRepository;
-        private CharacteristicRepository characteristicRepository;
-        private FeedbackRepository feedbackRepository;
-        private GroupStageRepository groupStageRepository;
         private GroupInfoTestRepository groupInfoTestRepository;
+        private GroupPaymentStatusRepository groupPaymentStatusRepository;
+        private GroupRepository groupRepository;
+        private GroupStageRepository groupStageRepository;
+        private HistoryRepository historyRepository;
+        private LanguageTranslationsRepository languageTranslationsRepository;
+        private MarkRepository markRepository;
+        private PersonalStatusRepository personalStatusRepository;
+        private ProfileInfoRepository profileInfoRepository;
         private StudentRepository studentRepository;
         private StudentStatusRepository studentStatusRepository;
-        private PersonalStatusRepository personalStatusRepository;
-        private EnglishLevelRepository englishLevelRepository;
-        private EmployeeRepository employeeRepository;
-        private UserRepository userRepository;
-        private LanguageTranslationsRepository languageTranslationsRepository;
-        private DirectionRepository directionRepository;
+        private TeacherTypeRepository teacherTypeRepository;
         private TechnologyRepository technologyRepository;
-        private HistoryRepository historyRepository;
+        private UserRepository userRepository;
+
+        private bool disposed;
 
         public EFUnitOfWork(string connectionString)
         {
             db = new RasContext(connectionString);
         }
+
         public IRepository<Group> GroupsRepository
         {
             get
             {
                 if (groupRepository == null)
+                {
                     groupRepository = new GroupRepository(db);
+                }
+
                 return groupRepository;
             }
         }
@@ -50,7 +59,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (groupPaymentStatusRepository == null)
+                {
                     groupPaymentStatusRepository = new GroupPaymentStatusRepository(db);
+                }
+
                 return groupPaymentStatusRepository;
             }
         }
@@ -60,7 +72,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (profileInfoRepository == null)
+                {
                     profileInfoRepository = new ProfileInfoRepository(db);
+                }
+
                 return profileInfoRepository;
             }
         }
@@ -70,7 +85,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (groupInfoRepository == null)
+                {
                     groupInfoRepository = new GroupInfoRepository(db);
+                }
+
                 return groupInfoRepository;
             }
         }
@@ -80,7 +98,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (groupInfoTeacherRepository == null)
+                {
                     groupInfoTeacherRepository = new GroupInfoTeacherRepository(db);
+                }
+
                 return groupInfoTeacherRepository;
             }
         }
@@ -90,7 +111,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (teacherTypeRepository == null)
+                {
                     teacherTypeRepository = new TeacherTypeRepository(db);
+                }
+
                 return teacherTypeRepository;
             }
         }
@@ -100,7 +124,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (markRepository == null)
+                {
                     markRepository = new MarkRepository(db);
+                }
+
                 return markRepository;
             }
         }
@@ -110,7 +137,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (characteristicRepository == null)
+                {
                     characteristicRepository = new CharacteristicRepository(db);
+                }
+
                 return characteristicRepository;
             }
         }
@@ -120,7 +150,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (feedbackRepository == null)
+                {
                     feedbackRepository = new FeedbackRepository(db);
+                }
+
                 return feedbackRepository;
             }
         }
@@ -130,7 +163,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (groupStageRepository == null)
+                {
                     groupStageRepository = new GroupStageRepository(db);
+                }
+
                 return groupStageRepository;
             }
         }
@@ -140,7 +176,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (groupInfoTestRepository == null)
+                {
                     groupInfoTestRepository = new GroupInfoTestRepository(db);
+                }
+
                 return groupInfoTestRepository;
             }
         }
@@ -150,7 +189,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (studentRepository == null)
+                {
                     studentRepository = new StudentRepository(db);
+                }
+
                 return studentRepository;
             }
         }
@@ -160,7 +202,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (studentStatusRepository == null)
+                {
                     studentStatusRepository = new StudentStatusRepository(db);
+                }
+
                 return studentStatusRepository;
             }
         }
@@ -170,16 +215,23 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (personalStatusRepository == null)
+                {
                     personalStatusRepository = new PersonalStatusRepository(db);
+                }
+
                 return personalStatusRepository;
             }
         }
+
         public IRepository<EnglishLevel> EnglishLevelsRepository
         {
             get
             {
                 if (englishLevelRepository == null)
+                {
                     englishLevelRepository = new EnglishLevelRepository(db);
+                }
+
                 return englishLevelRepository;
             }
         }
@@ -189,7 +241,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (employeeRepository == null)
+                {
                     employeeRepository = new EmployeeRepository(db);
+                }
+
                 return employeeRepository;
             }
         }
@@ -199,7 +254,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (userRepository == null)
+                {
                     userRepository = new UserRepository(db);
+                }
+
                 return userRepository;
             }
         }
@@ -209,7 +267,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (languageTranslationsRepository == null)
+                {
                     languageTranslationsRepository = new LanguageTranslationsRepository(db);
+                }
+
                 return languageTranslationsRepository;
             }
         }
@@ -219,7 +280,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (directionRepository == null)
+                {
                     directionRepository = new DirectionRepository(db);
+                }
+
                 return directionRepository;
             }
         }
@@ -229,7 +293,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (technologyRepository == null)
+                {
                     technologyRepository = new TechnologyRepository(db);
+                }
+
                 return technologyRepository;
             }
         }
@@ -239,7 +306,10 @@ namespace Ras.DAL.Implementation
             get
             {
                 if (historyRepository == null)
+                {
                     historyRepository = new HistoryRepository(db);
+                }
+
                 return historyRepository;
             }
         }
@@ -249,24 +319,23 @@ namespace Ras.DAL.Implementation
             db.SaveChanges();
         }
 
-        private bool disposed = false;
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     db.Dispose();
                 }
-                this.disposed = true;
-            }
-        }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+                disposed = true;
+            }
         }
     }
 }
