@@ -18,6 +18,8 @@ import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotFoundErrorComponent } from './components/error/not-found-error/not-found-error.component';
+import { StudentsService } from './services/students/students.service';
+import { StudentsComponent } from './components/students/students.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,11 @@ import { NotFoundErrorComponent } from './components/error/not-found-error/not-f
     , HeaderComponent
     , NavTabsComponent
     , HistoryListComponent
+    , StudentsComponent
     , ErrorComponent
     , NotFoundErrorComponent
     , ViewAcademiesNgxComponent
+    
   ],
   imports: [
       BrowserModule.withServerTransition({ appId: 'ng-cli-universal' })
@@ -36,7 +40,7 @@ import { NotFoundErrorComponent } from './components/error/not-found-error/not-f
     , FormsModule
     , PrimeNgModules
   ],
-  providers: [HistoryService, AcademyService],
+  providers: [HistoryService, AcademyService, StudentsService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

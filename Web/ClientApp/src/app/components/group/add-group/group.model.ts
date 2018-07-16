@@ -2,7 +2,7 @@ import {FormGroup} from '@angular/forms';
 
 export class Group {
 
-  academyId: number = null;
+  groupId: number = null;
   groupInfoId: number = null;
   grName: string = null;
   nameForSite: string = null;
@@ -35,7 +35,7 @@ export class Group {
   }
 
   setDataToGroup(group: any){
-    this.academyId = group.academyId;
+    this.groupId = group.groupId;
     this.groupInfoId = group.groupInfoId;
     this.grName = group.grName;
     this.nameForSite = group.nameForSite;

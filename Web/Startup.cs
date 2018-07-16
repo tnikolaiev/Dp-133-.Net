@@ -40,9 +40,11 @@ namespace Ras.Web
             services.AddScoped<LoggerFilterAttribute>();
             services.AddScoped<CustomExeptionFilterAttribute>();
 
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info {Title = "My API", Version = "v1"}));
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" }));
 
             MappingBootstrapper.RegisterMapper<History, GroupHistoryDTO>(services);
+            MappingBootstrapper.RegisterMapper<StudentDTO, StudentViewModel>(services);
+            MappingBootstrapper.RegisterMapper<StudentViewModel, StudentDTO>(services);
             MappingBootstrapper.RegisterMapper<GroupHistoryDTO, GroupHistoryViewModel>(services);
         }
 
