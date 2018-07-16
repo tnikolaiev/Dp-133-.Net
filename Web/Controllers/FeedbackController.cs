@@ -97,18 +97,13 @@ namespace Web.Controllers
             return Ok(feedback);
         }
 
-        [HttpGet("teacherInGroup/{groupId}")]
-        public IActionResult GetAllTeacherFeedBacksInGroup(int groupId)
+        [HttpGet("inGroup/{groupId}")]
+        public IActionResult GetInGroup(int groupId)
         {
-            var feedbacks = feedbackWithDescriptionMapper.Map<IEnumerable<FeedbackDTO>, IEnumerable<FeedbackViewModel>>(studentService.GetFeedBacksInGroup(groupId, TypeOfFeedBack.teacher));
-            return Ok(feedbacks);
-        }
-
-        [HttpGet("expertInGroup/{groupId}")]
-        public IActionResult GetAllExpertFeedBacksInGroup(int groupId)
-        {
-            var feedbacks = feedbackWithDescriptionMapper.Map<IEnumerable<FeedbackDTO>, IEnumerable<FeedbackViewModel>>(studentService.GetFeedBacksInGroup(groupId, TypeOfFeedBack.expert));
-            return Ok(feedbacks);
+            var teacherFeedbacks = feedbackWithDescriptionMapper.Map<IEnumerable<FeedbackDTO>, IEnumerable<FeedbackViewModel>>(studentService.GetFeedBacksInGroup(groupId, TypeOfFeedBack.teacher));
+            var expertfeedbacks = feedbackWithDescriptionMapper.Map<IEnumerable<FeedbackDTO>, IEnumerable<FeedbackViewModel>>(studentService.GetFeedBacksInGroup(groupId, TypeOfFeedBack.expert));
+            var result = teacherFeedbacks.Zip(expertfeedbacks, (tf, ef) => new { teacherFeedback = tf, expertFeedback = ef });
+            return Ok(result);
         }
     }
 }

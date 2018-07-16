@@ -14,6 +14,9 @@ import { AcademyService } from './components/view-academies/academy.service';
 import { HistoryListComponent } from './components/history/history-list/history-list.component';
 import { HistoryService } from './components/history/history.service';
 
+import { FeedbackListComponent } from './components/feedbacks/feedback-list/feedback-list.component';
+import { FeedbackService } from './components/feedbacks/feedback.service';
+
 import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -25,6 +28,7 @@ import { NotFoundErrorComponent } from './components/error/not-found-error/not-f
     , HeaderComponent
     , NavTabsComponent
     , HistoryListComponent
+    , FeedbackListComponent
     , ErrorComponent
     , NotFoundErrorComponent
     , ViewAcademiesNgxComponent
@@ -36,7 +40,7 @@ import { NotFoundErrorComponent } from './components/error/not-found-error/not-f
     , FormsModule
     , PrimeNgModules
   ],
-  providers: [HistoryService, AcademyService],
+  providers: [HistoryService, FeedbackService, AcademyService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

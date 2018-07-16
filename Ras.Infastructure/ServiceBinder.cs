@@ -36,14 +36,16 @@ namespace Ras.Infastructure
             where TLogProxy : ServiceLogProxy<TService>, TService
         {
             var sp = services.BuildServiceProvider();
-            var uow = sp.GetService<IUnitOfWork>();
+       
 
-            var realService = (TService) Activator.CreateInstance(typeof(TImplementation), uow);
-            var logger = sp.GetService<ILogger<TImplementation>>();
-
-            var proxy = (TLogProxy) Activator.CreateInstance(typeof(TLogProxy), realService, logger);
-
-            services.AddTransient<TService>(x => proxy);
+        
+            services.AddTransient<TService>(x => {
+                var uow = sp.GetService<IUnitOfWork>();
+                var realService = (TService)Activator.CreateInstance(typeof(TImplementation), uow);
+                var logger = sp.GetService<ILogger<TImplementation>>();
+                var proxy = (TLogProxy)Activator.CreateInstance(typeof(TLogProxy), realService, logger);
+                return proxy;
+                });
         }
     }
 }
