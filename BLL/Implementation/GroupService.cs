@@ -182,7 +182,48 @@ namespace Ras.BLL.Implementation
                 ModifyDate = DateTime.Now
             }); //TODO: Modified by
             unitOfWork.SaveChanges();
-        } //TODO: Information about count students
+        }
+
+        public IEnumerable<EmployeeDTO> GetAllEployee()
+        {
+            var employees = unitOfWork.EmployeesRepository.All.ToList();
+            var employeesDTO = new List<EmployeeDTO>();
+            for (int i = 0; i < employees.Count; i++)
+            {
+                employeesDTO.Add(new EmployeeDTO(employees[i], null));
+            }
+            return employeesDTO;
+        }
+
+        public EmployeeDTO GetEmployee(int Id, int GroupId)
+        {
+            return new EmployeeDTO(unitOfWork.EmployeesRepository.Read(Id), unitOfWork.GroupInfoTeachersRepsitory.All.Where(g=>g.AcademyId==GroupId)
+                                                                                                                        .Where(e=>e.EmployeeId==Id).FirstOrDefault());
+        }
+
+        public void AddEmployee(int groupId, int employeeId, int involved, int typeId)
+        {
+            unitOfWork.GroupInfoTeachersRepsitory.Create(new GroupInfoTeacher { AcademyId = groupId, EmployeeId = employeeId, Involved = involved, TeacherTypeId = typeId });
+        }
+        public void DeleteEmployee(int academyId, int employeeId, int typeId)
+        {
+            int id = unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a.AcademyId == academyId)
+                                                                .Where(e => e.EmployeeId == employeeId)
+                                                                .Where(t => t.TeacherTypeId == typeId).FirstOrDefault().Id;
+            unitOfWork.EmployeesRepository.Delete(id);
+        }
+
+        public void UpdateEmployee(EmployeeDTO employee)
+        {
+            unitOfWork.GroupInfoTeachersRepsitory.Update(new GroupInfoTeacher
+            {
+                AcademyId = employee.GroupId,
+                EmployeeId = employee.EmployeeId,
+                TeacherTypeId = employee.TeacherTypeId,
+                Involved = employee.Involved
+            });
+        }
+
 
 
         private string GetCity(int Id)
