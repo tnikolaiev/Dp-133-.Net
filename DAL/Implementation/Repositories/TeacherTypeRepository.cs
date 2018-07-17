@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<TeacherType> All => db.TeacherTypes.AsNoTracking();
+        public override IQueryable<TeacherType> All => db.TeacherTypes;
 
         public override TeacherType Create(TeacherType item)
         {

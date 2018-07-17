@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Employee> All => db.Employee.AsNoTracking();
+        public override IQueryable<Employee> All => db.Employee;
 
         public override Employee Create(Employee item)
         {

@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<User> All => db.Users.AsNoTracking();
+        public override IQueryable<User> All => db.Users;
 
         public override User Create(User item)
         {

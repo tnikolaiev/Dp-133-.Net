@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<GroupStage> All => db.AcademyStages.AsNoTracking();
+        public override IQueryable<GroupStage> All => db.AcademyStages;
 
         public override GroupStage Create(GroupStage item)
         {

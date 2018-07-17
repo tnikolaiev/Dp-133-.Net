@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Feedback> All => db.Feedback.AsNoTracking();
+        public override IQueryable<Feedback> All => db.Feedbac;
 
         public override Feedback Create(Feedback item)
         {

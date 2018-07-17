@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Technology> All => db.Technologies.AsNoTracking();
+        public override IQueryable<Technology> All => db.Technologies;
 
         public override Technology Create(Technology item)
         {

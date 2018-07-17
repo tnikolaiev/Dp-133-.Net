@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<History> All => db.History.AsNoTracking();
+        public override IQueryable<History> All => db.History;
 
         public override History Create(History item)
         {

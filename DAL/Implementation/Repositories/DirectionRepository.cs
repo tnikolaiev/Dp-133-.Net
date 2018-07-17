@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Direction> All => db.Directions.AsNoTracking();
+        public override IQueryable<Direction> All => db.Directions;
 
         public override Direction Create(Direction item)
         {

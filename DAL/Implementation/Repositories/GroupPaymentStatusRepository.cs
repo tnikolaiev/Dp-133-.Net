@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<GroupPaymentStatus> All => db.GroupPaymentStatus.AsNoTracking();
+        public override IQueryable<GroupPaymentStatus> All => db.GroupPaymentStatus;
 
         public override GroupPaymentStatus Create(GroupPaymentStatus item)
         {

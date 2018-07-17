@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<EnglishLevel> All => db.EnglishLevel.AsNoTracking();
+        public override IQueryable<EnglishLevel> All => db.EnglishLevel;
 
         public override EnglishLevel Create(EnglishLevel item)
         {

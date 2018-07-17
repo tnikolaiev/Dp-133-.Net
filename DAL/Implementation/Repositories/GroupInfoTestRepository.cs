@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<GroupInfoTest> All => db.GroupInfoTests.AsNoTracking();
+        public override IQueryable<GroupInfoTest> All => db.GroupInfoTests;
 
         public override GroupInfoTest Create(GroupInfoTest item)
         {

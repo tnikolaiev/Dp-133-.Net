@@ -46,12 +46,6 @@ namespace Ras.DAL.EF
         public virtual DbSet<TestsNameTemplate> TestsNameTemplate { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
-        //TODO: check this ctor
-        //public RasContext()
-        //{
-
-        //}
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

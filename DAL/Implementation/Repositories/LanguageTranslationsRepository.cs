@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<LanguageTranslations> All => db.LanguageTranslations.AsNoTracking();
+        public override IQueryable<LanguageTranslations> All => db.LanguageTranslations;
 
         public override LanguageTranslations Create(LanguageTranslations item)
         {
