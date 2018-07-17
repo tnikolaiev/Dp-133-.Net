@@ -5,6 +5,8 @@ using Ras.Web.Models;
 using AutoMapper;
 using Ras.BLL.DTO;
 using Ras.Web.Filters;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Web.Controllers
 {
@@ -17,6 +19,8 @@ namespace Web.Controllers
         IDictionariesGroupService dictionariesService;
         IMapper groupMapper;
         IMapper groupDtoMapper;
+        IMapper employeeMapper;
+        IMapper employeeDtoMapper;
 
         public GroupInfoController(IGroupService serviceGroup, IDictionariesGroupService serviceDictionaries)
         {
@@ -24,6 +28,8 @@ namespace Web.Controllers
             dictionariesService = serviceDictionaries;
             groupMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupDTO, GroupInfoViewModel>()).CreateMapper();
             groupDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupInfoViewModel, GroupDTO>()).CreateMapper();
+            employeeMapper = new MapperConfiguration(cfg => cfg.CreateMap<List<EmployeeDTO>, List<EmployeeViewModel>>()).CreateMapper();
+            employeeDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeViewModel, EmployeeDTO>()).CreateMapper();
         }
 
         [HttpGet("groupInfo/{groupId}")]
@@ -78,30 +84,61 @@ namespace Web.Controllers
         [HttpGet]
         public IActionResult GetEmployeesForGroup(int groupId)
         {
-            return Ok();
+            try
+            {
+                var employees = employeeMapper.Map<List<EmployeeDTO>, List<EmployeeViewModel>>(groupService.GetAllEmployeeForGroup(groupId).ToList());
+                return Ok(employees);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [Route("removeEmployeeFromGroup/{groupId}")]
         [HttpGet]
         public IActionResult RemoveEmployeeFromGroup(int employeeId, int groupId)
         {
-            return Ok();
+            try
+            {
+                //TODO 
+                //groupService.DeleteEmployeeFromGroup()
+                return Ok();
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [Route("addEmployeeToGroup/{groupId}")]
         [HttpGet]
-        public IActionResult AddEmployeeToGroup(int employeeId, int groupId)
+        public IActionResult AddEmployeeToGroup(int groupId, int employeeId, int timeInvolved, int typeId)
         {
-            return Ok();
+            try
+            {
+                groupService.AddEmployeeToGroup(groupId, employeeId, timeInvolved, typeId);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [Route("updateEmployeeInGroup/{groupId}")]
         [HttpGet]
-        public IActionResult UpdateEmployeeInGroup()
+        public IActionResult UpdateEmployeeInGroup([FromBody] EmployeeViewModel employee)
         {
-            //TODO Create Teacher View Model
-            //var r = new EmployeeDTO();
-            return Ok();
+            try
+            {
+                groupService.UpdateEmployeeInGroup(employeeDtoMapper.Map<EmployeeViewModel, EmployeeDTO>(employee));
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest(employee);
+            }
         }
 
         private void MapDictionaryFromDto(GroupInfoViewModel model, DictionariesGroupDTO dictionaries)

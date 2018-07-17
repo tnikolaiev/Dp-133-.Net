@@ -213,7 +213,7 @@ namespace Ras.BLL.Implementation
         }
         public void DeleteEmployeeFromGroup(int groupId, int employeeId, int typeId)
         {
-            int id = unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a.AcademyId == academyId)
+            int id = unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a.AcademyId == groupId)
                                                                 .Where(e => e.EmployeeId == employeeId)
                                                                 .Where(t => t.TeacherTypeId == typeId).FirstOrDefault().Id;
             unitOfWork.EmployeesRepository.Delete(id);
