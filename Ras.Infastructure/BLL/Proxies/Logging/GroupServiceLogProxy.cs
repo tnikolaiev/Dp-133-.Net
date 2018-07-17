@@ -75,10 +75,10 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
             return result;
         }
 
-        public IEnumerable<EmployeeDTO> GetAllEmployeeForGroup(int GroupId)
+        public IEnumerable<EmployeeDTO> GetAllEmployeesForGroup(int GroupId)
         {
             LogBegin();
-            var result = service.GetAllEmployeeForGroup(GroupId);
+            var result = service.GetAllEmployeesForGroup(GroupId);
             LogEnd();
 
             return result;
@@ -91,10 +91,10 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
             LogEnd();
         }
 
-        public void DeleteEmployeeFromGroup(int groupId, int employeeId, int typeId)
+        public void DeleteEmployeeFromGroup(int groupId, int employeeId)
         {
             LogBegin();
-            service.DeleteEmployeeFromGroup(groupId, employeeId, typeId);
+            service.DeleteEmployeeFromGroup(groupId, employeeId);
             LogEnd();
         }
 
