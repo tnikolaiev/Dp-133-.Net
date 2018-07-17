@@ -195,17 +195,23 @@ namespace Ras.BLL.Implementation
             return employeesDTO;
         }
 
-        public EmployeeDTO GetEmployee(int Id, int GroupId)
+        public IEnumerable<EmployeeDTO> GetAllEmployeeForGroup(int GroupId)
         {
-            return new EmployeeDTO(unitOfWork.EmployeesRepository.Read(Id), unitOfWork.GroupInfoTeachersRepsitory.All.Where(g=>g.AcademyId==GroupId)
-                                                                                                                        .Where(e=>e.EmployeeId==Id).FirstOrDefault());
+            var employees = unitOfWork.GroupInfoTeachersRepsitory.All.Where(i => i.AcademyId == GroupId).ToList();
+            var employeesDTO = new List<EmployeeDTO>();
+
+            for (int i=0; i<employees.Count; i++)
+            {
+                employeesDTO.Add(new EmployeeDTO(unitOfWork.EmployeesRepository.Read(employees[i].EmployeeId), employees[i]));
+            }
+            return employeesDTO;
         }
 
-        public void AddEmployee(int groupId, int employeeId, int involved, int typeId)
+        public void AddEmployeeToGroup(int groupId, int employeeId, int involved, int typeId)
         {
             unitOfWork.GroupInfoTeachersRepsitory.Create(new GroupInfoTeacher { AcademyId = groupId, EmployeeId = employeeId, Involved = involved, TeacherTypeId = typeId });
         }
-        public void DeleteEmployee(int academyId, int employeeId, int typeId)
+        public void DeleteEmployeeFromGroup(int groupId, int employeeId, int typeId)
         {
             int id = unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a.AcademyId == academyId)
                                                                 .Where(e => e.EmployeeId == employeeId)
@@ -213,7 +219,7 @@ namespace Ras.BLL.Implementation
             unitOfWork.EmployeesRepository.Delete(id);
         }
 
-        public void UpdateEmployee(EmployeeDTO employee)
+        public void UpdateEmployeeInGroup(EmployeeDTO employee)
         {
             unitOfWork.GroupInfoTeachersRepsitory.Update(new GroupInfoTeacher
             {

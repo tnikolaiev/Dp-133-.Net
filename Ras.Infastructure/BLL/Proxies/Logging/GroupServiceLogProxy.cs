@@ -65,5 +65,44 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
 
             return result;
         }
+
+        public IEnumerable<EmployeeDTO> GetAllEployee()
+        {
+            LogBegin();
+            var result = service.GetAllEployee();
+            LogEnd();
+
+            return result;
+        }
+
+        public IEnumerable<EmployeeDTO> GetAllEmployeeForGroup(int GroupId)
+        {
+            LogBegin();
+            var result = service.GetAllEmployeeForGroup(GroupId);
+            LogEnd();
+
+            return result;
+        }
+
+        public void AddEmployeeToGroup(int groupId, int employeeId, int involved, int typeId)
+        {
+            LogBegin();
+            service.AddEmployeeToGroup(groupId, employeeId, involved, typeId);
+            LogEnd();
+        }
+
+        public void DeleteEmployeeFromGroup(int groupId, int employeeId, int typeId)
+        {
+            LogBegin();
+            service.DeleteEmployeeFromGroup(groupId, employeeId, typeId);
+            LogEnd();
+        }
+
+        public void UpdateEmployeeInGroup(EmployeeDTO employee)
+        {
+            LogBegin();
+            service.UpdateEmployeeInGroup(employee);
+            LogEnd();
+        }
     }
 }

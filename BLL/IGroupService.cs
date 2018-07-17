@@ -19,5 +19,14 @@ namespace Ras.BLL
 
         IEnumerable<GroupDTO> GetAll(string orderby, int skip, int count, string name, DateTime? startdate, DateTime? enddate, int? cityid, int? directionid, int? technologyid, int? stageid);
 
+        IEnumerable<EmployeeDTO> GetAllEployee();
+
+        IEnumerable<EmployeeDTO> GetAllEmployeeForGroup(int GroupId);
+
+        void AddEmployeeToGroup(int groupId, int employeeId, int involved, int typeId);
+
+        void DeleteEmployeeFromGroup(int groupId, int employeeId, int typeId);
+
+        void UpdateEmployeeInGroup(EmployeeDTO employee);
     }
 }
