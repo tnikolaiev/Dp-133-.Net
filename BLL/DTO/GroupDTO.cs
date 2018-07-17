@@ -9,11 +9,11 @@ namespace Ras.BLL.DTO
         public GroupDTO(Group groupDb)
         {
             this.Id = groupDb.Id;
-            this.Name = groupDb.Name;
+            this.NameForSite = groupDb.Name;
             this.CrmGroup = groupDb.CrmGroup;
             this.StartDate = groupDb.StartDate;
             this.EndDate = groupDb.EndDate;
-            this.CityId = (int) groupDb.CityId;
+            this.CityId = groupDb.CityId.GetValueOrDefault(0);
             this.Direction = groupDb.Direction.Name;
             this.DirectionId = groupDb.Direction.DirectionId;
             this.Technology = groupDb.Technology.Name;
@@ -23,6 +23,7 @@ namespace Ras.BLL.DTO
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        public string NameForSite { get; set; }
         public int CrmGroup { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
