@@ -1,18 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Ras.BLL.DTO;
+using Ras.BLL.Enums;
 using Ras.BLL.Exeptions;
 using Ras.DAL;
 using Ras.DAL.Entity;
 
 namespace Ras.BLL.Implementation
 {
-    public enum TypeOfFeedBack
-    {
-        teacher,
-        expert
-    }
-
     public class StudentService : Service, IStudentService
     {
         public StudentService(IUnitOfWork unitOfWork) : base(unitOfWork)
