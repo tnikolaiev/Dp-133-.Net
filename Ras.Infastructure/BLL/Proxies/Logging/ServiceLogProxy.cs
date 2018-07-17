@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
 namespace Ras.Infastructure.BLL.Proxies.Logging
 {
     /// <summary>
-    /// Base for logging proxies. Contains logger and real service. Provides LogBegin and LogEnd methods.
+    ///     Base for logging proxies. Contains logger and real service. Provides LogBegin and LogEnd methods.
     /// </summary>
     /// <typeparam name="TService"></typeparam>
     public abstract class ServiceLogProxy<TService>
@@ -20,7 +20,6 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
         protected string serviceName;
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="service">Another service, methods of that will be wraped with logging.</param>
         /// <param name="logger">Logger will be used to log.</param>
@@ -37,7 +36,8 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
         }
 
         /// <summary>
-        /// Writes message to log with name of service, name of method, arguments in format {parameterName} = {argumentValue}. Adds to log message "Begin".
+        ///     Writes message to log with name of service, name of method, arguments in format {parameterName} = {argumentValue}.
+        ///     Adds to log message "Begin".
         /// </summary>
         /// <param name="arguments">Array with given argument to method. Must contain all arguments given to method.</param>
         /// <param name="methodName">Method namme will be getted in compile time. It should not be specified in method call. </param>
@@ -46,8 +46,10 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
             string args = BuildArgs(arguments);
             logger.LogTrace($"{serviceName}.{methodName}({args}) Begin ");
         }
+
         /// <summary>
-        /// Writes message to log with name of service, name of method, arguments in format {parameterName} = {argumentValue}. Adds to log message "End".
+        ///     Writes message to log with name of service, name of method, arguments in format {parameterName} = {argumentValue}.
+        ///     Adds to log message "End".
         /// </summary>
         /// <param name="arguments">Array with given argument to method. Must contain all arguments given to method.</param>
         /// <param name="methodName">Method namme will be getted in compile time. It should not be specified in method call. </param>
@@ -58,7 +60,7 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
         }
 
         /// <summary>
-        /// Returns string in format {parameterName} = {argumentValue}. Gets parameters names by getting stack frame.
+        ///     Returns string in format {parameterName} = {argumentValue}. Gets parameters names by getting stack frame.
         /// </summary>
         /// <param name="args">Arguments values.</param>
         /// <returns></returns>
@@ -90,6 +92,7 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
                 {
                     stringValue = "null";
                 }
+
                 arguments.Add(new Argument(parametersNames[i], stringValue));
             }
 
@@ -103,17 +106,17 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
         }
 
         /// <summary>
-        /// Represents name of method parameter and given value. 
+        ///     Represents name of method parameter and given value.
         /// </summary>
         public struct Argument
         {
             /// <summary>
-            /// Parameter name.
+            ///     Parameter name.
             /// </summary>
             public string Name;
 
             /// <summary>
-            /// Argument value.
+            ///     Argument value.
             /// </summary>
             public string Value;
 
