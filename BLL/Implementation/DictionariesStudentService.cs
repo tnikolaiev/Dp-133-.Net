@@ -35,7 +35,7 @@ namespace Ras.BLL.Implementation
             var dictionary = new Dictionary<int, string>();
             var employeeIds = unitOfWork.GroupInfoTeachersRepsitory.All
                                         .Where(d => d.AcademyId == groupId)
-                                        .Where(d => d.TeacherTypeId == (int) TeacherTypeEnum.Expert)
+                                        .Where(d => d.TeacherTypeId == (int) AcademyEmployeeType.Expert)
                                         .Select(d => d.EmployeeId);
             foreach (var id in employeeIds)
             {
