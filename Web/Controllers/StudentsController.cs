@@ -26,8 +26,14 @@ namespace Web.Controllers
             studentDTOMapper = new MapperConfiguration(cfg => cfg.CreateMap<StudentViewModel, StudentDTO>()).CreateMapper();
         }
 
+        /// <summary>
+        /// Create student by user id and group id
+        /// </summary>
+        /// <param name="userId"> id of user </param>
+        /// <param name="groupId"> id of group </param>
+        /// <returns> Status of request </returns>
         [HttpPost]
-        public IActionResult Create(int userId, int groupId)
+        public IActionResult CreateStudent(int userId, int groupId)
         {
             if (ModelState.IsValid)
             {
@@ -37,8 +43,13 @@ namespace Web.Controllers
             return BadRequest(ModelState);
         }
 
+        /// <summary>
+        /// Get student by id
+        /// </summary>
+        /// <param name="id"> id of student </param>
+        /// <returns> return concrete student </returns>
         [HttpGet("{id}")]
-        public StudentViewModel Get(int id)
+        public StudentViewModel GetStydentById(int id)
         {
             StudentDTO tempStudent = studentService.GetById(id);
             StudentViewModel student = studentMapper.Map<StudentDTO, StudentViewModel>(tempStudent);
@@ -47,8 +58,13 @@ namespace Web.Controllers
             return student;
         }
 
+        /// <summary>
+        /// Update student by instance
+        /// </summary>
+        /// <param name="student"> concrete student </param>
+        /// <returns> Status of request </returns>
         [HttpPut]
-        public IActionResult Update([FromBody]StudentViewModel student)
+        public IActionResult UpdateStudent([FromBody]StudentViewModel student)
         {
             if (ModelState.IsValid)
             {
@@ -59,8 +75,13 @@ namespace Web.Controllers
             return BadRequest(ModelState);
         }
 
+        /// <summary>
+        /// Delete student by id
+        /// </summary>
+        /// <param name="id"> id of student which we knedd to delete </param>
+        /// <returns> Status of request </returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteStudentById(int id)
         {
             studentService.Delete(id);
             return Ok();
