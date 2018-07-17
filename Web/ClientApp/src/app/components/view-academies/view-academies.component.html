@@ -1,0 +1,101 @@
+<app-searchbar (filterData)="onFilterField($event)"></app-searchbar>
+
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef='groupName'>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Group Name</mat-header-cell>
+      <!--<mat-cell *matCellDef="let element"><a routerLink="/ang/group/update/{{element.academyId}}"> {{element.groupName}} </a>-->
+        <mat-cell *matCellDef="let element"><a (click)="sendDataToAddGroupComponent(element)" routerLink="/ang/group/update/{{element.academyId}}"> {{element.groupName}} </a>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef='nameForSite'>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name For Site</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nameForSite}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="directionName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Direction</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.directionName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="profileName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Profile</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.profileName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="paymentStatus">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Payment Status</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.paymentStatus}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cityName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cityName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="startDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.startDate | date: "dd.MM.yyyy"}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="endDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.endDate | date: "dd.MM.yyyy"}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.status}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="experts">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Experts</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.firstName + ' ' + element.lastName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="studentPlannedToGraduate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Students Planned To Graduate</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.studentsPlannedToGraduate}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="studentPlannedToEnrollment">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Students Planned To Enrollment</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.studentsPlannedToEnrollment}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="studentsActual">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Students Actual</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.studentsActual}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="hiredNotGraduated">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Hired Not Graduated</mat-header-cell>
+      <mat-cell *matCellDef="let element"> --- </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="commonDirectionName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CommonDirection</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.commonDirectionName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="interviewerFeedback">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Interviewer Feedback</mat-header-cell>
+      <mat-cell *matCellDef="let element"><a routerLink="/ang/feedback/{{element.academyId}}">Provide</a></mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+
+  <button mat-button routerLink="ggg">Add Group</button>
+</div>
+
+
+

@@ -1,0 +1,125 @@
+<div class="container-fluid" [hidden]="searchBar">
+  <div id="form-test">
+    <form #groupForm="ngForm">
+      <ul class="col-sm-5 form-group" id="UL_left_column">
+        <div class="row">
+          <mat-form-field class="col-sm-4">
+            <input matInput placeholder="Group Name" name="groupName" (input)="getFilter(groupForm)" ngModel>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4">
+            <input matInput placeholder="Name For Site" name="nameForSite" (input)="getFilter(groupForm)" ngModel>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4">
+            <mat-select placeholder="Direction:" name="directionName" (change)="getFilter(groupForm)" ngModel>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let tech of technology" [value]="tech.name">{{ tech.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="col-sm-6">
+            <mat-select placeholder="Start Date Options" name="startDateOption" (change)="startDateOption($event)"
+                        (change)="getFilter(groupForm)">
+              <mat-option>None</mat-option>
+              <mat-option value="Equals">Equals</mat-option>
+              <mat-option value="More Than">More Than</mat-option>
+              <mat-option value="Less Than">Less Than</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-6">
+            <input matInput [matDatepicker]="picker" placeholder="Start Date:" name="startDate"
+                   (dateInput)="getFilter(groupForm)" ngModel>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="row">
+
+          <mat-form-field class="col-sm-6">
+            <mat-select placeholder="End Date Options" name="endDateOption" (change)="endDateOption($event)"
+                        (change)="getFilter(groupForm)">
+              <mat-option>None</mat-option>
+              <mat-option value="Equals">Equals</mat-option>
+              <mat-option value="More Than">More Than</mat-option>
+              <mat-option value="Less Than">Less Than</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-6">
+            <input matInput [matDatepicker]="picker2" placeholder="End Date:" name="endDate"
+                   (dateInput)="getFilter(groupForm)" ngModel>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+      </ul>
+
+      <ul class="col-sm-5 form-group" id="UL_right_column">
+        <div class="row">
+
+          <mat-form-field class="col-sm-4">
+            <mat-select placeholder="Status:" name="status" (change)="getFilter(groupForm)" ngModel>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let stages of academyStages" [value]="stages.name">{{ stages.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4">
+            <input matInput placeholder="Experts" name="experts" (input)="getFilter(groupForm)" ngModel>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4">
+            <mat-select placeholder="Common Direction:" name="commonDirectionName" (change)="getFilter(groupForm)"
+                        ngModel>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let direct of direction" [value]="direct.name">{{direct.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="col-sm-6">
+            <input matInput type="number" placeholder="Students Planned to Graduate:" min="0" max="99"
+                   name="studentsPlannedToGraduate" (input)="getFilter(groupForm)" ngModel>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-6">
+            <input matInput type="number" placeholder="Students Planned to Enrollment:" min="0" max="99" maxlength="2"
+                   name="studentsPlannedToEnrollment" (input)="getFilter(groupForm)" ngModel>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="col-sm-4">
+            <mat-select placeholder="Payment Status:" name="paymentStatus" (change)="getFilter(groupForm)" ngModel>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let paym of paymentStatus" [value]="paym">{{paym}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4">
+            <mat-select placeholder="Location:" name="cityName" (change)="getFilter(groupForm)" ngModel>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let city of cityNames" [value]="city.trasnlation">{{city.trasnlation}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-sm-4">
+            <mat-select placeholder="Profile:" name="profileName" (change)="getFilter(groupForm)" ngModel>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let prof of profile" [value]="prof.profileName">{{ prof.profileName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </ul>
+    </form>
+  </div>
+</div>
