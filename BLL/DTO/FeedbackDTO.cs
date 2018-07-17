@@ -4,7 +4,7 @@ namespace Ras.BLL.DTO
 {
     public class FeedbackDTO
     {
-        public FeedbackDTO() { }
+        public FeedbackDTO() { }      
         public FeedbackDTO(Feedback dFeedback)
         {
             Id = dFeedback.FeedbackId;
