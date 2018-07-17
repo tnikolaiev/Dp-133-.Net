@@ -78,7 +78,7 @@ namespace Web.Controllers
         /// <summary>
         /// Delete student by id
         /// </summary>
-        /// <param name="id"> id of student which we knedd to delete </param>
+        /// <param name="id"> id of student which we need to delete </param>
         /// <returns> Status of request </returns>
         [HttpDelete("{id}")]
         public IActionResult DeleteStudentById(int id)
