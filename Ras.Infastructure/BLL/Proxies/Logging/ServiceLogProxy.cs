@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 
 namespace Ras.Infastructure.BLL.Proxies.Logging
 {
@@ -26,17 +27,15 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
             serviceName = GetType().Name.Replace("LogProxy", "");
         }
 
-        protected void LogBegin(params object[] arguments)
+        protected void LogBegin(object[] arguments = null, [CallerMemberName] string methodName = null)
         {
             string args = BuildArgs(arguments);
-            string methodName = GetServiceMethodName();
             logger.LogTrace($"{serviceName}.{methodName}({args}) Begin ");
         }
 
-        protected void LogEnd(params object[] arguments)
+        protected void LogEnd(object[] arguments = null, [CallerMemberName] string methodName = null)
         {
             string args = BuildArgs(arguments);
-            string methodName = GetServiceMethodName();
             logger.LogTrace($"{serviceName}.{methodName}({args}) End");
         }
 
@@ -47,7 +46,6 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
                 return string.Empty;
             }
 
-            // TODO change new StackFrame(2) 
             var parametersNames = new StackFrame(2).GetMethod().GetParameters().Select(p => p.Name).ToList();
 
             if (args.Length != parametersNames.Count)
@@ -69,22 +67,6 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
             }
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        ///     Takes Method name by StackTrace. Expects call only from LogBegin LogEnd.
-        /// </summary>
-        /// <returns></returns>
-        private string GetServiceMethodName()
-        {
-            var stackFrame = new StackFrame(2);
-
-            // TODO
-            //var stackFrame = new StackTrace().GetFrames()
-            //                                 .Where(x => x.GetMethod().DeclaringType.IsAssignableFrom(typeof(TService)))
-            //                                 .First();
-
-            return stackFrame.GetMethod().Name;
         }
 
         public struct Argument
