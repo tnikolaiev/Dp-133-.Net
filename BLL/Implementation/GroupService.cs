@@ -195,7 +195,7 @@ namespace Ras.BLL.Implementation
             return employeesDTO;
         }
 
-        public IEnumerable<EmployeeDTO> GetAllEmployeeForGroup(int GroupId)
+        public IEnumerable<EmployeeDTO> GetAllEmployeesForGroup(int GroupId)
         {
             var employees = unitOfWork.GroupInfoTeachersRepsitory.All.Where(i => i.AcademyId == GroupId).ToList();
             var employeesDTO = new List<EmployeeDTO>();
@@ -209,13 +209,17 @@ namespace Ras.BLL.Implementation
 
         public void AddEmployeeToGroup(int groupId, int employeeId, int involved, int typeId)
         {
-            unitOfWork.GroupInfoTeachersRepsitory.Create(new GroupInfoTeacher { AcademyId = groupId, EmployeeId = employeeId, Involved = involved, TeacherTypeId = typeId });
+            if (unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a.AcademyId == groupId)
+                                                        .Where(e => e.EmployeeId == employeeId).FirstOrDefault() == null)
+            {
+                unitOfWork.GroupInfoTeachersRepsitory.Create(new GroupInfoTeacher { AcademyId = groupId, EmployeeId = employeeId, Involved = involved, TeacherTypeId = typeId });
+            }
+            else throw new ArgumentException("Employee with such Id exist in this group");
         }
-        public void DeleteEmployeeFromGroup(int groupId, int employeeId, int typeId)
+        public void DeleteEmployeeFromGroup(int groupId, int employeeId)
         {
             int id = unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a.AcademyId == groupId)
-                                                                .Where(e => e.EmployeeId == employeeId)
-                                                                .Where(t => t.TeacherTypeId == typeId).FirstOrDefault().Id;
+                                                                .Where(e => e.EmployeeId == employeeId).FirstOrDefault().Id;
             unitOfWork.EmployeesRepository.Delete(id);
         }
 
@@ -229,8 +233,6 @@ namespace Ras.BLL.Implementation
                 Involved = employee.Involved
             });
         }
-
-
 
         private string GetCity(int Id)
         {

@@ -21,11 +21,11 @@ namespace Ras.BLL
 
         IEnumerable<EmployeeDTO> GetAllEployee();
 
-        IEnumerable<EmployeeDTO> GetAllEmployeeForGroup(int GroupId);
+        IEnumerable<EmployeeDTO> GetAllEmployeesForGroup(int GroupId);
 
         void AddEmployeeToGroup(int groupId, int employeeId, int involved, int typeId);
 
-        void DeleteEmployeeFromGroup(int groupId, int employeeId, int typeId);
+        void DeleteEmployeeFromGroup(int groupId, int employeeId);
 
         void UpdateEmployeeInGroup(EmployeeDTO employee);
     }
