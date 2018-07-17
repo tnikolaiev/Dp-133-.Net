@@ -28,7 +28,7 @@ namespace Web.Controllers
             dictionariesService = serviceDictionaries;
             groupMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupDTO, GroupInfoViewModel>()).CreateMapper();
             groupDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<GroupInfoViewModel, GroupDTO>()).CreateMapper();
-            employeeMapper = new MapperConfiguration(cfg => cfg.CreateMap<List<EmployeeDTO>, List<EmployeeViewModel>>()).CreateMapper();
+            employeeMapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
             employeeDtoMapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeViewModel, EmployeeDTO>()).CreateMapper();
         }
 
@@ -86,7 +86,7 @@ namespace Web.Controllers
         {
             try
             {
-                var employees = employeeMapper.Map<List<EmployeeDTO>, List<EmployeeViewModel>>(groupService.GetAllEmployeeForGroup(groupId).ToList());
+                var employees = groupService.GetAllEmployeesForGroup(groupId).Select(x=> employeeMapper.Map<EmployeeDTO, EmployeeViewModel>(x));
                 return Ok(employees);
             }
             catch (Exception)
@@ -96,13 +96,12 @@ namespace Web.Controllers
         }
 
         [Route("removeEmployeeFromGroup/{groupId}")]
-        [HttpGet]
-        public IActionResult RemoveEmployeeFromGroup(int employeeId, int groupId)
+        [HttpPost]
+        public IActionResult RemoveEmployeeFromGroup(int groupId, int employeeId)
         {
             try
             {
-                //TODO 
-                //groupService.DeleteEmployeeFromGroup()
+                groupService.DeleteEmployeeFromGroup(groupId, employeeId);
                 return Ok();
             }
             catch(Exception)
@@ -112,7 +111,7 @@ namespace Web.Controllers
         }
 
         [Route("addEmployeeToGroup/{groupId}")]
-        [HttpGet]
+        [HttpPost]
         public IActionResult AddEmployeeToGroup(int groupId, int employeeId, int timeInvolved, int typeId)
         {
             try
@@ -127,7 +126,7 @@ namespace Web.Controllers
         }
 
         [Route("updateEmployeeInGroup/{groupId}")]
-        [HttpGet]
+        [HttpPost]
         public IActionResult UpdateEmployeeInGroup([FromBody] EmployeeViewModel employee)
         {
             try
