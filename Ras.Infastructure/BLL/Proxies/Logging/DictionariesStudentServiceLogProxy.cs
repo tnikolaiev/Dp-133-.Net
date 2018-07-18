@@ -14,9 +14,10 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
 
         public DictionariesStudentDTO GetStudentDictionaries(int groupId)
         {
-            LogBegin(groupId);
+            var arguments = new object[] {groupId};
+            LogBegin(arguments);
             var result = service.GetStudentDictionaries(groupId);
-            LogEnd(groupId);
+            LogEnd(arguments);
 
             return result;
         }
