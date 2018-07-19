@@ -32,7 +32,7 @@ namespace Web.Controllers
         /// <param name="userId"> id of user </param>
         /// <param name="groupId"> id of group </param>
         /// <returns> Status of request </returns>
-        [HttpPost]
+        [HttpPost("create/userId={userId}/groupId={groupId}")]
         public IActionResult CreateStudent(int userId, int groupId)
         {
             if (ModelState.IsValid)
@@ -64,7 +64,7 @@ namespace Web.Controllers
         /// </summary>
         /// <param name="student"> concrete student </param>
         /// <returns> Status of request </returns>
-        [HttpPut]
+        [HttpPut("update")]
         public IActionResult UpdateStudent([FromBody] StudentViewModel student)
         {
             if (ModelState.IsValid)
@@ -82,7 +82,7 @@ namespace Web.Controllers
         /// </summary>
         /// <param name="id"> id of student which we need to delete </param>
         /// <returns> Status of request </returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/id={id}")]
         public IActionResult DeleteStudentById(int id)
         {
             studentService.Delete(id);
