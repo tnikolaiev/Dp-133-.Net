@@ -94,7 +94,7 @@ namespace Web.Controllers
             }
         }
 
-        [Route("removeEmployeeFromGroup/{groupId}")]
+        [Route("removeEmployeeFromGroup/{groupId}/{employeeId}")]
         [HttpPost]
         public IActionResult RemoveEmployeeFromGroup(int groupId, int employeeId)
         {
@@ -109,7 +109,7 @@ namespace Web.Controllers
             }
         }
 
-        [Route("addEmployeeToGroup/{groupId}")]
+        [Route("addEmployeeToGroup/{groupId}/{employeeId}/{timeInvolved}/{typeId}")]
         [HttpPost]
         public IActionResult AddEmployeeToGroup(int groupId, int employeeId, int timeInvolved, int typeId)
         {
@@ -124,7 +124,7 @@ namespace Web.Controllers
             }
         }
 
-        [Route("updateEmployeeInGroup/{groupId}")]
+        [Route("updateEmployeeInGroup")]
         [HttpPost]
         public IActionResult UpdateEmployeeInGroup([FromBody] EmployeeViewModel employee)
         {
@@ -133,7 +133,7 @@ namespace Web.Controllers
                 groupService.UpdateEmployeeInGroup(employeeDtoMapper.Map<EmployeeViewModel, EmployeeDTO>(employee));
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return BadRequest(employee);
             }
