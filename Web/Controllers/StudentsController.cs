@@ -1,9 +1,9 @@
-﻿using Ras.BLL;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Ras.Web.Models;
-using AutoMapper;
+using Ras.BLL;
 using Ras.BLL.DTO;
 using Ras.Web.Filters;
+using Ras.Web.Models;
 
 namespace Web.Controllers
 {
@@ -12,11 +12,11 @@ namespace Web.Controllers
     [Route("api/[controller]")]
     public class StudentsController : Controller
     {
-        private IStudentService studentService;
+        private readonly IMapper studentDTOMapper;
+        private readonly IMapper studentMapper;
 
         private readonly IMapper userDTOMapper;
-        private readonly IMapper studentMapper;
-        private readonly IMapper studentDTOMapper;
+        private readonly IStudentService studentService;
 
         public StudentsController(IStudentService studentService)
         {
@@ -27,7 +27,7 @@ namespace Web.Controllers
         }
 
         /// <summary>
-        /// Create student by user id and group id
+        ///     Create student by user id and group id
         /// </summary>
         /// <param name="userId"> id of user </param>
         /// <param name="groupId"> id of group </param>
@@ -40,31 +40,32 @@ namespace Web.Controllers
                 studentService.CreateStudent(userId, groupId);
                 return Ok();
             }
+
             return BadRequest(ModelState);
         }
 
         /// <summary>
-        /// Get student by id
+        ///     Get student by id
         /// </summary>
         /// <param name="id"> id of student </param>
         /// <returns> return concrete student </returns>
         [HttpGet("{id}")]
         public StudentViewModel GetStydentById(int id)
         {
-            StudentDTO tempStudent = studentService.GetById(id);
-            StudentViewModel student = studentMapper.Map<StudentDTO, StudentViewModel>(tempStudent);
+            var tempStudent = studentService.GetById(id);
+            var student = studentMapper.Map<StudentDTO, StudentViewModel>(tempStudent);
             student.FullName = tempStudent.UserDTO.FirstName + " " + tempStudent.UserDTO.LastName;
-            
+
             return student;
         }
 
         /// <summary>
-        /// Update student by instance
+        ///     Update student by instance
         /// </summary>
         /// <param name="student"> concrete student </param>
         /// <returns> Status of request </returns>
         [HttpPut]
-        public IActionResult UpdateStudent([FromBody]StudentViewModel student)
+        public IActionResult UpdateStudent([FromBody] StudentViewModel student)
         {
             if (ModelState.IsValid)
             {
@@ -72,11 +73,12 @@ namespace Web.Controllers
                 studentService.UpdateStudent(studentDTO);
                 return Ok(student);
             }
+
             return BadRequest(ModelState);
         }
 
         /// <summary>
-        /// Delete student by id
+        ///     Delete student by id
         /// </summary>
         /// <param name="id"> id of student which we need to delete </param>
         /// <returns> Status of request </returns>
