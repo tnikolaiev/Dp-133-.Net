@@ -27,11 +27,11 @@ namespace Web.Controllers
         }
 
         /// <summary>
-        ///     Create student by user id and group id
+        ///     Creates student by user id and group id.
         /// </summary>
-        /// <param name="userId"> id of user </param>
-        /// <param name="groupId"> id of group </param>
-        /// <returns> Status of request </returns>
+        /// <param name="userId">Id of user.</param>
+        /// <param name="groupId">Id of group to which student will be added.</param>
+        /// <returns>Status of request.</returns>
         [HttpPost("create/userId={userId}/groupId={groupId}")]
         public IActionResult CreateStudent(int userId, int groupId)
         {
@@ -45,10 +45,10 @@ namespace Web.Controllers
         }
 
         /// <summary>
-        ///     Get student by id
+        ///     Gets student by id.
         /// </summary>
-        /// <param name="id"> id of student </param>
-        /// <returns> return concrete student </returns>
+        /// <param name="id">Id of student.</param>
+        /// <returns>Return student with given id.</returns>
         [HttpGet("{id}")]
         public StudentViewModel GetStydentById(int id)
         {
@@ -60,10 +60,10 @@ namespace Web.Controllers
         }
 
         /// <summary>
-        ///     Update student by instance
+        ///     Takes student by <paramref name="student"/>.Id and updates his data.
         /// </summary>
-        /// <param name="student"> concrete student </param>
-        /// <returns> Status of request </returns>
+        /// <param name="student">Data to update</param>
+        /// <returns>Status of request</returns>
         [HttpPut("update")]
         public IActionResult UpdateStudent([FromBody] StudentViewModel student)
         {
@@ -78,9 +78,9 @@ namespace Web.Controllers
         }
 
         /// <summary>
-        ///     Delete student by id
+        ///     Delete student by id.
         /// </summary>
-        /// <param name="id"> id of student which we need to delete </param>
+        /// <param name="id">Id of student which we need to delete.</param>
         /// <returns> Status of request </returns>
         [HttpDelete("delete/id={id}")]
         public IActionResult DeleteStudentById(int id)
