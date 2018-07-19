@@ -47,6 +47,10 @@ namespace Ras.BLL.Implementation
             for (int i = 0; i < groupsList.Count; i++)
             {
                 groupsDto.Add(new GroupDTO(groupsList[i]));
+                groupsDto[i].Name = GetNameGroup(groupsDto[i].Id);
+                groupsDto[i].AmountStudentForGraduate = GetCountStudentForGraduate(groupsDto[i].Id);
+                groupsDto[i].AmountStudentForEnrollment = GetCountStudentForEnrollment(groupsDto[i].Id);
+                groupsDto[i].AmountStudenActual = groupsList[i].Students.Count;
             }
 
             return groupsDto;
@@ -107,6 +111,10 @@ namespace Ras.BLL.Implementation
             for (int i = 0; i < tempList.Count; i++)
             {
                 resultListOfGroup.Add(new GroupDTO(tempList[i]));
+                resultListOfGroup[i].Name = GetNameGroup(tempList[i].Id);
+                resultListOfGroup[i].AmountStudentForGraduate = GetCountStudentForGraduate(tempList[i].Id);
+                resultListOfGroup[i].AmountStudentForEnrollment = GetCountStudentForEnrollment(tempList[i].Id);
+                resultListOfGroup[i].AmountStudenActual = tempList[i].Students.Count;
             }
 
             return resultListOfGroup;
@@ -196,17 +204,26 @@ namespace Ras.BLL.Implementation
 
         private string GetNameGroup(int groupId)
         {
-            return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().GroupName;
+            var group = unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault();
+            if (group != null)
+                return group.GroupName;
+            else return "";
         }
 
         private int GetCountStudentForGraduate(int groupId)
         {
-            return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().StudentsPlannedToGraduate;
+            var group = unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault();
+            if (group != null)
+                return group.StudentsPlannedToGraduate;
+            else return 0;
         }
 
         private int GetCountStudentForEnrollment(int groupId)
         {
-            return unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault().StudentsPlannedToEnrollment;
+            var group = unitOfWork.GroupsInfoRepsitory.All.Where(i => i.AcademyId == groupId).FirstOrDefault();
+            if (group != null)
+                return group.StudentsPlannedToEnrollment;
+            else return 0;
         }
 
         public static IOrderedQueryable<T> OrderBy<T>
