@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Characteristic> All => db.Characteristic.AsNoTracking();
+        public override IQueryable<Characteristic> All => db.Characteristic;
 
         public override Characteristic Create(Characteristic item)
         {
@@ -25,7 +25,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            Characteristic item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.Characteristic.Remove(item);

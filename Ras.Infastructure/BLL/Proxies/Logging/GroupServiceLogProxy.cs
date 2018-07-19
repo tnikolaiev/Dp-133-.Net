@@ -14,41 +14,46 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
 
         public GroupDTO GetById(int id)
         {
-            LogBegin(id);
+            var arguments = new object[] { id };
+            LogBegin(arguments);
             var result = service.GetById(id);
-            LogEnd(id);
+            LogEnd(arguments);
 
             return result;
         }
 
         public void Create(GroupDTO group)
         {
-            LogBegin(group);
+            var arguments = new object[] {group};
+            LogBegin(arguments);
             service.Create(group);
-            LogEnd(group);
+            LogEnd(arguments);
         }
 
         public void Update(GroupDTO group)
         {
-            LogBegin(group);
+            var arguments = new object[] { group };
+            LogBegin(arguments);
             service.Update(group);
-            LogEnd(group);
+            LogEnd(arguments);
         }
 
         public IEnumerable<StudentDTO> GetStudentsByGroupId(int groupId)
         {
-            LogBegin(groupId);
+            var arguments = new object[] {groupId};
+            LogBegin(arguments);
             var result = service.GetStudentsByGroupId(groupId);
-            LogEnd(groupId);
+            LogEnd(arguments);
 
             return result;
         }
 
         public IEnumerable<GroupDTO> GetAll(string orderby, int skip, int count)
         {
-            LogBegin(orderby, skip, count);
+            var arguments = new object[] {orderby, skip, count};
+            LogBegin(arguments);
             var result = service.GetAll(orderby, skip, count);
-            LogEnd(orderby, skip, count);
+            LogEnd(arguments);
 
             return result;
         }
@@ -59,9 +64,10 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
             int? technologyid, int? stageid
         )
         {
-            LogBegin(orderby, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid);
+            var arguments = new object[] {orderby, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid};
+            LogBegin(arguments);
             var result = service.GetAll(orderby, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid);
-            LogEnd(orderby, skip, count, name, startdate, enddate, cityid, directionid, technologyid, stageid);
+            LogEnd(arguments);
 
             return result;
         }

@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<User> All => db.Users.AsNoTracking();
+        public override IQueryable<User> All => db.Users;
 
         public override User Create(User item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            User item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.Users.Remove(item);

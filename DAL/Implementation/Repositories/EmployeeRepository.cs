@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Employee> All => db.Employee.AsNoTracking();
+        public override IQueryable<Employee> All => db.Employee;
 
         public override Employee Create(Employee item)
         {
@@ -25,7 +25,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            Employee item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.Employee.Remove(item);

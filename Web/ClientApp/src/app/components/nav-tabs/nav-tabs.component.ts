@@ -8,13 +8,17 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 export class NavTabsComponent implements OnInit {
   @Input() academyId: number;
   @Input() techDirection : number;
-  @ViewChild('showHistory') child;
+  @ViewChild('showHistory') childHistory;
+  @ViewChild('showFeedbacks') childFeedbacks;
 
-  getAppTestNamesTemplate (directId:number){
-    this.child.getTestsTemplate(directId);
+  getAppTestNamesTemplate(directId: number) {
+    this.childHistory.getTestsTemplate(directId);
+    this.childFeedbacks.getTestsTemplate(directId);
   }
-  updateTestNameTab(){
-    this.child.updateTab();
+  updateTestNameTab() {
+    this.childHistory.updateTab();
+    this.childFeedbacks.updateTab();
+
   }
   constructor() {}
 

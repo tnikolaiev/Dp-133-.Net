@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<TeacherType> All => db.TeacherTypes.AsNoTracking();
+        public override IQueryable<TeacherType> All => db.TeacherTypes;
 
         public override TeacherType Create(TeacherType item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            TeacherType item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.TeacherTypes.Remove(item);

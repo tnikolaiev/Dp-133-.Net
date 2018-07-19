@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Feedback> All => db.Feedback.AsNoTracking();
+        public override IQueryable<Feedback> All => db.Feedback;
 
         public override Feedback Create(Feedback item)
         {
@@ -25,7 +25,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            Feedback item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.Feedback.Remove(item);

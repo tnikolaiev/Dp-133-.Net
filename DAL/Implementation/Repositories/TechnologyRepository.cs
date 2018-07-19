@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Technology> All => db.Technologies.AsNoTracking();
+        public override IQueryable<Technology> All => db.Technologies;
 
         public override Technology Create(Technology item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            Technology item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.Technologies.Remove(item);

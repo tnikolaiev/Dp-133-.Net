@@ -1,19 +1,13 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
 using Ras.BLL.DTO;
+using Ras.BLL.Enums;
 using Ras.BLL.Exeptions;
 using Ras.DAL;
 using Ras.DAL.Entity;
 
 namespace Ras.BLL.Implementation
 {
-    public enum TypeOfFeedBack
-    {
-        teacher,
-        expert
-    }
-
     public class StudentService : Service, IStudentService
     {
         public StudentService(IUnitOfWork unitOfWork) : base(unitOfWork)
@@ -30,7 +24,6 @@ namespace Ras.BLL.Implementation
 
             return new StudentDTO(dStudent);
         }
-
 
         public StudentDTO CreateStudent(int userId, int groupId)
         {
@@ -100,25 +93,29 @@ namespace Ras.BLL.Implementation
 
         public FeedbackDTO CreateFeedback(int studentId, TypeOfFeedBack typeOfFeeadBack, FeedbackDTO feedback)
         {
-            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);           
-            if (dStudent == null) throw new StudentNotFoundException();
+            var dStudent = unitOfWork.StudentsRepository.Read(studentId);
+            if (dStudent == null)
+            {
+                throw new StudentNotFoundException();
+            }
+
             var creatingFeedback = new Feedback();
             CopyMembers(feedback, creatingFeedback);
             var newFeedBack = new FeedbackDTO(unitOfWork.FeedbacksRepository.Create(creatingFeedback));
             switch (typeOfFeeadBack)
             {
                 case TypeOfFeedBack.expert:
-                    {
-                        dStudent.ExpertStudentFeedbackId = newFeedBack.Id;
-                        break;
-                    }
+                {
+                    dStudent.ExpertStudentFeedbackId = newFeedBack.Id;
+                    break;
+                }
                 case TypeOfFeedBack.teacher:
-                    {
-                        dStudent.TeacherStudentFeedbackId = newFeedBack.Id;
-                        break;
-                    }
+                {
+                    dStudent.TeacherStudentFeedbackId = newFeedBack.Id;
+                    break;
+                }
             }
-            
+
             unitOfWork.StudentsRepository.Update(dStudent);
             unitOfWork.SaveChanges();
             return newFeedBack;
@@ -126,28 +123,34 @@ namespace Ras.BLL.Implementation
 
         public FeedbackDTO GetFeedback(int studentId, TypeOfFeedBack typeOfFeeadBack)
         {
-            Student dStudent = unitOfWork.StudentsRepository.Read(studentId);
-            if (dStudent == null) throw new StudentNotFoundException();
+            var dStudent = unitOfWork.StudentsRepository.Read(studentId);
+            if (dStudent == null)
+            {
+                throw new StudentNotFoundException();
+            }
 
 
             Feedback feedback = null;
             switch (typeOfFeeadBack)
             {
                 case TypeOfFeedBack.expert:
-                    {
-                        feedback = unitOfWork.FeedbacksRepository.Read(dStudent.ExpertStudentFeedback.FeedbackId);
-                        break;
-                    }
+                {
+                    feedback = unitOfWork.FeedbacksRepository.Read(dStudent.ExpertStudentFeedback.FeedbackId);
+                    break;
+                }
                 case TypeOfFeedBack.teacher:
-                    {
-                        feedback = unitOfWork.FeedbacksRepository.Read(dStudent.TeacherStudentFeedback.FeedbackId);
+                {
+                    feedback = unitOfWork.FeedbacksRepository.Read(dStudent.TeacherStudentFeedback.FeedbackId);
 
-                        break;
-                    }
+                    break;
+                }
             }
 
             if (feedback != null)
+            {
                 return new FeedbackDTO(feedback);
+            }
+
             throw new FeedbackNotFoundExeption();
         }
 
@@ -163,40 +166,62 @@ namespace Ras.BLL.Implementation
             switch (typeOfFeeadBack)
             {
                 case TypeOfFeedBack.expert:
-                    {
-                        feedbacks = unitOfWork.GroupsRepository.Read(groupId)?.Students.Select(x =>new FeedbackDTO( x.ExpertStudentFeedback));
-                        break;
-                    }
+                {
+                    feedbacks = unitOfWork.GroupsRepository.Read(groupId)?.Students.Select(x => new FeedbackDTO(x.ExpertStudentFeedback));
+                    break;
+                }
                 case TypeOfFeedBack.teacher:
-                    {
-                        feedbacks = unitOfWork.GroupsRepository.Read(groupId)?.Students.Select(x => new FeedbackDTO(x.TeacherStudentFeedback));
-                        break;
-                    }
+                {
+                    feedbacks = unitOfWork.GroupsRepository.Read(groupId)?.Students.Select(x => new FeedbackDTO(x.TeacherStudentFeedback));
+                    break;
+                }
             }
 
             return feedbacks;
         }
 
-        private void CopyMembers(FeedbackDTO feedback,Feedback creatingFeedback)
+        private void CopyMembers(FeedbackDTO feedback, Feedback creatingFeedback)
         {
-            
-            int? activeCommunicatorId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.ActiveCommunicatorCharacteristic)?.CharacteristicId;
-            creatingFeedback.ActiveCommunicatorId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == activeCommunicatorId && x.Name == feedback.ActiveCommunicatorTitle)?.MarkId;
+            var activeCommunicatorId = unitOfWork.CharacteristicsRepository.All
+                                                 .FirstOrDefault(x => x.Name == feedback.ActiveCommunicatorCharacteristic)?.CharacteristicId;
+            creatingFeedback.ActiveCommunicatorId = unitOfWork.MarksRepository.All
+                                                              .FirstOrDefault(
+                                                                  x => x.CharacteristicId == activeCommunicatorId &&
+                                                                       x.Name == feedback.ActiveCommunicatorTitle)?.MarkId;
 
-            int? gettingThingsDoneId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.GettingThingsDoneCharacteristic)?.CharacteristicId;
-            creatingFeedback.GettingThingsDoneId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == gettingThingsDoneId && x.Name == feedback.GettingThingsDoneTitle)?.MarkId;
+            var gettingThingsDoneId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.GettingThingsDoneCharacteristic)
+                                                ?.CharacteristicId;
+            creatingFeedback.GettingThingsDoneId = unitOfWork.MarksRepository.All
+                                                             .FirstOrDefault(
+                                                                 x => x.CharacteristicId == gettingThingsDoneId &&
+                                                                      x.Name == feedback.GettingThingsDoneTitle)?.MarkId;
 
-            int? learningAbilityId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.LearningAbilityCharacteristic)?.CharacteristicId;
-            creatingFeedback.LearningAbilityId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == learningAbilityId && x.Name == feedback.LearningAbilityTitle)?.MarkId;
+            var learningAbilityId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.LearningAbilityCharacteristic)
+                                              ?.CharacteristicId;
+            creatingFeedback.LearningAbilityId = unitOfWork.MarksRepository.All
+                                                           .FirstOrDefault(
+                                                               x => x.CharacteristicId == learningAbilityId &&
+                                                                    x.Name == feedback.LearningAbilityTitle)?.MarkId;
 
-            int? passionalInitiativeId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.PassionalInitiativeCharacteristic)?.CharacteristicId;
-            creatingFeedback.PassionalInitiativeId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == passionalInitiativeId && x.Name == feedback.PassionalInitiativeTitle)?.MarkId;
+            var passionalInitiativeId = unitOfWork.CharacteristicsRepository.All
+                                                  .FirstOrDefault(x => x.Name == feedback.PassionalInitiativeCharacteristic)?.CharacteristicId;
+            creatingFeedback.PassionalInitiativeId = unitOfWork.MarksRepository.All
+                                                               .FirstOrDefault(
+                                                                   x => x.CharacteristicId == passionalInitiativeId &&
+                                                                        x.Name == feedback.PassionalInitiativeTitle)?.MarkId;
 
-            int? teamWorkId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.TeamWorkCharacteristic)?.CharacteristicId;
-            creatingFeedback.TeamWorkId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == teamWorkId && x.Name == feedback.TeamWorkTitle)?.MarkId;
+            var teamWorkId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.TeamWorkCharacteristic)
+                                       ?.CharacteristicId;
+            creatingFeedback.TeamWorkId = unitOfWork.MarksRepository.All
+                                                    .FirstOrDefault(x => x.CharacteristicId == teamWorkId && x.Name == feedback.TeamWorkTitle)
+                                                    ?.MarkId;
 
-            int? technicalCompetenceId = unitOfWork.CharacteristicsRepository.All.FirstOrDefault(x => x.Name == feedback.TechnicalCompetenceCharacteristic)?.CharacteristicId;
-            creatingFeedback.TechnicalCompetenceId = unitOfWork.MarksRepository.All.FirstOrDefault(x => x.CharacteristicId == technicalCompetenceId && x.Name == feedback.TechnicalCompetenceTitle)?.MarkId;
+            var technicalCompetenceId = unitOfWork.CharacteristicsRepository.All
+                                                  .FirstOrDefault(x => x.Name == feedback.TechnicalCompetenceCharacteristic)?.CharacteristicId;
+            creatingFeedback.TechnicalCompetenceId = unitOfWork.MarksRepository.All
+                                                               .FirstOrDefault(
+                                                                   x => x.CharacteristicId == technicalCompetenceId &&
+                                                                        x.Name == feedback.TechnicalCompetenceTitle)?.MarkId;
 
             creatingFeedback.SummaryComment = feedback.SummaryComment;
         }

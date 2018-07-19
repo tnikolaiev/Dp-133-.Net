@@ -1,26 +1,30 @@
-﻿using Ras.DAL.Entity;
-using System;
+﻿using System;
+using Ras.DAL.Entity;
 
 namespace Ras.BLL.DTO
 {
     public class GroupDTO
     {
-        public GroupDTO() { }
+        public GroupDTO()
+        {
+        }
+
         public GroupDTO(Group groupDb)
         {
-            this.Id = groupDb.Id;
-            this.NameForSite = groupDb.Name;
-            this.CrmGroup = groupDb.CrmGroup;
-            this.StartDate = groupDb.StartDate;
-            this.EndDate = groupDb.EndDate;
-            this.CityId = groupDb.CityId;
-            this.Direction = groupDb.Direction.Name;
-            this.DirectionId = groupDb.Direction.DirectionId;
-            this.Technology = groupDb.Technology.Name;
-            this.TechnologyId = groupDb.Technology.TechnologyId;
-            this.Stage = groupDb.Stage.Name;
-            this.StageId = groupDb.Stage.StageId;
+            Id = groupDb.Id;
+            NameForSite = groupDb.Name;
+            CrmGroup = groupDb.CrmGroup;
+            StartDate = groupDb.StartDate;
+            EndDate = groupDb.EndDate;
+            CityId = groupDb.CityId;
+            Direction = groupDb.Direction.Name;
+            DirectionId = groupDb.Direction.DirectionId;
+            Technology = groupDb.Technology.Name;
+            TechnologyId = groupDb.Technology.TechnologyId;
+            Stage = groupDb.Stage.Name;
+            StageId = groupDb.Stage.StageId;
         }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string NameForSite { get; set; }

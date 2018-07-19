@@ -10,6 +10,7 @@ const appRoutes: Routes = [
     //{ path: '', component: NavTabsComponent, pathMatch: 'full' }
     { path: '', component: ViewAcademiesNgxComponent, pathMatch: 'full' }
   , { path: 'history', component: NavTabsComponent }
+  , { path: 'Feedback', component: NavTabsComponent }
   , { path: '**', component: NotFoundErrorComponent }
 ];
 

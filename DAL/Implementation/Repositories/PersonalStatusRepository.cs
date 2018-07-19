@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<PersonalStatus> All => db.PersonalStatuses.AsNoTracking();
+        public override IQueryable<PersonalStatus> All => db.PersonalStatuses;
 
         public override PersonalStatus Create(PersonalStatus item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            PersonalStatus item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.PersonalStatuses.Remove(item);

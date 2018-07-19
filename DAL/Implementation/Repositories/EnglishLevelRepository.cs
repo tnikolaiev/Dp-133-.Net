@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<EnglishLevel> All => db.EnglishLevel.AsNoTracking();
+        public override IQueryable<EnglishLevel> All => db.EnglishLevel;
 
         public override EnglishLevel Create(EnglishLevel item)
         {
@@ -25,7 +25,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            EnglishLevel item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.EnglishLevel.Remove(item);

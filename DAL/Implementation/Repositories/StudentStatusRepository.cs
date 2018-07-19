@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<StudentStatus> All => db.StudentStatuses.AsNoTracking();
+        public override IQueryable<StudentStatus> All => db.StudentStatuses;
 
         public override StudentStatus Create(StudentStatus item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            StudentStatus item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.StudentStatuses.Remove(item);

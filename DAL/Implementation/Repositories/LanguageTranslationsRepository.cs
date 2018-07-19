@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<LanguageTranslations> All => db.LanguageTranslations.AsNoTracking();
+        public override IQueryable<LanguageTranslations> All => db.LanguageTranslations;
 
         public override LanguageTranslations Create(LanguageTranslations item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            LanguageTranslations item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.LanguageTranslations.Remove(item);

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Ras.BLL.DTO;
 using Ras.BLL.Enums;
 using Ras.DAL;
-using System.Linq;
 
 namespace Ras.BLL.Implementation
 {
@@ -29,54 +29,54 @@ namespace Ras.BLL.Implementation
         private Dictionary<int, string> GetAllLearningAbilities()
         {
             var dictionary = unitOfWork.MarksRepository.All
-                .Where(d => d.CharacteristicId == (int)MarksEnum.LearningAbility)
-                .Select(d=>new { d.MarkId, d.Name})
-                .ToDictionary(d => d.MarkId, d => d.Name);
+                                       .Where(d => d.CharacteristicId == (int) MarksEnum.LearningAbility)
+                                       .Select(d => new {d.MarkId, d.Name})
+                                       .ToDictionary(d => d.MarkId, d => d.Name);
             return dictionary;
         }
 
         private Dictionary<int, string> GetAllOverallTechnicalCompetences()
         {
             var dictionary = unitOfWork.MarksRepository.All
-                .Where(d => d.CharacteristicId == (int)MarksEnum.OverallTechnicalCompetence)
-                .Select(d => new { d.MarkId, d.Name })
-                .ToDictionary(d => d.MarkId, d => d.Name);
+                                       .Where(d => d.CharacteristicId == (int) MarksEnum.OverallTechnicalCompetence)
+                                       .Select(d => new {d.MarkId, d.Name})
+                                       .ToDictionary(d => d.MarkId, d => d.Name);
             return dictionary;
         }
 
         private Dictionary<int, string> GetAllProfessionalInitistives()
         {
             var dictionary = unitOfWork.MarksRepository.All
-                .Where(d => d.CharacteristicId == (int)MarksEnum.PassionalInitiative)
-                .Select(d => new { d.MarkId, d.Name })
-                .ToDictionary(d => d.MarkId, d => d.Name);
+                                       .Where(d => d.CharacteristicId == (int) MarksEnum.PassionalInitiative)
+                                       .Select(d => new {d.MarkId, d.Name})
+                                       .ToDictionary(d => d.MarkId, d => d.Name);
             return dictionary;
         }
 
         private Dictionary<int, string> GetAllTeamWorkStatuses()
         {
             var dictionary = unitOfWork.MarksRepository.All
-                .Where(d => d.CharacteristicId == (int)MarksEnum.TeamWork)
-                .Select(d => new { d.MarkId, d.Name })
-                .ToDictionary(d => d.MarkId, d => d.Name);
+                                       .Where(d => d.CharacteristicId == (int) MarksEnum.TeamWork)
+                                       .Select(d => new {d.MarkId, d.Name})
+                                       .ToDictionary(d => d.MarkId, d => d.Name);
             return dictionary;
         }
 
         private Dictionary<int, string> GetAllGettingThingsDoneStatuses()
         {
             var dictionary = unitOfWork.MarksRepository.All
-                .Where(d => d.CharacteristicId == (int)MarksEnum.GettingThingsDone)
-                .Select(d => new { d.MarkId, d.Name })
-                .ToDictionary(d => d.MarkId, d => d.Name);
+                                       .Where(d => d.CharacteristicId == (int) MarksEnum.GettingThingsDone)
+                                       .Select(d => new {d.MarkId, d.Name})
+                                       .ToDictionary(d => d.MarkId, d => d.Name);
             return dictionary;
         }
 
         private Dictionary<int, string> GetAllActiveCommunicatorStatuses()
         {
             var dictionary = unitOfWork.MarksRepository.All
-                .Where(d => d.CharacteristicId == (int)MarksEnum.ActiveCommunicator)
-                .Select(d => new { d.MarkId, d.Name })
-                .ToDictionary(d => d.MarkId, d => d.Name);
+                                       .Where(d => d.CharacteristicId == (int) MarksEnum.ActiveCommunicator)
+                                       .Select(d => new {d.MarkId, d.Name})
+                                       .ToDictionary(d => d.MarkId, d => d.Name);
             return dictionary;
         }
     }

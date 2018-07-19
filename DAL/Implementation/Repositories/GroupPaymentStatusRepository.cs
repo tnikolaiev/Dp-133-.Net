@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<GroupPaymentStatus> All => db.GroupPaymentStatus.AsNoTracking();
+        public override IQueryable<GroupPaymentStatus> All => db.GroupPaymentStatus;
 
         public override GroupPaymentStatus Create(GroupPaymentStatus item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            GroupPaymentStatus item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.GroupPaymentStatus.Remove(item);

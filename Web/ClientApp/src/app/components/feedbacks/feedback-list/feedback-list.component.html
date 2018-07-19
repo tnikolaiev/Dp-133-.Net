@@ -1,0 +1,29 @@
+<h1>Feedback ...</h1>
+<p>This component demonstrates feedbacks data from the server.</p>
+
+<p *ngIf="!dataTable"><em>Loading...</em></p>
+
+
+
+<p-dataTable [value]="dataTable" scrollable="true" columnResizeMode="expand">
+
+  <p-column field="teacherFeedback.summaryComment" header="summary comment"></p-column>
+  <p-column field="teacherFeedback.activeCommunicatorTitle" header="Active communicator"></p-column>
+  <p-column field="teacherFeedback.gettingThingsDoneTitle" header="Getting things done"></p-column>
+  <p-column field="teacherFeedback.learningAbilityTitle" header="Learning ability"></p-column>
+  <p-column field="teacherFeedback.technicalCompetenceTitle" header="Technical competence"></p-column>
+  <p-column field="teacherFeedback.passionalInitiativeTitle" header="Passional initiative"></p-column>
+  <p-column field="teacherFeedback.teamWorkTitle" header="Team work"></p-column>
+
+  <p-column field="expertFeedback.summaryComment" header="summary comment"></p-column>
+  <p-column field="expertFeedback.activeCommunicatorTitle" header="Active communicator"></p-column>
+  <p-column field="expertFeedback.gettingThingsDoneTitle" header="Getting things done"></p-column>
+  <p-column field="expertFeedback.learningAbilityTitle" header="Learning ability"></p-column>
+  <p-column field="expertFeedback.technicalCompetenceTitle" header="Technical competence"></p-column>
+  <p-column field="expertFeedback.passionalInitiativeTitle" header="Passional initiative"></p-column>
+  <p-column field="expertFeedback.teamWorkTitle" header="Team work"></p-column>
+
+</p-dataTable>
+
+
+

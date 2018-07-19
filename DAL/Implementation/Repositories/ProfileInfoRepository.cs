@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<ProfileInfo> All => db.ProfileInfo.AsNoTracking();
+        public override IQueryable<ProfileInfo> All => db.ProfileInfo;
 
         public override ProfileInfo Create(ProfileInfo item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            ProfileInfo item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.ProfileInfo.Remove(item);

@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<GroupStage> All => db.AcademyStages.AsNoTracking();
+        public override IQueryable<GroupStage> All => db.AcademyStages;
 
         public override GroupStage Create(GroupStage item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            GroupStage item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.AcademyStages.Remove(item);

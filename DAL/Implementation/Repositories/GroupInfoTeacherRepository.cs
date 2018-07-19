@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<GroupInfoTeacher> All => db.GroupInfoTeachers.AsNoTracking();
+        public override IQueryable<GroupInfoTeacher> All => db.GroupInfoTeachers;
 
         public override GroupInfoTeacher Create(GroupInfoTeacher item)
         {
@@ -36,7 +36,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            GroupInfoTeacher item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.GroupInfoTeachers.Remove(item);

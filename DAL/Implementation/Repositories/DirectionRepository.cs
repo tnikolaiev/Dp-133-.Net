@@ -11,7 +11,7 @@ namespace Ras.DAL.Implementation.Repositories
         {
         }
 
-        public override IQueryable<Direction> All => db.Directions.AsNoTracking();
+        public override IQueryable<Direction> All => db.Directions;
 
         public override Direction Create(Direction item)
         {
@@ -25,7 +25,7 @@ namespace Ras.DAL.Implementation.Repositories
 
         public override void Delete(params object[] key)
         {
-            Direction item = Read(key);
+            var item = Read(key);
             if (item != null)
             {
                 db.Directions.Remove(item);
