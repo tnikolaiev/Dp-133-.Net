@@ -225,13 +225,12 @@ namespace Ras.BLL.Implementation
 
         public void UpdateEmployeeInGroup(EmployeeDTO employee)
         {
-            unitOfWork.GroupInfoTeachersRepsitory.Update(new GroupInfoTeacher
-            {
-                AcademyId = employee.GroupId,
-                EmployeeId = employee.EmployeeId,
-                TeacherTypeId = employee.TeacherTypeId,
-                Involved = employee.Involved
-            });
+            var teacher = unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a.AcademyId == employee.GroupId)
+                                                                    .Where(e => e.EmployeeId == employee.EmployeeId)
+                                                                    .Where(i => i.TeacherTypeId == employee.TeacherTypeId).FirstOrDefault();
+            teacher.Involved = employee.Involved;
+            unitOfWork.GroupInfoTeachersRepsitory.Update(teacher);
+            unitOfWork.SaveChanges();
         }
 
         private string GetCity(int Id)
