@@ -83,32 +83,32 @@ namespace Ras.Infastructure.BLL.Proxies.Logging
 
         public IEnumerable<EmployeeDTO> GetAllEmployeesForGroup(int GroupId)
         {
-            LogBegin(GroupId);
+            LogBegin(new object[] { GroupId });
             var result = service.GetAllEmployeesForGroup(GroupId);
-            LogEnd(GroupId);
+            LogEnd(new object[] { GroupId });
 
             return result;
         }
 
         public void AddEmployeeToGroup(int groupId, int employeeId, int involved, int typeId)
         {
-            LogBegin(groupId, employeeId, involved, typeId);
+            LogBegin(new object[] { groupId, employeeId, involved, typeId });
             service.AddEmployeeToGroup(groupId, employeeId, involved, typeId);
-            LogEnd(groupId, employeeId, involved, typeId);
+            LogEnd(new object[] { groupId, employeeId, involved, typeId });
         }
 
         public void DeleteEmployeeFromGroup(int groupId, int employeeId)
         {
-            LogBegin(groupId, employeeId);
+            LogBegin(new object[] { groupId, employeeId });
             service.DeleteEmployeeFromGroup(groupId, employeeId);
-            LogEnd(groupId, employeeId);
+            LogEnd(new object[] { groupId, employeeId });
         }
 
         public void UpdateEmployeeInGroup(EmployeeDTO employee)
         {
-            LogBegin(employee);
+            LogBegin(new object[] { employee });
             service.UpdateEmployeeInGroup(employee);
-            LogEnd(employee);
+            LogEnd(new object[] { employee });
         }
     }
 }
