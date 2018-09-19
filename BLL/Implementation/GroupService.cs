@@ -191,8 +191,57 @@ namespace Ras.BLL.Implementation
                 ModifyDate = DateTime.Now
             }); //TODO: Modified by
             unitOfWork.SaveChanges();
-        } //TODO: Information about count students
+        }
 
+        public IEnumerable<EmployeeDTO> GetAllEployee()
+        {
+            var employees = unitOfWork.EmployeesRepository.All.ToList();
+            var employeesDTO = new List<EmployeeDTO>();
+            for (int i = 0; i < employees.Count; i++)
+            {
+                employeesDTO.Add(new EmployeeDTO(employees[i], null));
+            }
+            return employeesDTO;
+        }
+
+        public IEnumerable<EmployeeDTO> GetAllEmployeesForGroup(int GroupId)
+        {
+            var employees = unitOfWork.GroupInfoTeachersRepsitory.All.Where(i => i.AcademyId == GroupId).ToList();
+            var employeesDTO = new List<EmployeeDTO>();
+
+            for (int i=0; i<employees.Count; i++)
+            {
+                employeesDTO.Add(new EmployeeDTO(unitOfWork.EmployeesRepository.Read(employees[i].EmployeeId), employees[i]));
+            }
+            return employeesDTO;
+        }
+
+        public void AddEmployeeToGroup(int groupId, int employeeId, int involved, int typeId)
+        {
+            if (unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a.AcademyId == groupId)
+                                                        .Where(e => e.EmployeeId == employeeId).FirstOrDefault() == null)
+            {
+                unitOfWork.GroupInfoTeachersRepsitory.Create(new GroupInfoTeacher { AcademyId = groupId, EmployeeId = employeeId, Involved = involved, TeacherTypeId = typeId });
+            }
+            else throw new ArgumentException("Employee with such Id exist in this group");
+        }
+        public void DeleteEmployeeFromGroup(int groupId, int employeeId)
+        {
+            int id = unitOfWork.GroupInfoTeachersRepsitory.All.Where(a => a. AcademyId == groupId)
+                                                                .Where(e => e.EmployeeId == employeeId).FirstOrDefault().Id;
+            unitOfWork.EmployeesRepository.Delete(id);
+        }
+
+        public void UpdateEmployeeInGroup(EmployeeDTO employee)
+        {
+            unitOfWork.GroupInfoTeachersRepsitory.Update(new GroupInfoTeacher
+            {
+                AcademyId = employee.GroupId,
+                EmployeeId = employee.EmployeeId,
+                TeacherTypeId = employee.TeacherTypeId,
+                Involved = employee.Involved
+            });
+        }
 
         private string GetCity(int Id)
         {
